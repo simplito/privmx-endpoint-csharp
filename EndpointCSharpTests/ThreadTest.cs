@@ -19,85 +19,14 @@ namespace EndpointCSharpTests
         [SetUp]
         public virtual void Setup()
         {
-            ConnectAsUser1();
+            ConnectAs(ref connection, ConnectionType.User1);
+            threadApi = ThreadApi.Create(connection);
         }
 
         [TearDown]
         public virtual void TearDown()
         {
-            Disconnect();
-        }
-
-        private void Disconnect()
-        {
-            if (connection != null)
-            {
-                try
-                {
-                    connection.Disconnect();
-                    connection = null;
-                }
-                catch (EndpointNativeException e)
-                {
-                    Assert.Fail($"Disconnect failed. Message: {e.Message}");
-                }
-            }
-            else
-            {
-                Assert.Fail($"Disconnect failed. Connection was null");
-            }
-        }
-
-        private void ConnectAsUser1()
-        {
-            string userPrivKey_usr1 = config.Read("user_1_privKey", "Login");
-            string solutionId = config.Read("solutionId", "Login");
-
-            try
-            {
-                connection = Connection.Connect(userPrivKey_usr1, solutionId, address);
-                threadApi = ThreadApi.Create(connection);
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Connect as user1 failed. Message: {e.Message}");
-            }
-        }
-
-        private void ConnectAsUser2()
-        {
-            string userPrivKey_usr2 = config.Read("user_2_privKey", "Login");
-            string solutionId = config.Read("solutionId", "Login");
-
-            try
-            {
-                connection = Connection.Connect(userPrivKey_usr2, solutionId, address);
-                threadApi = ThreadApi.Create(connection);
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Connect as user2 failed. Message: {e.Message}");
-            }
-        }
-
-        private void ConnectAsPublic()
-        {
-            string solutionId = config.Read("solutionId", "Login");
-
-            try
-            {
-                connection = Connection.ConnectPublic(solutionId, address);
-                threadApi = ThreadApi.Create(connection);
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Connect as public failed. Message: {e.Message}");
-            }
-        }
-
-        private static string ByteArrayToString(byte[] ba)
-        {
-            return BitConverter.ToString(ba).Replace("-", "").ToLower();
+            Disconnect(ref connection);
         }
 
         [Test, Description("Gets thread, first by using the incorrect threadId, then correct threadId. Checks values in correct one.")]
@@ -1193,8 +1122,8 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AlreadyDeleted, Is.False);
 
             // as user
-            Disconnect();
-            ConnectAsUser2();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
             try
             {
                 threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
@@ -1498,7 +1427,7 @@ namespace EndpointCSharpTests
         {
             string messageId = string.Empty;
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-            byte[] privateMeta = Array.Empty<byte>();
+            byte[] privateMeta = [];
             byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("data");
 
             bool didCreate_IncorrectThreadId = false;
@@ -1574,7 +1503,7 @@ namespace EndpointCSharpTests
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(message.Data.Length, Is.EqualTo(data.Length));
+                    Assert.That(message.Data, Has.Length.EqualTo(data.Length));
                     if (message.Data.Length == data.Length)
                     {
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(ByteArrayToString(data)));
@@ -1593,7 +1522,7 @@ namespace EndpointCSharpTests
         public void UpdateMessage()
         {
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-            byte[] privateMeta = Array.Empty<byte>();
+            byte[] privateMeta = [];
             byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("data");
             bool didUpdate_IncorrectMessageId = false;
             bool didUpdate_TotalDataTooBig = false;
@@ -1668,7 +1597,7 @@ namespace EndpointCSharpTests
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(message.Data.Length, Is.EqualTo(data.Length));
+                    Assert.That(message.Data, Has.Length.EqualTo(data.Length));
                     if (message.Data.Length == data.Length)
                     {
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(ByteArrayToString(data)));
@@ -1744,8 +1673,8 @@ namespace EndpointCSharpTests
             }
 
             // as user not created by me
-            Disconnect();
-            ConnectAsUser2();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_2"));
@@ -1758,8 +1687,8 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser_NotTheirMessage, Is.False);
 
             // change privileges
-            Disconnect();
-            ConnectAsUser1();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User1);
             try
             {
                 threadApi.UpdateThread(
@@ -1801,8 +1730,8 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to change privlages.\nMessage: {e.Message}");
             }
-            Disconnect();
-            ConnectAsUser2();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
             try
             {
                 threadApi.UpdateThread(
@@ -1841,8 +1770,8 @@ namespace EndpointCSharpTests
             }
 
             // as user created by me
-            Disconnect();
-            ConnectAsUser1();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User1);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_2"));
@@ -1855,8 +1784,8 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser_TheirMessage, Is.True);
 
             // as manager no created by me
-            Disconnect();
-            ConnectAsUser2();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_1"));
@@ -1881,8 +1810,8 @@ namespace EndpointCSharpTests
             bool didUpdateMessage = false;
             bool didDeleteMessage = false;
 
-            Disconnect();
-            ConnectAsUser2();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
 
             // getThread
             try
@@ -2029,8 +1958,8 @@ namespace EndpointCSharpTests
             bool didUpdateMessage = false;
             bool didDeleteMessage = false;
 
-            Disconnect();
-            ConnectAsPublic();
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.Public);
 
             // getThread
             try
@@ -2207,43 +2136,233 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        [Test, Description("Create thread with policy.")]
+        [Test, Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
             string threadId = string.Empty;
             Thread thread = null;
-            ContainerPolicy policy = new ContainerPolicy();
-            policy.Item = new ItemPolicy
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            bool didGetThread_User2 = false;
+
+            ContainerPolicy policy = new ContainerPolicy
             {
+                Item = new ItemPolicy
+                {
+                    Get = "owner",
+                    ListMy = "owner",
+                    ListAll = "owner",
+                    Create = "owner",
+                    Update = "owner",
+                    Delete_ = "owner"
+                },
                 Get = "owner",
-                ListMy = "owner",
-                ListAll = "owner",
-                Create = "owner",
                 Update = "owner",
-                Delete_ = "owner"
+                Delete_ = "owner",
+                UpdatePolicy = "owner",
+                UpdaterCanBeRemovedFromManagers = "no",
+                OwnerCanBeRemovedFromManagers = "no"
             };
-            policy.Get = "owner";
-            policy.Update = "owner";
-            policy.Delete_ = "owner";
-            policy.UpdatePolicy = "owner";
-            policy.UpdaterCanBeRemovedFromManagers = "no";
-            policy.OwnerCanBeRemovedFromManagers = "no";
 
             try
             {
-
+                threadId = threadApi.CreateThread(
+                    config.Read("threadId", "Thread_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    policy
+                );
             }
             catch (EndpointNativeException e)
             {
                 Assert.Fail($"Failed to create thread.\nMessage: {e.Message}");
             }
 
+            // cannot test everything - cannot get policy from thread
+            try
+            {
+                thread = threadApi.GetThread(threadId);
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
+                    Assert.That(thread.Users, Has.Count.EqualTo(2));
+                    if(thread.Users.Count == 2)
+                    {
+                        Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(thread.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    Assert.That(thread.Managers, Has.Count.EqualTo(2));
+                    if (thread.Managers.Count == 2)
+                    {
+                        Assert.That(thread.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(thread.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    //asserts for policy
+                });
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Getting thread failed.\nMessage: {e.Message}");
+            }
+
+            //get on user2 throws, because thread.Get is set to owner?
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
+            try
+            {
+                thread = threadApi.GetThread(threadId);
+                didGetThread_User2 = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Getting thread (user2) failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetThread_User2 , Is.False);
         }
 
-        [Test, Description("Update thread policy.")]
+        [Test, Description("Update thread policy. Try to get message as User2 afterwards.")]
         public void UpdateThread_Policy()
         {
+            string threadId = config.Read("threadId", "Thread_1");
+            Thread thread = null;
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            bool didGetMessage_User2 = false;
 
+            ContainerPolicy policy = new ContainerPolicy
+            {
+                Item = new ItemPolicy
+                {
+                    Get = "owner",
+                    ListMy = "owner",
+                    ListAll = "owner",
+                    Create = "owner",
+                    Update = "owner",
+                    Delete_ = "owner"
+                },
+                Get = "owner",
+                Update = "owner",
+                Delete_ = "owner",
+                UpdatePolicy = "owner",
+                UpdaterCanBeRemovedFromManagers = "no",
+                OwnerCanBeRemovedFromManagers = "no"
+            };
+
+            try
+            {
+                threadApi.UpdateThread(
+                    threadId,
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    1,
+                    true,
+                    true,
+                    policy
+                );
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Failed to create thread.\nMessage: {e.Message}");
+            }
+
+            // cannot test everything - cannot get policy from thread
+            try
+            {
+                thread = threadApi.GetThread(threadId);
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
+                    Assert.That(thread.Users, Has.Count.EqualTo(2));
+                    if (thread.Users.Count == 2)
+                    {
+                        Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(thread.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    Assert.That(thread.Managers, Has.Count.EqualTo(2));
+                    if (thread.Managers.Count == 2)
+                    {
+                        Assert.That(thread.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(thread.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    //asserts for policy
+                });
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Getting thread failed.\nMessage: {e.Message}");
+            }
+
+            //get on user2 throws, because thread.Get is set to owner?
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
+            try
+            {
+                threadApi.GetMessage(config.Read("info_messageId", "Message_1"));
+                didGetMessage_User2 = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Getting message (user2) failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetMessage_User2, Is.False);
         }
     }
 }
