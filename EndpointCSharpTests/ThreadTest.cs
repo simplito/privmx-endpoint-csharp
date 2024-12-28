@@ -29,7 +29,7 @@ namespace EndpointCSharpTests
             Disconnect(ref connection);
         }
 
-        [Test, Description("Gets thread, first by using the incorrect threadId, then correct threadId. Checks values in correct one.")]
+        [Test, Order(0), Description("Gets thread, first by using the incorrect threadId, then correct threadId. Checks values in correct one.")]
         public void GetThread()
         {
             Thread thread = new Thread();
@@ -93,7 +93,7 @@ namespace EndpointCSharpTests
             });
         }
 
-        [Test, Description("List threads for incorrect input data - 5 tries. Expected throws: incorrect contextId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId")]
+        [Test, Order(1), Description("List threads for incorrect input data - 5 tries. Expected throws: incorrect contextId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId")]
         public void ListThreads_IncorrectInput()
         {
             bool didListThreads_IncorrectContextId = false;
@@ -165,7 +165,7 @@ namespace EndpointCSharpTests
 
         }
 
-        [Test, Description("List threads for correct input data - 3 different tries")]
+        [Test, Order(2), Description("List threads for correct input data - 3 different tries")]
         public void ListThreadsCorrectInput()
         {
             // {.skip=4, .limit=1, .sortOrder="desc"}
@@ -320,7 +320,7 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Description("Create thread 5 ways - 4 incorrect and 2 correct. Incorrect options: incorrect contextId, incorrect users, incorrect managers, no managers. Correct options: different users and managers, same users and managers")]
+        [Test, Order(3), Description("Create thread 5 ways - 4 incorrect and 2 correct. Incorrect options: incorrect contextId, incorrect users, incorrect managers, no managers. Correct options: different users and managers, same users and managers")]
         public void CreateThread()
         {
             bool didCreate_IncorrectContextId = false;
@@ -330,10 +330,13 @@ namespace EndpointCSharpTests
             bool didCreate_DifUsersAndManagers = false;
             bool didCreate_SameUsersAndManagers = false;
             string threadId = string.Empty;
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
 
             // incorrect contextId
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.CreateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -352,8 +355,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_IncorrectContextId = true;
             }
@@ -366,6 +369,7 @@ namespace EndpointCSharpTests
             // incorrect users
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.CreateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -384,8 +388,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_IncorrectUsers = true;
             }
@@ -398,6 +402,7 @@ namespace EndpointCSharpTests
             // incorrect managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.CreateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -416,8 +421,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_2_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_IncorrectManagers = true;
             }
@@ -430,6 +435,7 @@ namespace EndpointCSharpTests
             // no managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.CreateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -441,8 +447,8 @@ namespace EndpointCSharpTests
                         }
                     },
                     new List<UserWithPubKey>(),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_NoManagers = true;
             }
@@ -455,6 +461,7 @@ namespace EndpointCSharpTests
             // different users and managers - correct  
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadId = threadApi.CreateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -473,8 +480,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_DifUsersAndManagers = true;
             }
@@ -490,8 +497,8 @@ namespace EndpointCSharpTests
                 Assert.Multiple(() =>
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(1));
                     if (thread.Users.Count == 1)
                     {
@@ -512,6 +519,7 @@ namespace EndpointCSharpTests
             // same users and managers - correct
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadId = threadApi.CreateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -530,8 +538,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()))
+                    publicMeta,
+                    privateMeta
                 );
                 didCreate_SameUsersAndManagers = true;
             }
@@ -547,8 +555,8 @@ namespace EndpointCSharpTests
                 Assert.Multiple(() =>
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(1));
                     if (thread.Users.Count == 1)
                     {
@@ -567,9 +575,12 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Description("Update thread with incorrect data - 5 tries. Expected throws: incorrect threadId, incorrect users, incorrect managers, no managers, ??incorrect version force true??")]
+        [Test, Order(4), Description("Update thread with incorrect data - 5 tries. Expected throws: incorrect threadId, incorrect users, incorrect managers, no managers, ??incorrect version force true??")]
         public void UpdateThread_IncorrectInput()
         {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
             bool didUpdate_IncorrectThreadId = false;
             bool didUpdate_IncorrectUsers = false;
             bool didUpdate_IncorrectManagers = false;
@@ -579,6 +590,7 @@ namespace EndpointCSharpTests
             // incorrect threadId
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
@@ -597,8 +609,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -614,6 +626,7 @@ namespace EndpointCSharpTests
             // incorrect users
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -632,8 +645,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -649,6 +662,7 @@ namespace EndpointCSharpTests
             // incorrect managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -667,8 +681,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_2_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -684,6 +698,7 @@ namespace EndpointCSharpTests
             // no managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -695,8 +710,8 @@ namespace EndpointCSharpTests
                         }
                     },
                     new List<UserWithPubKey>(),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -712,6 +727,7 @@ namespace EndpointCSharpTests
             // ??incorrect version force fail??
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -730,8 +746,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     99,
                     false,
                     false
@@ -745,9 +761,12 @@ namespace EndpointCSharpTests
             Assert.That(didUpdate_IncorrectVersion, Is.False);
         }
 
-        [Test, Description("Update thread with correct data - 5 tries: new users, new managers, less users, less managers, ??incorrect version force true??")]
+        [Test, Order(5), Description("Update thread with correct data - 5 tries: new users, new managers, less users, less managers, ??incorrect version force true??")]
         public void UpdateThread_CorrectInput()
         {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
             bool didUpdate_NewUsers = false;
             bool didUpdate_NewManagers = false;
             bool didUpdate_LessUsers = false;
@@ -756,6 +775,7 @@ namespace EndpointCSharpTests
             // new users
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -779,8 +799,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -823,6 +843,7 @@ namespace EndpointCSharpTests
             // new managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_1"),
                     new List<UserWithPubKey>
@@ -846,8 +867,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_2_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     2,
                     false,
                     false
@@ -890,6 +911,7 @@ namespace EndpointCSharpTests
             // less users
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_2"),
                     new List<UserWithPubKey>
@@ -913,8 +935,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_2_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     1,
                     false,
                     false
@@ -957,6 +979,7 @@ namespace EndpointCSharpTests
             // less managers
             try
             {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 threadApi.UpdateThread(
                     config.Read("threadId", "Thread_2"),
                     new List<UserWithPubKey>
@@ -975,8 +998,8 @@ namespace EndpointCSharpTests
                             UserId = config.Read("user_1_pubKey")
                         }
                     },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
+                    publicMeta,
+                    privateMeta,
                     2,
                     false,
                     false
@@ -1077,7 +1100,7 @@ namespace EndpointCSharpTests
             */
         }
 
-        [Test, Description("Delete thread - 4 tries: 3 incorrect - incorrect threadId, already deleted, as user; 1 correct - as manager")]
+        [Test, Order(6), Description("Delete thread - 4 tries: 3 incorrect - incorrect threadId, already deleted, as user; 1 correct - as manager")]
         public void DeleteThread()
         {
             bool didDelete_IncorrectThreadId = false;
@@ -1136,7 +1159,7 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser, Is.False);
         }
 
-        [Test, Description("Get message 2 tries: incorrect messageId, correct input, but force key generation on thread")]
+        [Test, Order(7), Description("Get message 2 tries: incorrect messageId, correct input, but force key generation on thread")]
         public void GetMessage()
         {
             bool didGetMessage_IncorrectMessageId = false;
@@ -1216,7 +1239,7 @@ namespace EndpointCSharpTests
 
         }
 
-        [Test, Description("List messages for a specified thread with incorrect input data. 5 Tries: incorrect threadId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId.")]
+        [Test, Order(8), Description("List messages for a specified thread with incorrect input data. 5 Tries: incorrect threadId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId.")]
         public void ListMessages_IncorrectInput()
         {
             bool didListMessage_IncorrectThreadId = false;
@@ -1286,7 +1309,7 @@ namespace EndpointCSharpTests
             Assert.That(didListMessages_IncorrectLastId, Is.False);
         }
 
-        [Test, Description("List messages for a specified thread with correct input data. 3 tries, one with forced key generation on thread.")]
+        [Test, Order(9), Description("List messages for a specified thread with correct input data. 3 tries, one with forced key generation on thread.")]
         public void ListMessages_CorrectInput()
         {
             // {.skip=4, .limit=1, .sortOrder="desc"}
@@ -1422,7 +1445,7 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Description("Send message, 3 tries: 2 incorrect, 1 correct.")]
+        [Test, Order(10), Description("Send message, 3 tries: 2 incorrect, 1 correct.")]
         public void SendMessage()
         {
             string messageId = string.Empty;
@@ -1518,7 +1541,7 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Description("Update message, 3 tries: 2 incorrect, 1 correct.")]
+        [Test, Order(11), Description("Update message, 3 tries: 2 incorrect, 1 correct.")]
         public void UpdateMessage()
         {
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
@@ -1612,7 +1635,7 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Description("Delete a message, 4 tries: 2 incorrect, 2 correct.")]
+        [Test, Order(12), Description("Delete a message, 4 tries: 2 incorrect, 2 correct.")]
         public void DeleteMessage()
         {
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
@@ -1798,7 +1821,7 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsManager_NotTheirMessage, Is.True);
         }
 
-        [Test, Description("Run all thread/message actions for user2, that is not in users or managers.")]
+        [Test, Order(13), Description("Run all thread/message actions for user2, that is not in users or managers.")]
         public void AccessDenied_NotInUsersOrManagers()
         {
             bool didGetThread = false;
@@ -1944,7 +1967,7 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        [Test, Description("Run all thread/message actions for public.")]
+        [Test, Order(14), Description("Run all thread/message actions for public.")]
         public void AccessDenied_Public()
         {
             bool didGetThread = false;
@@ -2136,7 +2159,7 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        [Test, Description("Create thread with policy. Try to get it as User2 afterwards.")]
+        [Test, Order(15), Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
             string threadId = string.Empty;
@@ -2249,7 +2272,7 @@ namespace EndpointCSharpTests
             Assert.That(didGetThread_User2 , Is.False);
         }
 
-        [Test, Description("Update thread policy. Try to get message as User2 afterwards.")]
+        [Test, Order(16), Description("Update thread policy. Try to get message as User2 afterwards.")]
         public void UpdateThread_Policy()
         {
             string threadId = config.Read("threadId", "Thread_1");
