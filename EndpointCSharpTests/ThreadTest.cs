@@ -6,9 +6,6 @@ using Thread = PrivMX.Endpoint.Thread.Models.Thread;
 using Message = PrivMX.Endpoint.Thread.Models.Message;
 using System.Security.Cryptography;
 
-// Run tests in queue of how the functions are created! Not doing so may change the results (ex: listing might give an exception,
-// because the thread count changed in another function (like delete thread)).
-
 namespace EndpointCSharpTests
 {
     internal class ThreadTest : BaseTest
@@ -29,36 +26,44 @@ namespace EndpointCSharpTests
             Disconnect(ref connection);
         }
 
-        [Test, Order(0), Description("Gets thread, first by using the incorrect threadId, then correct threadId. Checks values in correct one.")]
-        public void GetThread()
+        [Test, Order(0), Description("Gets thread by providing incorrect threadId.")]
+        public void GetThread_IncorrectData()
         {
             Thread thread = new Thread();
-            bool didGetThread_incorrectThreadId = false;
-            bool didGetThread_correctThreadId = false;
+            bool didGetThread_IncorrectThreadId = false;
 
             // incorrect threadId
             try
             {
                 thread = threadApi.GetThread(config.Read("contextId", "Context_1"));
-                didGetThread_incorrectThreadId = true;
+                didGetThread_IncorrectThreadId = true;
             }
             catch (EndpointNativeException e)
             {
                 Console.WriteLine($"Getting thread with incorrect id.\nMessage: {e.Message}");
             }
-            Assert.That(didGetThread_incorrectThreadId, Is.False);
+            Assert.That(didGetThread_IncorrectThreadId, Is.False);
+        }
+
+  
+        
+        [Test, Order(1), Description("Gets thread by providing correct threadId.")]
+        public void GetThread_CorrectData()
+        {
+            Thread thread = new Thread();
+            bool didGetThread_CorrectThreadId = false;
 
             // correct threadId
             try
             {
                 thread = threadApi.GetThread(config.Read("threadId", "Thread_1"));
-                didGetThread_correctThreadId = true;
+                didGetThread_CorrectThreadId = true;
             }
             catch (EndpointNativeException e)
             {
                 Console.WriteLine($"Getting thread with correct id.\nMessage: {e.Message}");
             }
-            Assert.That(didGetThread_correctThreadId, Is.True);
+            Assert.That(didGetThread_CorrectThreadId, Is.True);
 
             Assert.Multiple(() =>
             {
@@ -93,7 +98,10 @@ namespace EndpointCSharpTests
             });
         }
 
-        [Test, Order(1), Description("List threads for incorrect input data - 5 tries. Expected throws: incorrect contextId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId")]
+    
+        
+        // Unknown Network Exception?? (31.12)
+        [Test, Order(2), Description("List threads for incorrect input data - 5 tries. Expected throws: incorrect contextId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId")]
         public void ListThreads_IncorrectInput()
         {
             bool didListThreads_IncorrectContextId = false;
@@ -165,7 +173,9 @@ namespace EndpointCSharpTests
 
         }
 
-        [Test, Order(2), Description("List threads for correct input data - 3 different tries")]
+     
+        
+        [Test, Order(3), Description("List threads for correct input data - 3 different tries")]
         public void ListThreadsCorrectInput()
         {
             // {.skip=4, .limit=1, .sortOrder="desc"}
@@ -320,18 +330,19 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(3), Description("Create thread 5 ways - 4 incorrect and 2 correct. Incorrect options: incorrect contextId, incorrect users, incorrect managers, no managers. Correct options: different users and managers, same users and managers")]
-        public void CreateThread()
+  
+        
+        // error - invalidNumberOfParams
+        [Test, Order(4), Description("Create thread by providing incorrect data. 4 tries.")]
+        public void CreateThread_IncorrectInput()
         {
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = [];
+
             bool didCreate_IncorrectContextId = false;
             bool didCreate_IncorrectUsers = false;
             bool didCreate_IncorrectManagers = false;
             bool didCreate_NoManagers = false;
-            bool didCreate_DifUsersAndManagers = false;
-            bool didCreate_SameUsersAndManagers = false;
-            string threadId = string.Empty;
-            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
 
             // incorrect contextId
             try
@@ -457,8 +468,22 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"CreateThread failed (no managers try)\nMessage: {e.Message}");
             }
             Assert.That(didCreate_NoManagers, Is.False);
+        }
 
-            // different users and managers - correct  
+   
+        
+        // error - invalidNumberOfParams
+        [Test, Order(5), Description("Create thread by providing correct data.")]
+        public void CreateThread_CorrectInput()
+        {
+            string threadId = string.Empty;
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+
+            bool didCreate_DifUsersAndManagers = false;
+            bool didCreate_SameUsersAndManagers = false;
+
+            // different users and managers 
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -516,7 +541,9 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Getting thread failed: Message: {e.Message}");
             }
 
-            // same users and managers - correct
+         
+            
+            // same users and managers
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -575,7 +602,10 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(4), Description("Update thread with incorrect data - 5 tries. Expected throws: incorrect threadId, incorrect users, incorrect managers, no managers, ??incorrect version force true??")]
+   
+        
+        // error - invalidNumberOfParams
+        [Test, Order(6), Description("Update thread with incorrect data - 5 tries. Expected throws: incorrect threadId, incorrect users, incorrect managers, no managers, ??incorrect version force true??")]
         public void UpdateThread_IncorrectInput()
         {
             byte[] privateMeta = [];
@@ -761,7 +791,10 @@ namespace EndpointCSharpTests
             Assert.That(didUpdate_IncorrectVersion, Is.False);
         }
 
-        [Test, Order(5), Description("Update thread with correct data - 5 tries: new users, new managers, less users, less managers, ??incorrect version force true??")]
+  
+        
+        // error - invalidNumberOfParams
+        [Test, Order(7), Description("Update thread with correct data - 5 tries: new users, new managers, less users, less managers, ??incorrect version force true??")]
         public void UpdateThread_CorrectInput()
         {
             byte[] privateMeta = [];
@@ -1037,76 +1070,16 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Getting thread failed.\nMessage: {e.Message}");
             }
-
-            // ??incorrect version force true??
-            /*
-            try
-            {
-                threadApi.UpdateThread(
-                    config.Read("threadId", "Thread_3"),
-                    new List<UserWithPubKey>
-                    {
-                        new UserWithPubKey
-                        {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
-                        }
-                    },
-                    new List<UserWithPubKey>
-                    {
-                        new UserWithPubKey
-                        {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
-                        }
-                    },
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
-                    System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString())),
-                    99,
-                    false,
-                    false
-                );
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Update thread failed. Message: {e.Message}");
-            }
-
-            try
-            {
-                Thread thread = threadApi.GetThread(config.Read("threadId", "Thread_3"));
-                Assert.Multiple(() =>
-                {
-                    Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
-                    Assert.That(thread.Version, Is.EqualTo(2));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
-                    Assert.That(thread.Users, Has.Count.EqualTo(1));
-                    if (thread.Users.Count == 1)
-                    {
-                        Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
-                    }
-                    Assert.That(thread.Managers, Has.Count.EqualTo(1));
-                    if (thread.Managers.Count == 1)
-                    {
-                        Assert.That(thread.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
-                    }
-                });
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Getting thread failed: Message: {e.Message}");
-            }
-            */
         }
 
-        [Test, Order(6), Description("Delete thread - 4 tries: 3 incorrect - incorrect threadId, already deleted, as user; 1 correct - as manager")]
-        public void DeleteThread()
+       
+        
+        [Test, Order(8), Description("Delete thread incorrectly. 3 tries.")]
+        public void DeleteThread_Incorrect()
         {
             bool didDelete_IncorrectThreadId = false;
             bool didDelete_AlreadyDeleted = false;
             bool didDelete_AsUser = false;
-            bool didDelete_AsManager = false;
 
             // incorrect threadId
             try
@@ -1119,18 +1092,6 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Delete thread failed. Try: Incorrect ThreadId.\nMessage:{e.Message}");
             }
             Assert.That(didDelete_IncorrectThreadId, Is.False);
-
-            // as manager
-            try
-            {
-                threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
-                didDelete_AsManager = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Delete thread failed. Try: As manager.\nMessage:{e.Message}");
-            }
-            Assert.That(didDelete_AsManager, Is.True);
 
             // as manager - thread already deleted
             try
@@ -1147,6 +1108,7 @@ namespace EndpointCSharpTests
             // as user
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
@@ -1159,11 +1121,33 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser, Is.False);
         }
 
-        [Test, Order(7), Description("Get message 2 tries: incorrect messageId, correct input, but force key generation on thread")]
-        public void GetMessage()
+     
+        
+        [Test, Order(9), Description("Delete thread correctly. 1 try.")]
+        public void DeleteThread_Correct()
+        {
+            bool didDelete_AsManager = false;
+
+            // as manager
+            try
+            {
+                threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
+                didDelete_AsManager = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Delete thread failed. Try: As manager.\nMessage:{e.Message}");
+            }
+            Assert.That(didDelete_AsManager, Is.True);
+        }
+
+        
+        
+        // error - invalidNumberOfParams
+        [Test, Order(10), Description("Get message - incorrect messageId")]
+        public void GetMessage_IncorrectInput()
         {
             bool didGetMessage_IncorrectMessageId = false;
-            bool didGetMessage_CorrectInput_ForceKeyGen = false;
 
             // incorrect messageId
             try
@@ -1176,6 +1160,15 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to get message. Try: incorrect messageId.\nMessage: {e.Message}");
             }
             Assert.That(didGetMessage_IncorrectMessageId, Is.False);
+        }
+
+        
+        
+        // error - invalidNumberOfParams
+        [Test, Order(11), Description("Get message - force key generation on thread")]
+        public void GetMessage_CorrectInput()
+        {
+            bool didGetMessage_CorrectInput_ForceKeyGen = false;
 
             // correct, after force key generation on thread
             try
@@ -1236,10 +1229,11 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to get the message.\nMessage: {e.Message}");
             }
-
         }
 
-        [Test, Order(8), Description("List messages for a specified thread with incorrect input data. 5 Tries: incorrect threadId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId.")]
+        
+        
+        [Test, Order(12), Description("List messages for a specified thread with incorrect input data. 5 Tries: incorrect threadId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId.")]
         public void ListMessages_IncorrectInput()
         {
             bool didListMessage_IncorrectThreadId = false;
@@ -1309,7 +1303,10 @@ namespace EndpointCSharpTests
             Assert.That(didListMessages_IncorrectLastId, Is.False);
         }
 
-        [Test, Order(9), Description("List messages for a specified thread with correct input data. 3 tries, one with forced key generation on thread.")]
+        
+        
+        // error - invalidNumberOfParams, serialize message wrong?
+        [Test, Order(13), Description("List messages for a specified thread with correct input data. 3 tries, one with forced key generation on thread.")]
         public void ListMessages_CorrectInput()
         {
             // {.skip=4, .limit=1, .sortOrder="desc"}
@@ -1445,8 +1442,10 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(10), Description("Send message, 3 tries: 2 incorrect, 1 correct.")]
-        public void SendMessage()
+        
+        
+        [Test, Order(14), Description("Send message - 2 incorrect tries")]
+        public void SendMessage_Incorrect()
         {
             string messageId = string.Empty;
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
@@ -1455,7 +1454,6 @@ namespace EndpointCSharpTests
 
             bool didCreate_IncorrectThreadId = false;
             bool didCreate_TotalDataTooBig = false;
-            bool didCreate_CorrectData = false;
 
             // incorrect_threadId
             try
@@ -1477,7 +1475,7 @@ namespace EndpointCSharpTests
             Assert.That(didCreate_IncorrectThreadId, Is.False);
 
             // msg total data bigger then 1MB
-            byte[] randomData = new byte[1024 * 1024];
+            byte[] randomData = new byte[1024 * 64];
             using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomData);
@@ -1500,6 +1498,19 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to send the message. Try: msg total data bigger then 1MB.\nMessage: {e.Message}");
             }
             Assert.That(didCreate_TotalDataTooBig, Is.False);
+        }
+
+        
+        
+        [Test, Order(15), Description("Send message - 1 correct try")]
+        public void SendMessage_Correct()
+        {
+            string messageId = string.Empty;
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = [];
+            byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("data");
+
+            bool didCreate_CorrectData = false;
 
             // correct data
             try
@@ -1518,6 +1529,7 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to send the message. Try: correct data.\nMessage: {e.Message}");
             }
+            
             Assert.That(didCreate_CorrectData, Is.True);
 
             try
@@ -1541,15 +1553,17 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(11), Description("Update message, 3 tries: 2 incorrect, 1 correct.")]
-        public void UpdateMessage()
+        
+        
+        [Test, Order(16), Description("Update message, 2 incorrect tries.")]
+        public void UpdateMessage_Incorrect()
         {
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
             byte[] privateMeta = [];
             byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("data");
+
             bool didUpdate_IncorrectMessageId = false;
             bool didUpdate_TotalDataTooBig = false;
-            bool didUpdate_CorrectData = false;
 
             // incorrect messageId
             try
@@ -1594,6 +1608,18 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to update the message. Try: msg total data bigger then 1MB.\nMessage: {e.Message}");
             }
             Assert.That(didUpdate_TotalDataTooBig, Is.False);
+        }
+
+        
+        
+        [Test, Order(17), Description("Update message, 1 correct try.")]
+        public void UpdateMessage_Correct()
+        {
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = [];
+            byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("data");
+            
+            bool didUpdate_CorrectData = false;
 
             // correct data
             try
@@ -1635,15 +1661,17 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(12), Description("Delete a message, 4 tries: 2 incorrect, 2 correct.")]
-        public void DeleteMessage()
+        
+        
+        // error - invalidNumberOfParams, connection problems while disconnecting from user 1 and connecting to user 2 afterwards
+        [Test, Order(18), Description("Delete a message, 2 incorrect tries.")]
+        public void DeleteMessage_Incorrect()
         {
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
             byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+            
             bool didDelete_IncorrectMessageId = false;
             bool didDelete_AsUser_NotTheirMessage = false;
-            bool didDelete_AsUser_TheirMessage = false;
-            bool didDelete_AsManager_NotTheirMessage = false;
 
             // incorrect messageId
             try
@@ -1698,6 +1726,7 @@ namespace EndpointCSharpTests
             // as user not created by me
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_2"));
@@ -1708,10 +1737,24 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to delete the message. Try: as user - not their message.\nMessage: {e.Message}");
             }
             Assert.That(didDelete_AsUser_NotTheirMessage, Is.False);
+        }
+
+        
+        
+        // error - invalidNumberOfParams, connection problems while disconnecting from user 1 and connecting to user 2 afterwards
+        [Test, Order(19), Description("Delete a message, 2 incorrect tries.")]
+        public void DeleteMessage_Correct()
+        {
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+
+            bool didDelete_AsUser_TheirMessage = false;
+            bool didDelete_AsManager_NotTheirMessage = false;
 
             // change privileges
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User1);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.UpdateThread(
@@ -1755,6 +1798,7 @@ namespace EndpointCSharpTests
             }
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.UpdateThread(
@@ -1795,6 +1839,7 @@ namespace EndpointCSharpTests
             // as user created by me
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User1);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_2"));
@@ -1809,6 +1854,7 @@ namespace EndpointCSharpTests
             // as manager no created by me
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_1"));
@@ -1821,7 +1867,9 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsManager_NotTheirMessage, Is.True);
         }
 
-        [Test, Order(13), Description("Run all thread/message actions for user2, that is not in users or managers.")]
+        
+        
+        [Test, Order(20), Description("Run all thread/message actions for user2, that is not in users or managers.")]
         public void AccessDenied_NotInUsersOrManagers()
         {
             bool didGetThread = false;
@@ -1967,7 +2015,9 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        [Test, Order(14), Description("Run all thread/message actions for public.")]
+        
+        
+        [Test, Order(21), Description("Run all thread/message actions for public.")]
         public void AccessDenied_Public()
         {
             bool didGetThread = false;
@@ -2159,7 +2209,10 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        [Test, Order(15), Description("Create thread with policy. Try to get it as User2 afterwards.")]
+        
+        
+        // error - invalidNumberOfParams
+        [Test, Order(22), Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
             string threadId = string.Empty;
@@ -2272,7 +2325,10 @@ namespace EndpointCSharpTests
             Assert.That(didGetThread_User2 , Is.False);
         }
 
-        [Test, Order(16), Description("Update thread policy. Try to get message as User2 afterwards.")]
+        
+        
+        // error - invalidNumberOfParams
+        [Test, Order(23), Description("Update thread policy. Try to get message as User2 afterwards.")]
         public void UpdateThread_Policy()
         {
             string threadId = config.Read("threadId", "Thread_1");
@@ -2387,5 +2443,6 @@ namespace EndpointCSharpTests
             }
             Assert.That(didGetMessage_User2, Is.False);
         }
+   
     }
 }

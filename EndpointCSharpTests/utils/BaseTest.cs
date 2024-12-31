@@ -74,6 +74,10 @@ namespace EndpointCSharpTests.Utils
             return BitConverter.ToString(ba).Replace("-", "").ToLower();
         }
 
+        protected static long StringToInt64(string s)
+        {
+            return (long)Convert.ToDouble(s);
+        }
 
         protected void ConnectAs(ref Connection connection,  ConnectionType type)
         {
