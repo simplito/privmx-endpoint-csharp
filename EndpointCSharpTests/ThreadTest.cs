@@ -1072,9 +1072,25 @@ namespace EndpointCSharpTests
             }
         }
 
-       
-        
-        [Test, Order(8), Description("Delete thread incorrectly. 3 tries.")]
+        [Test, Order(8), Description("Delete thread correctly. 1 try.")]
+        public void DeleteThread_Correct()
+        {
+            bool didDelete_AsManager = false;
+
+            // as manager
+            try
+            {
+                threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
+                didDelete_AsManager = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Delete thread failed. Try: As manager.\nMessage:{e.Message}");
+            }
+            Assert.That(didDelete_AsManager, Is.True);
+        }
+
+        [Test, Order(9), Description("Delete thread incorrectly. 3 tries.")]
         public void DeleteThread_Incorrect()
         {
             bool didDelete_IncorrectThreadId = false;
@@ -1120,28 +1136,6 @@ namespace EndpointCSharpTests
             }
             Assert.That(didDelete_AsUser, Is.False);
         }
-
-     
-        
-        [Test, Order(9), Description("Delete thread correctly. 1 try.")]
-        public void DeleteThread_Correct()
-        {
-            bool didDelete_AsManager = false;
-
-            // as manager
-            try
-            {
-                threadApi.DeleteThread(config.Read("threadId", "Thread_3"));
-                didDelete_AsManager = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Delete thread failed. Try: As manager.\nMessage:{e.Message}");
-            }
-            Assert.That(didDelete_AsManager, Is.True);
-        }
-
-        
         
         // error - invalidNumberOfParams
         [Test, Order(10), Description("Get message - incorrect messageId")]
@@ -1551,9 +1545,7 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to get the message. Try: correct data.\nMessage: {e.Message}");
             }
-        }
-
-        
+        } 
         
         [Test, Order(16), Description("Update message, 2 incorrect tries.")]
         public void UpdateMessage_Incorrect()
@@ -1663,7 +1655,7 @@ namespace EndpointCSharpTests
 
         
         
-        // error - invalidNumberOfParams, connection problems while disconnecting from user 1 and connecting to user 2 afterwards
+        // error - invalidNumberOfParams
         [Test, Order(18), Description("Delete a message, 2 incorrect tries.")]
         public void DeleteMessage_Incorrect()
         {
@@ -1741,7 +1733,7 @@ namespace EndpointCSharpTests
 
         
         
-        // error - invalidNumberOfParams, connection problems while disconnecting from user 1 and connecting to user 2 afterwards
+        // error - invalidNumberOfParams
         [Test, Order(19), Description("Delete a message, 2 incorrect tries.")]
         public void DeleteMessage_Correct()
         {

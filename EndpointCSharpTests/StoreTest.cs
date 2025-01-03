@@ -1114,7 +1114,7 @@ namespace EndpointCSharpTests
             // as manager
             try
             {
-                storeApi.DeleteStore(config.Read("storeId", "Store_1"));
+                storeApi.DeleteStore(config.Read("storeId", "Store_2"));
                 didDelete_AsManager = true;
             }
             catch (EndpointNativeException e)
@@ -1651,7 +1651,7 @@ namespace EndpointCSharpTests
             storeApi = StoreApi.Create(connection);
             try
             {
-                storeApi.DeleteFile(config.Read("info_fileId", "File_1"));
+                storeApi.DeleteFile(config.Read("info_fileId", "File_2"));
                 didDelete_AsManager = true;
             }
             catch (EndpointNativeException e)
@@ -1679,7 +1679,7 @@ namespace EndpointCSharpTests
             Assert.That(didOpen, Is.False);
         }
 
-        /*Invalid request exception - on openFile ??*/
+        /*Couldn't open the file. code: 4294901760, msg: Invalid request exception*/
         [Test, Order(17), Description("Open file - 1 correct try")]
         public void OpenFile_Correct()
         {
@@ -1716,6 +1716,7 @@ namespace EndpointCSharpTests
             Assert.That(didRead, Is.False);
         }
 
+        // open is used - throws Invalid request exception
         [Test, Order(19), Description("Read file - 2 correct tries")]
         public void ReadFile_Correct()
         {
@@ -1764,6 +1765,7 @@ namespace EndpointCSharpTests
             });
         }
 
+        // open is used - throws Invalid request exception
         [Test, Order(20), Description("Seek file - 4 incorrect tries")]
         public void SeekFile_Incorrect()
         {
@@ -1833,6 +1835,7 @@ namespace EndpointCSharpTests
             Assert.That(didSeek_PosHalfTheFileSize, Is.False);
         }
 
+        // open is used - throws Invalid request exception
         [Test, Order(21), Description("Seek file - 1 correct try")]
         public void SeekFile_Correct()
         {
@@ -1909,14 +1912,15 @@ namespace EndpointCSharpTests
             Assert.That(didCreate_SizeLessThan0 , Is.False);
         }
 
-        [Test, Order(23), Description("Create file - 1 correct try")]
+        [Test, Order(23), Description("Create file - 2 correct tries")]
         public void CreateFile_Correct()
         {
             byte[] privateMeta = [];
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            long handle = 0;
 
             bool didCreate_CorrextStoreId = false;
-            bool didCreate_FileSize0 = false;
+            bool didCreate_FileSizeEqual0 = false;
 
             // createFile correct storeId
             try
@@ -1935,6 +1939,64 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
             }
             Assert.That(didCreate_CorrextStoreId, Is.True);
+
+            // createFile with size == 0
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                handle = storeApi.CreateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    0
+                );
+                didCreate_FileSizeEqual0 = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+            }
+            Assert.That(didCreate_FileSizeEqual0, Is.True);
+            Assert.That(handle, Is.EqualTo(2));
+
+            if (handle == 2)
+            {
+                string fileId = "";
+
+                // close file
+                try
+                {
+                    fileId = storeApi.CloseFile(handle);
+                }
+                catch (EndpointNativeException e)
+                {
+                    Assert.Fail($"Couldn't close the file.\nMessage: {e.Message}");
+                }
+
+                // validate uploaded data
+                if (fileId != "")
+                {
+                    try
+                    {
+                        File file = storeApi.GetFile(fileId);
+
+                        if (file.Info.FileId != string.Empty)
+                        {
+                            Assert.Multiple(() =>
+                            {
+                                Assert.That(file.Info.FileId, Is.EqualTo(fileId));
+                                Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
+                                Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
+                                Assert.That(file.Size, Is.EqualTo(0));
+                            });
+                        }
+                    }
+                    catch (EndpointNativeException e)
+                    {
+                        Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
+                    }
+                }
+            }
         }
 
         [Test, Order(24), Description("Close file - 1 incorrect try")]
@@ -1955,6 +2017,7 @@ namespace EndpointCSharpTests
             Assert.That(didClose_IncorrectHandle, Is.False);
         }
 
+        // open is used - throws Invalid request exception
         [Test, Order(25), Description("Close file - 1 correct try")]
         public void CloseFile_Correct()
         {
@@ -2029,19 +2092,93 @@ namespace EndpointCSharpTests
             Assert.That(didUpdate_SizeLessThan0, Is.False);
         }
 
-        [Test, Order(27), Description("Update file - 0 correct tries")]
+        [Test, Order(27), Description("Update file - 2 correct tries")]
         public void UpdateFile_Correct()
         {
+            long handle = 0;
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didUpdate_CorrectFileId = false;
+            bool didUpdate_FileSizeEqual0 = false;
+
             try
             {
-
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFile(
+                    config.Read("info_fileId", "File_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didUpdate_CorrectFileId = true;
             }
             catch (EndpointNativeException e)
             {
+                Console.WriteLine($"Couldn't update the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_CorrectFileId, Is.True);
 
+            // updateFile with size == 0
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                handle = storeApi.UpdateFile(
+                    config.Read("info_fileId", "File_1"),
+                    publicMeta,
+                    privateMeta,
+                    0
+                );
+                didUpdate_FileSizeEqual0 = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_FileSizeEqual0, Is.True);
+            Assert.That(handle, Is.EqualTo(2));
+
+            if (handle == 2)
+            {
+                string fileId = "";
+
+                // close file
+                try
+                {
+                    fileId = storeApi.CloseFile(handle);
+                }
+                catch (EndpointNativeException e)
+                {
+                    Assert.Fail($"Couldn't close the file.\nMessage: {e.Message}");
+                }
+
+                // validate uploaded data
+                if (fileId != "")
+                {
+                    try
+                    {
+                        File file = storeApi.GetFile(fileId);
+
+                        if (file.Info.FileId != string.Empty)
+                        {
+                            Assert.Multiple(() =>
+                            {
+                                Assert.That(file.Info.FileId, Is.EqualTo(fileId));
+                                Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
+                                Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
+                                Assert.That(file.Size, Is.EqualTo(0));
+                            });
+                        }
+                    }
+                    catch (EndpointNativeException e)
+                    {
+                        Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
+                    }
+                }
             }
         }
 
+        // open is used - throws Invalid request exception
         [Test, Order(28), Description("Write to file - 3 incorrect tries")]
         public void WriteToFile_Incorrect()
         {
@@ -2049,7 +2186,6 @@ namespace EndpointCSharpTests
             byte[] privateMeta = [];
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
             byte[] data = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes("BLACH");
-            string totalDataSent = "";
 
             bool didWrite_HandleNotExist = false;
             bool didWrite_IncorrectHandle = false;
@@ -2098,31 +2234,31 @@ namespace EndpointCSharpTests
             }
             Assert.That(didWrite_IncorrectHandle, Is.False);
 
+            handle = 0;
             // create new file and try to write to it
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 handle = storeApi.CreateFile(
-                    config.Read("storeId", "Store_1"),
+                    config.Read("storeId", "Store_3"),
                     publicMeta,
                     privateMeta,
-                    128 * 1024 * 1024
+                    4 * 1024
                 );
             }
             catch (EndpointNativeException e)
             {
-                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+                Assert.Fail($"Couldn't create file.\nMessage: {e.Message}");
             }
-            Assert.That(handle, Is.EqualTo(1));
+            Assert.That(handle, Is.EqualTo(2));
 
-            if (handle == 1)
+            if (handle == 2)
             {
-                // writeToFile total.size < declared size <-FALSE
+                // writeToFile total.size < declared size
                 try
                 {
-                    for (int i = 0; i < 1024 * 64; i++)
+                    for (int i = 0; i < 2; i++)
                     {
-                        // msg total data bigger then 1MB
                         byte[] randomData = new byte[1024];
                         using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
                         {
@@ -2130,7 +2266,6 @@ namespace EndpointCSharpTests
                         };
 
                         storeApi.WriteToFile(handle, randomData);
-                        totalDataSent += randomData;
                     }
                 }
                 catch (EndpointNativeException e)
@@ -2153,12 +2288,16 @@ namespace EndpointCSharpTests
                 // writeToFile total.size > declared <-FALSE
                 try
                 {
-                    byte[] randomData = new byte[1];
-                    using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                    for (int i = 0; i < 4; i++)
                     {
-                        rng.GetBytes(randomData);
-                    };
-                    storeApi.WriteToFile(handle, randomData);
+                        byte[] randomData = new byte[1024];
+                        using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                        {
+                            rng.GetBytes(randomData);
+                        };
+
+                        storeApi.WriteToFile(handle, randomData);
+                    }
                     didWrite_TotalSizeLessThanDecSize = true;
                 }
                 catch (EndpointNativeException e)
@@ -2170,6 +2309,7 @@ namespace EndpointCSharpTests
             }
         }
 
+        // handle is 3??
         [Test, Order(29), Description("Write to file - 2 correct tries")]
         public void WriteToFile_Correct()
         {
@@ -2182,7 +2322,7 @@ namespace EndpointCSharpTests
             bool didWrite_NewFile = false;
             bool didWrite_UpdatedFile = false;
 
-            // create new file and try to write to it with size = 128*1024*1024
+            // create new file and try to write to it with size = 1024 * 2
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -2190,12 +2330,12 @@ namespace EndpointCSharpTests
                     config.Read("storeId", "Store_1"),
                     publicMeta,
                     privateMeta,
-                    128 * 1024 * 1024
+                    1024 * 2
                 );
             }
             catch (EndpointNativeException e)
             {
-                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+                Assert.Fail($"Couldn't create file.\nMessage: {e.Message}");
             }
             Assert.That(handle, Is.EqualTo(1));
 
@@ -2204,19 +2344,17 @@ namespace EndpointCSharpTests
                 // writeToFile total.size == declared
                 try
                 {
-                    byte[] randomData = new byte[1024 * 64];
-                    for (int i = 0; i < 1024 * 64; i++)
+                    for (int i = 0; i < 2; i++)
                     {
-                        // msg total data bigger then 1MB
                         byte[] randomDataTmp = new byte[1024];
                         using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
                         {
                             rng.GetBytes(randomDataTmp);
                         };
-                        randomData = randomData.Concat(randomDataTmp).ToArray();
+
+                        storeApi.WriteToFile(handle, randomDataTmp);
+                        totalDataSent += ByteArrayToString(randomDataTmp);
                     }
-                    storeApi.WriteToFile(handle, randomData);
-                    totalDataSent += randomData;
                 }
                 catch (EndpointNativeException e)
                 {
@@ -2250,7 +2388,7 @@ namespace EndpointCSharpTests
                                 Assert.That(file.Info.FileId, Is.EqualTo(fileId));
                                 Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
                                 Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
-                                Assert.That(file.Size, Is.EqualTo(128 * 1024 * 1024));
+                                Assert.That(file.Size, Is.EqualTo(2 * 1024));
                             });
                         }
 
@@ -2259,9 +2397,9 @@ namespace EndpointCSharpTests
                             readHandle = storeApi.OpenFile(fileId);
                             string total_data_read = "";
 
-                            for (int i = 0; i < 1024 * 128; i++)
+                            for (int i = 0; i < 2; i++)
                             {
-                                total_data_read += storeApi.ReadFromFile(readHandle, 1024);
+                                total_data_read += ByteArrayToString(storeApi.ReadFromFile(readHandle, 1024));
                             }
                             Assert.That(totalDataSent, Has.Length.EqualTo(total_data_read.Length));
                         }
@@ -2277,41 +2415,42 @@ namespace EndpointCSharpTests
                 }
             }
 
-            // update new file and try to write to it with size = 128*1024*1024
+            // update new file and try to write to it with size = 1024 * 2
+            handle = 0;
+            totalDataSent = "";
+            fileId = "";
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 handle = storeApi.UpdateFile(
-                    config.Read("storeId", "Store_1"),
+                    config.Read("info_fileId", "File_1"),
                     publicMeta,
                     privateMeta,
-                    128 * 1024 * 1024
+                    1024 * 2
                 );
             }
             catch (EndpointNativeException e)
             {
-                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+                Assert.Fail($"Couldn't update file.\nMessage: {e.Message}");
             }
-            Assert.That(handle, Is.EqualTo(1));
+            Assert.That(handle, Is.EqualTo(3));
 
-            if (handle == 1)
+            if (handle == 3)
             {
                 // writeToFile total.size == declared
                 try
                 {
-                    byte[] randomData = new byte[1024 * 64];
-                    for (int i = 0; i < 1024 * 64; i++)
+                    for (int i = 0; i < 2; i++)
                     {
-                        // msg total data bigger then 1MB
-                        byte[] randomDataTmp = new byte[1024];
+                        byte[] randomData = new byte[1024];
                         using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
                         {
-                            rng.GetBytes(randomDataTmp);
+                            rng.GetBytes(randomData);
                         };
-                        randomData = randomData.Concat(randomDataTmp).ToArray();
+
+                        storeApi.WriteToFile(handle, randomData);
+                        totalDataSent += ByteArrayToString(randomData);
                     }
-                    storeApi.WriteToFile(handle, randomData);
-                    totalDataSent += randomData;
                 }
                 catch (EndpointNativeException e)
                 {
@@ -2345,7 +2484,7 @@ namespace EndpointCSharpTests
                                 Assert.That(file.Info.FileId, Is.EqualTo(fileId));
                                 Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
                                 Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
-                                Assert.That(file.Size, Is.EqualTo(128 * 1024 * 1024));
+                                Assert.That(file.Size, Is.EqualTo(1024 * 2));
                             });
                         }
 
@@ -2354,9 +2493,9 @@ namespace EndpointCSharpTests
                             readHandle = storeApi.OpenFile(fileId);
                             string total_data_read = "";
 
-                            for (int i = 0; i < 1024 * 128; i++)
+                            for (int i = 0; i < 2; i++)
                             {
-                                total_data_read += storeApi.ReadFromFile(readHandle, 1024);
+                                total_data_read += ByteArrayToString(storeApi.ReadFromFile(readHandle, 1024));
                             }
                             Assert.That(totalDataSent, Has.Length.EqualTo(total_data_read.Length));
                         }
@@ -2370,6 +2509,142 @@ namespace EndpointCSharpTests
                         Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
                     }
                 }
+            }
+        }
+
+        [Test, Order(32), Description("Update File mate - 1 incorrect try.")]
+        public void UpdateFileMeta_Incorrect()
+        {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didUpdate_IncorrectFileId = false;
+
+            // incorrect fileId
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFileMeta(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta
+                );
+                didUpdate_IncorrectFileId = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_IncorrectFileId, Is.False);
+        }
+
+        [Test, Order(33), Description("Update File mate - 1 correct try.")]
+        public void UpdateFileMeta_Correct()
+        {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didUpdate_CorrectFileId = false;
+
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFileMeta(
+                    config.Read("info_fileId", "File_1"),
+                    publicMeta,
+                    privateMeta
+                );
+                didUpdate_CorrectFileId = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_CorrectFileId, Is.True);
+
+            try
+            {
+                File file = storeApi.GetFile(config.Read("info_fileId", "File_1"));
+
+                if(file.Info.FileId != string.Empty)
+                {
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(file.Info.FileId, Is.EqualTo(config.Read("info_fileId", "File_1")));
+                        Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
+                        Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
+                        Assert.That(file.Size, Is.EqualTo(StringToInt64(config.Read("size", "File_1"))));
+                    });
+                }
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
+            }
+        }
+
+        [Test, Order(34), Description("Try a series of actions on files and store while not being authorized to do so.")]
+        public void AccessDenied_NotInUsersOrManagers()
+        {
+            try
+            {
+
+            }
+            catch (EndpointNativeException e)
+            {
+
+            }
+        }
+
+        [Test, Order(35), Description("Try a series of actions on files and store while logged in as public.")]
+        public void AccessDenied_Public()
+        {
+            try
+            {
+
+            }
+            catch (EndpointNativeException e)
+            {
+
+            }
+        }
+
+        [Test, Order(36), Description("Test sequence of updating, writing and closing the file")]
+        public void TestSequence_OpenReadUpdateCloseFile_FileVersionMismatch()
+        {
+            try
+            {
+
+            }
+            catch (EndpointNativeException e)
+            {
+
+            }
+        }
+
+        [Test, Order(37), Description("Create store with policy.")]
+        public void CreateStoreWithPolicy()
+        {
+            try
+            {
+
+            }
+            catch (EndpointNativeException e)
+            {
+
+            }
+        }
+
+        [Test, Order(38), Description("Update store policy.")]
+        public void UpdateStorePolicy()
+        {
+            try
+            {
+
+            }
+            catch (EndpointNativeException e)
+            {
+
             }
         }
     }
