@@ -47,7 +47,7 @@ namespace PrivMX.Endpoint.Inbox
 
         ~InboxApi()
         {
-            InboxApiNative.privmx_endpoint_deleteInboxApi(ptr);
+            InboxApiNative.privmx_endpoint_freeInboxApi(ptr);
         }
 
         /// <summary>

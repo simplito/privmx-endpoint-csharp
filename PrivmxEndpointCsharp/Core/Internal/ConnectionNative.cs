@@ -30,7 +30,7 @@ namespace PrivMX.Endpoint.Core.Internal
         public static extern int privmx_endpoint_newConnection(out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_deleteConnection(IntPtr ptr);
+        public static extern int privmx_endpoint_freeConnection(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
         public static extern int privmx_endpoint_execConnection(IntPtr ptr, int method, IntPtr value, out IntPtr result);

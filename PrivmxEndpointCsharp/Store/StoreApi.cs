@@ -43,7 +43,7 @@ namespace PrivMX.Endpoint.Store
 
         ~StoreApi()
         {
-            StoreApiNative.privmx_endpoint_deleteStoreApi(ptr);
+            StoreApiNative.privmx_endpoint_freeStoreApi(ptr);
         }
 
         /// <summary>
