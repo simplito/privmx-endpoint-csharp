@@ -10,6 +10,7 @@
 //
 
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models;
 
 namespace PrivMX.Endpoint.Store.Models
 {
@@ -77,6 +78,11 @@ namespace PrivMX.Endpoint.Store.Models
         /// Private metadata.
         /// </summary>
         public byte[] PrivateMeta { get; set; }
+
+        /// <summary>
+        /// Store's policy.
+        /// </summary>
+        public ContainerPolicy Policy { get; set; }
 
         /// <summary>
         /// Number of files in the Store.

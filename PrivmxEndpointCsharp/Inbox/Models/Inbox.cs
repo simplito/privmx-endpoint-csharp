@@ -10,6 +10,7 @@
 //
 
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models;
 
 namespace PrivMX.Endpoint.Inbox.Models
 {
@@ -77,6 +78,11 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// Files configuration for the Inbox. 
         /// </summary>
         public FilesConfig FilesConfig { get; set; }
+
+        /// <summary>
+        /// Inbox policy.
+        /// </summary>
+        public ContainerPolicyWithoutItem Policy { get; set; }
 
         /// <summary>
         /// Status code of decryption and verification of the Thread.
