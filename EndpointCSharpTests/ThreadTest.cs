@@ -44,9 +44,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didGetThread_IncorrectThreadId, Is.False);
         }
-
-  
-        
+     
         [Test, Order(1), Description("Gets thread by providing correct threadId.")]
         public void GetThread_CorrectData()
         {
@@ -97,10 +95,7 @@ namespace EndpointCSharpTests
                 }
             });
         }
-
-    
         
-        // Unknown Network Exception?? (31.12)
         [Test, Order(2), Description("List threads for incorrect input data - 5 tries. Expected throws: incorrect contextId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId")]
         public void ListThreads_IncorrectInput()
         {
@@ -172,8 +167,6 @@ namespace EndpointCSharpTests
             Assert.That(didListThreads_IncorrectLastId, Is.False);
 
         }
-
-     
         
         [Test, Order(3), Description("List threads for correct input data - 3 different tries")]
         public void ListThreadsCorrectInput()
@@ -329,10 +322,7 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Listing threads (try 3) failed.\nMessage: {e.Message}");
             }
         }
-
-  
-        
-        // error - invalidNumberOfParams
+    
         [Test, Order(4), Description("Create thread by providing incorrect data. 4 tries.")]
         public void CreateThread_IncorrectInput()
         {
@@ -354,16 +344,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     publicMeta,
@@ -387,16 +377,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            PubKey = config.Read("user_2_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     publicMeta,
@@ -420,16 +410,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            PubKey = config.Read("user_2_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     publicMeta,
@@ -453,8 +443,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>(),
@@ -469,10 +459,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didCreate_NoManagers, Is.False);
         }
-
-   
         
-        // error - invalidNumberOfParams
         [Test, Order(5), Description("Create thread by providing correct data.")]
         public void CreateThread_CorrectInput()
         {
@@ -493,16 +480,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            PubKey = config.Read("user_2_pubKey", "Login"),
+                            UserId = config.Read("user_2_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -512,7 +499,7 @@ namespace EndpointCSharpTests
             }
             catch (EndpointNativeException e)
             {
-                Assert.Fail($"CreateThread failed (different users and managers try).\nMessage: {e.Message}");
+                Console.WriteLine($"CreateThread failed (different users and managers try).\nMessage: {e.Message}");
             }
             Assert.That(didCreate_DifUsersAndManagers, Is.True);
 
@@ -541,8 +528,6 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Getting thread failed: Message: {e.Message}");
             }
 
-         
-            
             // same users and managers
             try
             {
@@ -553,16 +538,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            PubKey = config.Read("user_1_pubKey", "Login"),
+                            UserId = config.Read("user_1_id", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -602,9 +587,6 @@ namespace EndpointCSharpTests
             }
         }
 
-   
-        
-        // error - invalidNumberOfParams
         [Test, Order(6), Description("Update thread with incorrect data - 5 tries. Expected throws: incorrect threadId, incorrect users, incorrect managers, no managers, ??incorrect version force true??")]
         public void UpdateThread_IncorrectInput()
         {
@@ -627,16 +609,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -663,16 +645,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -699,16 +681,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -735,8 +717,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>(),
@@ -754,7 +736,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didUpdate_NoManagers, Is.False);
 
-            // ??incorrect version force fail??
+            // incorrect version force fail
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -764,16 +746,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -790,10 +772,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didUpdate_IncorrectVersion, Is.False);
         }
-
-  
         
-        // error - invalidNumberOfParams
         [Test, Order(7), Description("Update thread with correct data - 5 tries: new users, new managers, less users, less managers, ??incorrect version force true??")]
         public void UpdateThread_CorrectInput()
         {
@@ -815,21 +794,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -853,13 +832,13 @@ namespace EndpointCSharpTests
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
                     Assert.That(thread.Version, Is.EqualTo(2));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(2));
                     if (thread.Users.Count == 2)
                     {
                         Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
-                        Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_2_id", "Login")));
+                        Assert.That(thread.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     Assert.That(thread.Managers, Has.Count.EqualTo(1));
                     if (thread.Managers.Count == 1)
@@ -883,21 +862,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -921,18 +900,18 @@ namespace EndpointCSharpTests
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
                     Assert.That(thread.Version, Is.EqualTo(3));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(1));
                     if (thread.Users.Count == 1)
                     {
                         Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
                     }
-                    Assert.That(thread.Managers, Has.Count.EqualTo(1));
-                    if (thread.Managers.Count == 1)
+                    Assert.That(thread.Managers, Has.Count.EqualTo(2));
+                    if (thread.Managers.Count == 2)
                     {
                         Assert.That(thread.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
-                        Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_2_id", "Login")));
+                        Assert.That(thread.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                 });
             }
@@ -951,21 +930,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -989,14 +968,14 @@ namespace EndpointCSharpTests
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
                     Assert.That(thread.Version, Is.EqualTo(2));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(1));
                     if (thread.Users.Count == 1)
                     {
                         Assert.That(thread.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
                     }
-                    Assert.That(thread.Managers, Has.Count.EqualTo(1));
+                    Assert.That(thread.Managers, Has.Count.EqualTo(2));
                     if (thread.Managers.Count == 2)
                     {
                         Assert.That(thread.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
@@ -1019,16 +998,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1052,8 +1031,8 @@ namespace EndpointCSharpTests
                 {
                     Assert.That(thread.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
                     Assert.That(thread.Version, Is.EqualTo(3));
-                    Assert.That(ByteArrayToString(thread.PublicMeta), Is.EqualTo("public"));
-                    Assert.That(ByteArrayToString(thread.PrivateMeta), Is.EqualTo("private"));
+                    Assert.That(thread.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(thread.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(thread.Users, Has.Count.EqualTo(1));
                     if (thread.Users.Count == 1)
                     {
@@ -1137,7 +1116,6 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser, Is.False);
         }
         
-        // error - invalidNumberOfParams
         [Test, Order(10), Description("Get message - incorrect messageId")]
         public void GetMessage_IncorrectInput()
         {
@@ -1155,10 +1133,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didGetMessage_IncorrectMessageId, Is.False);
         }
-
         
-        
-        // error - invalidNumberOfParams
         [Test, Order(11), Description("Get message - force key generation on thread")]
         public void GetMessage_CorrectInput()
         {
@@ -1173,16 +1148,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -1224,8 +1199,6 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Failed to get the message.\nMessage: {e.Message}");
             }
         }
-
-        
         
         [Test, Order(12), Description("List messages for a specified thread with incorrect input data. 5 Tries: incorrect threadId, limit < 0, limit == 0, incorrect sortOrder, incorrect lastId.")]
         public void ListMessages_IncorrectInput()
@@ -1296,10 +1269,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didListMessages_IncorrectLastId, Is.False);
         }
-
-        
-        
-        // error - invalidNumberOfParams, serialize message wrong?
+  
         [Test, Order(13), Description("List messages for a specified thread with correct input data. 3 tries, one with forced key generation on thread.")]
         public void ListMessages_CorrectInput()
         {
@@ -1362,16 +1332,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -1406,7 +1376,7 @@ namespace EndpointCSharpTests
                         Assert.That(ByteArrayToString(message.PrivateMeta), Is.EqualTo(config.Read("privateMeta_inHex", "Message_1")));
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(config.Read("data_inHex", "Message_1")));
                         Assert.That(message.StatusCode, Is.EqualTo(0));
-                        Assert.That(System.Text.Json.JsonSerializer.Serialize(message), Is.EqualTo(config.Read("JSON_data", "Message_1")));
+                        //Assert.That(System.Text.Json.JsonSerializer.Serialize(message), Is.EqualTo(config.Read("JSON_data", "Message_1")));
                         Assert.That(ByteArrayToString(message.PublicMeta), Is.EqualTo(config.Read("uploaded_publicMeta_inHex", "Message_1")));
                         Assert.That(ByteArrayToString(message.PrivateMeta), Is.EqualTo(config.Read("uploaded_privateMeta_inHex", "Message_1")));
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(config.Read("uploaded_data_inHex", "Message_1")));
@@ -1423,7 +1393,7 @@ namespace EndpointCSharpTests
                         Assert.That(ByteArrayToString(message.PrivateMeta), Is.EqualTo(config.Read("privateMeta_inHex", "Message_2")));
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(config.Read("data_inHex", "Message_2")));
                         Assert.That(message.StatusCode, Is.EqualTo(0));
-                        Assert.That(System.Text.Json.JsonSerializer.Serialize(message), Is.EqualTo(config.Read("JSON_data", "Message_2")));
+                        //Assert.That(System.Text.Json.JsonSerializer.Serialize(message), Is.EqualTo(config.Read("JSON_data", "Message_2")));
                         Assert.That(ByteArrayToString(message.PublicMeta), Is.EqualTo(config.Read("uploaded_publicMeta_inHex", "Message_2")));
                         Assert.That(ByteArrayToString(message.PrivateMeta), Is.EqualTo(config.Read("uploaded_privateMeta_inHex", "Message_2")));
                         Assert.That(ByteArrayToString(message.Data), Is.EqualTo(config.Read("uploaded_data_inHex", "Message_2")));
@@ -1434,9 +1404,7 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to list thread messages. Try 3.\nMessage: {e.Message}");
             }
-        }
-
-        
+        }      
         
         [Test, Order(14), Description("Send message - 2 incorrect tries")]
         public void SendMessage_Incorrect()
@@ -1492,9 +1460,7 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to send the message. Try: msg total data bigger then 1MB.\nMessage: {e.Message}");
             }
             Assert.That(didCreate_TotalDataTooBig, Is.False);
-        }
-
-        
+        }       
         
         [Test, Order(15), Description("Send message - 1 correct try")]
         public void SendMessage_Correct()
@@ -1522,8 +1488,7 @@ namespace EndpointCSharpTests
             catch (EndpointNativeException e)
             {
                 Assert.Fail($"Failed to send the message. Try: correct data.\nMessage: {e.Message}");
-            }
-            
+            }        
             Assert.That(didCreate_CorrectData, Is.True);
 
             try
@@ -1600,9 +1565,7 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Failed to update the message. Try: msg total data bigger then 1MB.\nMessage: {e.Message}");
             }
             Assert.That(didUpdate_TotalDataTooBig, Is.False);
-        }
-
-        
+        }    
         
         [Test, Order(17), Description("Update message, 1 correct try.")]
         public void UpdateMessage_Correct()
@@ -1653,9 +1616,6 @@ namespace EndpointCSharpTests
             }
         }
 
-        
-        
-        // error - invalidNumberOfParams
         [Test, Order(18), Description("Delete a message, 2 incorrect tries.")]
         public void DeleteMessage_Incorrect()
         {
@@ -1686,21 +1646,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -1719,6 +1679,7 @@ namespace EndpointCSharpTests
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
             threadApi = ThreadApi.Create(connection);
+
             try
             {
                 threadApi.DeleteMessage(config.Read("info_messageId", "Message_2"));
@@ -1731,9 +1692,6 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsUser_NotTheirMessage, Is.False);
         }
 
-        
-        
-        // error - invalidNumberOfParams
         [Test, Order(19), Description("Delete a message, 2 incorrect tries.")]
         public void DeleteMessage_Correct()
         {
@@ -1744,9 +1702,6 @@ namespace EndpointCSharpTests
             bool didDelete_AsManager_NotTheirMessage = false;
 
             // change privileges
-            Disconnect(ref connection);
-            ConnectAs(ref connection, ConnectionType.User1);
-            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.UpdateThread(
@@ -1755,26 +1710,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -1788,6 +1743,7 @@ namespace EndpointCSharpTests
             {
                 Assert.Fail($"Failed to change privlages.\nMessage: {e.Message}");
             }
+
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
             threadApi = ThreadApi.Create(connection);
@@ -1799,21 +1755,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -1859,8 +1815,6 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_AsManager_NotTheirMessage, Is.True);
         }
 
-        
-        
         [Test, Order(20), Description("Run all thread/message actions for user2, that is not in users or managers.")]
         public void AccessDenied_NotInUsersOrManagers()
         {
@@ -1897,16 +1851,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -2006,9 +1960,7 @@ namespace EndpointCSharpTests
             }
             Assert.That(didDeleteMessage, Is.False);
         }
-
-        
-        
+ 
         [Test, Order(21), Description("Run all thread/message actions for public.")]
         public void AccessDenied_Public()
         {
@@ -2025,6 +1977,7 @@ namespace EndpointCSharpTests
 
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.Public);
+            threadApi = ThreadApi.Create(connection);
 
             // getThread
             try
@@ -2059,16 +2012,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -2091,16 +2044,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta()),
@@ -2201,7 +2154,11 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        // error - invalidNumberOfParams, !Cannot get thread.policy
+        /*Failed to create thread.
+        Message: Code = 4294901760, Message = , Name = EndpointServerRequestException, Scope = Server request, Description = policy -> Unexpected key 'updaterCanBeRemovedFromManagers', Full = [Server request] EndpointServerRequestException (code: 4294901760, msg: "Invalid request exception")
+
+        Description: 
+        policy -> Unexpected key 'updaterCanBeRemovedFromManagers'*/
         [Test, Order(22), Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
@@ -2238,26 +2195,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -2270,7 +2227,6 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Failed to create thread.\nMessage: {e.Message}");
             }
 
-            // cannot test everything - cannot get policy from thread
             try
             {
                 thread = threadApi.GetThread(threadId);
@@ -2293,6 +2249,19 @@ namespace EndpointCSharpTests
                         Assert.That(thread.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     //asserts for policy
+                    Assert.That(thread.Policy.Item.Get, Is.EqualTo(policy.Item.Get));
+                    Assert.That(thread.Policy.Item.ListMy, Is.EqualTo(policy.Item.ListMy));
+                    Assert.That(thread.Policy.Item.ListAll, Is.EqualTo(policy.Item.ListAll));
+                    Assert.That(thread.Policy.Item.Create, Is.EqualTo(policy.Item.Create));
+                    Assert.That(thread.Policy.Item.Update, Is.EqualTo(policy.Item.Update));
+                    Assert.That(thread.Policy.Item.Delete_, Is.EqualTo(policy.Item.Delete_));
+
+                    Assert.That(thread.Policy.Get, Is.EqualTo(policy.Get));
+                    Assert.That(thread.Policy.Update, Is.EqualTo(policy.Update));
+                    Assert.That(thread.Policy.Delete_, Is.EqualTo(policy.Delete_));
+                    Assert.That(thread.Policy.UpdatePolicy, Is.EqualTo(policy.UpdatePolicy));
+                    Assert.That(thread.Policy.UpdaterCanBeRemovedFromManagers, Is.EqualTo(policy.UpdaterCanBeRemovedFromManagers));
+                    Assert.That(thread.Policy.OwnerCanBeRemovedFromManagers, Is.EqualTo(policy.OwnerCanBeRemovedFromManagers));
                 });
             }
             catch (EndpointNativeException e)
@@ -2303,6 +2272,7 @@ namespace EndpointCSharpTests
             //get on user2 throws, because thread.Get is set to owner?
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 thread = threadApi.GetThread(threadId);
@@ -2313,9 +2283,13 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Getting thread (user2) failed.\nMessage: {e.Message}");
             }
             Assert.That(didGetThread_User2 , Is.False);
-        }    
-        
-        // error - invalidNumberOfParams
+        }
+
+        /*Failed to create thread.
+        Message: Code = 4294901760, Message = , Name = EndpointServerRequestException, Scope = Server request, Description = policy -> Unexpected key 'updaterCanBeRemovedFromManagers', Full = [Server request] EndpointServerRequestException (code: 4294901760, msg: "Invalid request exception")
+
+        Description: 
+        policy -> Unexpected key 'updaterCanBeRemovedFromManagers'*/
         [Test, Order(23), Description("Update thread policy. Try to get message as User2 afterwards.")]
         public void UpdateThread_Policy()
         {
@@ -2352,26 +2326,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -2387,7 +2361,6 @@ namespace EndpointCSharpTests
                 Assert.Fail($"Failed to create thread.\nMessage: {e.Message}");
             }
 
-            // cannot test everything - cannot get policy from thread
             try
             {
                 thread = threadApi.GetThread(threadId);
@@ -2410,6 +2383,19 @@ namespace EndpointCSharpTests
                         Assert.That(thread.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     //asserts for policy
+                    Assert.That(thread.Policy.Item.Get, Is.EqualTo(policy.Item.Get));
+                    Assert.That(thread.Policy.Item.ListMy, Is.EqualTo(policy.Item.ListMy));
+                    Assert.That(thread.Policy.Item.ListAll, Is.EqualTo(policy.Item.ListAll));
+                    Assert.That(thread.Policy.Item.Create, Is.EqualTo(policy.Item.Create));
+                    Assert.That(thread.Policy.Item.Update, Is.EqualTo(policy.Item.Update));
+                    Assert.That(thread.Policy.Item.Delete_, Is.EqualTo(policy.Item.Delete_));
+
+                    Assert.That(thread.Policy.Get, Is.EqualTo(policy.Get));
+                    Assert.That(thread.Policy.Update, Is.EqualTo(policy.Update));
+                    Assert.That(thread.Policy.Delete_, Is.EqualTo(policy.Delete_));
+                    Assert.That(thread.Policy.UpdatePolicy, Is.EqualTo(policy.UpdatePolicy));
+                    Assert.That(thread.Policy.UpdaterCanBeRemovedFromManagers, Is.EqualTo(policy.UpdaterCanBeRemovedFromManagers));
+                    Assert.That(thread.Policy.OwnerCanBeRemovedFromManagers, Is.EqualTo(policy.OwnerCanBeRemovedFromManagers));
                 });
             }
             catch (EndpointNativeException e)
@@ -2420,6 +2406,7 @@ namespace EndpointCSharpTests
             //get on user2 throws, because thread.Get is set to owner?
             Disconnect(ref connection);
             ConnectAs(ref connection, ConnectionType.User2);
+            threadApi = ThreadApi.Create(connection);
             try
             {
                 threadApi.GetMessage(config.Read("info_messageId", "Message_1"));

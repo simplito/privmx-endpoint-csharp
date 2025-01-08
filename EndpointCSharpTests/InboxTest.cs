@@ -349,21 +349,21 @@ namespace EndpointCSharpTests
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 inboxApi.CreateInbox(
-                config.Read("inboxId", "Inbox_1"),
-                new List<UserWithPubKey>
+                    config.Read("inboxId", "Inbox_1"),
+                    new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -383,21 +383,21 @@ namespace EndpointCSharpTests
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 inboxApi.CreateInbox(
-                config.Read("contextId", "Context_1"),
-                new List<UserWithPubKey>
+                    config.Read("contextId", "Context_1"),
+                    new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -422,16 +422,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -456,8 +456,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
@@ -496,16 +496,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -555,29 +555,29 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
                     privateMeta,
                     null
                 );
-                didCreate_DifUsersAndManagers = true;
+                didCreate_SameUsersAndManagers = true;
             }
             catch (EndpointNativeException e)
             {
                 Console.WriteLine($"Create inbox failed. Try: same users and managers.\nMessage: {e.Message}");
             }
-            Assert.That(didCreate_DifUsersAndManagers, Is.True);
+            Assert.That(didCreate_SameUsersAndManagers, Is.True);
 
             try
             {
@@ -627,16 +627,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -664,16 +664,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -701,16 +701,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -738,8 +738,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
@@ -770,8 +770,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
@@ -814,21 +814,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -877,31 +877,32 @@ namespace EndpointCSharpTests
             try
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.UpdateStore(
+                inboxApi.UpdateInbox(
                     config.Read("inboxId", "Inbox_1"),
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
                     privateMeta,
+                    null,
                     2,
                     false,
                     false
@@ -951,21 +952,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -992,16 +993,16 @@ namespace EndpointCSharpTests
                     Assert.That(inbox.Version, Is.EqualTo(2));
                     Assert.That(inbox.PublicMeta, Is.EqualTo(publicMeta));
                     Assert.That(inbox.PrivateMeta, Is.EqualTo(privateMeta));
-                    Assert.That(inbox.Users, Has.Count.EqualTo(1));
+                    Assert.That(inbox.Users, Has.Count.EqualTo(2));
                     if (inbox.Users.Count == 2)
                     {
                         Assert.That(inbox.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(inbox.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     Assert.That(inbox.Managers, Has.Count.EqualTo(1));
                     if (inbox.Managers.Count == 1)
                     {
                         Assert.That(inbox.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
-                        Assert.That(inbox.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                 });
             }
@@ -1020,16 +1021,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1049,7 +1050,7 @@ namespace EndpointCSharpTests
 
             try
             {
-                Inbox inbox = inboxApi.GetInbox(config.Read("storeId", "Store_2"));
+                Inbox inbox = inboxApi.GetInbox(config.Read("inboxId", "Inbox_2"));
                 Assert.Multiple(() =>
                 {
                     Assert.That(inbox.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));

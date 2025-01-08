@@ -324,7 +324,6 @@ namespace EndpointCSharpTests
             }
         }
 
-        // error - invalidNumberOfParams
         [Test, Order(4), Description("Create store - 4 incorrect tries")]
         public void CreateStore_Incorrect()
         {
@@ -347,16 +346,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -380,16 +379,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -413,16 +412,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -446,8 +445,8 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
@@ -465,7 +464,6 @@ namespace EndpointCSharpTests
             Assert.That(didCreate_NoManagers, Is.False);
         }
 
-        // error - invalidNumberOfParams
         [Test, Order(5), Description("Create store - 2 correct tries.")]
         public void CreateStore_Correct()
         {
@@ -486,16 +484,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -545,16 +543,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -616,16 +614,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -652,16 +650,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -688,16 +686,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -719,13 +717,13 @@ namespace EndpointCSharpTests
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 storeApi.UpdateStore(
-                    config.Read("contextId", "Context_1"),
+                    config.Read("storeId", "Store_1"),
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
@@ -750,21 +748,21 @@ namespace EndpointCSharpTests
             {
                 privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
                 storeApi.UpdateStore(
-                    config.Read("contextId", "Context_1"),
+                    config.Read("storeId", "Store_1"),
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -782,7 +780,6 @@ namespace EndpointCSharpTests
             Assert.That(didUpdate_IncorrectVersion, Is.False);
         }
 
-        // error - invalidNumberOfParams
         [Test, Order(7), Description("Update store by providing correct input data. 4 tries.")]
         public void UpdateStore_CorrectInput()
         {
@@ -804,21 +801,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -837,7 +834,7 @@ namespace EndpointCSharpTests
 
             try
             {
-                Store store = storeApi.GetStore(config.Read("threadId", "Thread_1"));
+                Store store = storeApi.GetStore(config.Read("storeId", "Store_1"));
                 Assert.Multiple(() =>
                 {
                     Assert.That(store.StoreId, Is.EqualTo(config.Read("storeId", "Store_1")));
@@ -873,26 +870,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -948,21 +945,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -994,8 +991,8 @@ namespace EndpointCSharpTests
                     {
                         Assert.That(store.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
                     }
-                    Assert.That(store.Managers, Has.Count.EqualTo(1));
-                    if (store.Managers.Count == 1)
+                    Assert.That(store.Managers, Has.Count.EqualTo(2));
+                    if (store.Managers.Count == 2)
                     {
                         Assert.That(store.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
                         Assert.That(store.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
@@ -1017,16 +1014,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1141,7 +1138,6 @@ namespace EndpointCSharpTests
             Assert.That(didGetFile_IncorrectFileId, Is.False);
         }
 
-        //serialize file to json wrong?, error caused by the update function - invalidNumberOfParams
         [Test, Order(11), Description("Get file from store. 2 correct tries")]
         public void GetFile_Correct()
         {
@@ -1189,16 +1185,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1311,7 +1307,6 @@ namespace EndpointCSharpTests
             Assert.That(didListFiles_IncorrectLastId, Is.False);
         }
 
-        // serialize file to json wrong?, error caused by the update function - invalidNumberOfParams
         [Test, Order(13), Description("List files by providing correct input data, 3 tries.")]
         public void ListFiles_CorrectInputData()
         {
@@ -1379,16 +1374,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1488,21 +1483,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1532,8 +1527,8 @@ namespace EndpointCSharpTests
             Assert.That(didDelete_UserNotAuthToDeleteFile, Is.False);
         }
 
-        // error caused by the update function - invalidNumberOfParams
-        [Test, Order(15), Description("Delefe file, 2 correct tries")]
+        // !run this test last - deletes all 2 avaiable files
+        [Test, Order(39), Description("Delefe file, 2 correct tries")]
         public void DeleteFile_Correct()
         {
             byte[] privateMeta = [];
@@ -1555,26 +1550,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1600,21 +1595,21 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -1650,7 +1645,7 @@ namespace EndpointCSharpTests
             storeApi = StoreApi.Create(connection);
             try
             {
-                storeApi.DeleteFile(config.Read("info_fileId", "File_2"));
+                storeApi.DeleteFile(config.Read("info_fileId", "File_1"));
                 didDelete_AsManager = true;
             }
             catch (EndpointNativeException e)
@@ -2177,8 +2172,79 @@ namespace EndpointCSharpTests
             }
         }
 
+        [Test, Order(28), Description("Update File mate - 1 incorrect try.")]
+        public void UpdateFileMeta_Incorrect()
+        {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didUpdate_IncorrectFileId = false;
+
+            // incorrect fileId
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFileMeta(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta
+                );
+                didUpdate_IncorrectFileId = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_IncorrectFileId, Is.False);
+        }
+
+        [Test, Order(29), Description("Update File mate - 1 correct try.")]
+        public void UpdateFileMeta_Correct()
+        {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didUpdate_CorrectFileId = false;
+
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFileMeta(
+                    config.Read("info_fileId", "File_1"),
+                    publicMeta,
+                    privateMeta
+                );
+                didUpdate_CorrectFileId = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate_CorrectFileId, Is.True);
+
+            try
+            {
+                File file = storeApi.GetFile(config.Read("info_fileId", "File_1"));
+
+                if (file.Info.FileId != string.Empty)
+                {
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(file.Info.FileId, Is.EqualTo(config.Read("info_fileId", "File_1")));
+                        Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
+                        Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
+                        Assert.That(file.Size, Is.EqualTo(StringToInt64(config.Read("size", "File_1"))));
+                    });
+                }
+            }
+            catch (EndpointNativeException e)
+            {
+                Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
+            }
+        }
+
         // open is used - throws Invalid request exception
-        [Test, Order(28), Description("Write to file - 3 incorrect tries")]
+        [Test, Order(30), Description("Write to file - 3 incorrect tries")]
         public void WriteToFile_Incorrect()
         {
             long handle = 0;
@@ -2309,7 +2375,7 @@ namespace EndpointCSharpTests
         }
 
         // handle is 3??
-        [Test, Order(29), Description("Write to file - 2 correct tries")]
+        [Test, Order(31), Description("Write to file - 2 correct tries")]
         public void WriteToFile_Correct()
         {
             long handle = 0;
@@ -2511,79 +2577,8 @@ namespace EndpointCSharpTests
             }
         }
 
-        [Test, Order(32), Description("Update File mate - 1 incorrect try.")]
-        public void UpdateFileMeta_Incorrect()
-        {
-            byte[] privateMeta = [];
-            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-
-            bool didUpdate_IncorrectFileId = false;
-
-            // incorrect fileId
-            try
-            {
-                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.UpdateFileMeta(
-                    config.Read("storeId", "Store_1"),
-                    publicMeta,
-                    privateMeta
-                );
-                didUpdate_IncorrectFileId = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
-            }
-            Assert.That(didUpdate_IncorrectFileId, Is.False);
-        }
-
-        [Test, Order(33), Description("Update File mate - 1 correct try.")]
-        public void UpdateFileMeta_Correct()
-        {
-            byte[] privateMeta = [];
-            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-
-            bool didUpdate_CorrectFileId = false;
-
-            try
-            {
-                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.UpdateFileMeta(
-                    config.Read("info_fileId", "File_1"),
-                    publicMeta,
-                    privateMeta
-                );
-                didUpdate_CorrectFileId = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't update file meta.\nMessage: {e.Message}");
-            }
-            Assert.That(didUpdate_CorrectFileId, Is.True);
-
-            try
-            {
-                File file = storeApi.GetFile(config.Read("info_fileId", "File_1"));
-
-                if(file.Info.FileId != string.Empty)
-                {
-                    Assert.Multiple(() =>
-                    {
-                        Assert.That(file.Info.FileId, Is.EqualTo(config.Read("info_fileId", "File_1")));
-                        Assert.That(ByteArrayToString(file.PublicMeta), Is.EqualTo(ByteArrayToString(publicMeta)));
-                        Assert.That(ByteArrayToString(file.PrivateMeta), Is.EqualTo(ByteArrayToString(privateMeta)));
-                        Assert.That(file.Size, Is.EqualTo(StringToInt64(config.Read("size", "File_1"))));
-                    });
-                }
-            }
-            catch (EndpointNativeException e)
-            {
-                Assert.Fail($"Couldn't get file.\nMessage: {e.Message}");
-            }
-        }
-
-        // updateStore used - error - invalidNumberOfParams, also openFile used - throws Invalid request exception
-        [Test, Order(34), Description("Try a series of actions on files and store while not being authorized to do so.")]
+        // openFile used - throws Invalid request exception
+        [Test, Order(32), Description("Try a series of actions on files and store while not being authorized to do so.")]
         public void AccessDenied_NotInUsersOrManagers()
         {
             byte[] privateMeta = [];
@@ -2625,173 +2620,16 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
-                        }
-                    },
-                    publicMeta,
-                    privateMeta,
-                    1,
-                    false,
-                    false
-                );
-                didUpdateStore = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Update store failed.\nMessage: {e.Message}");
-            }
-            Assert.That(didUpdateStore, Is.False);
-
-            // deleteStore
-            try
-            {
-                storeApi.DeleteStore(config.Read("storeId", "Store_1"));
-                didDeleteStore = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't delete store.\nMessage: {e.Message}");
-            }
-            Assert.That(didDeleteStore, Is.False);
-
-            // getFile
-            try
-            {
-                storeApi.GetFile(config.Read("info_fileId", "File_1"));
-                didGetFile = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't get file.\nMessage: {e.Message}");
-            }
-            Assert.That(didGetFile, Is.False);
-
-            // listFiles
-            try
-            {
-                PagingList<File> listFiles = storeApi.ListFiles(
-                    config.Read("storeId", "Store_1"),
-                    SetPagingQuery(0, 1, "desc")
-                );
-                didListFiles = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Listing files failed.\nMessage: {e.Message}");
-            }
-            Assert.That(didListFiles, Is.False);
-
-            // createFile 
-            try
-            {
-                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.CreateFile(
-                    config.Read("storeId", "Store_1"),
-                    publicMeta,
-                    privateMeta,
-                    64
-                );
-                didCreateFile = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
-            }
-            Assert.That(didCreateFile, Is.False);
-
-            // updateFile
-            try
-            {
-                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.UpdateFile(
-                    config.Read("storeId", "Store_1"),
-                    publicMeta,
-                    privateMeta,
-                    64
-                );
-                didUpdateFile = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't update file.\nMessage: {e.Message}");
-            }
-            Assert.That(didUpdateFile, Is.False);
-
-            // openFile 
-            try
-            {
-                storeApi.OpenFile(config.Read("info_fileId", "File_1"));
-                didOpenFile = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't open the file.\nMessage: {e.Message}");
-            }
-            Assert.That(didOpenFile, Is.True);
-        }
-
-        // updateStore used - error - invalidNumberOfParams, also openFile used - throws Invalid request exception
-        [Test, Order(35), Description("Try a series of actions on files and store while logged in as public.")]
-        public void AccessDenied_Public()
-        {
-            byte[] privateMeta = [];
-            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
-
-            bool didGetStore = false;
-            bool didUpdateStore = false;
-            bool didDeleteStore = false;
-            bool didGetFile = false;
-            bool didListFiles = false;
-            bool didCreateFile = false;
-            bool didUpdateFile = false;
-            bool didOpenFile = false;
-
-            // connect as user2
-            Disconnect(ref connection);
-            ConnectAs(ref connection, ConnectionType.Public);
-            storeApi = StoreApi.Create(connection);
-
-            // getStore
-            try
-            {
-                storeApi.GetStore(config.Read("storeId", "Store_1"));
-                didGetStore = true;
-            }
-            catch (EndpointNativeException e)
-            {
-                Console.WriteLine($"Couldn't get store.\nMessage: {e.Message}");
-            }
-            Assert.That(didGetStore, Is.False);
-
-            // updateStore
-            try
-            {
-                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
-                storeApi.UpdateStore(
-                    config.Read("storeId", "Store_1"),
-                    new List<UserWithPubKey>
-                    {
-                        new UserWithPubKey
-                        {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
-                        }
-                    },
-                    new List<UserWithPubKey>
-                    {
-                        new UserWithPubKey
-                        {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -2897,7 +2735,164 @@ namespace EndpointCSharpTests
         }
 
         // openFile used - throws Invalid request exception
-        [Test, Order(36), Description("Test sequence of updating, writing and closing the file")]
+        [Test, Order(33), Description("Try a series of actions on files and store while logged in as public.")]
+        public void AccessDenied_Public()
+        {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didGetStore = false;
+            bool didUpdateStore = false;
+            bool didDeleteStore = false;
+            bool didGetFile = false;
+            bool didListFiles = false;
+            bool didCreateFile = false;
+            bool didUpdateFile = false;
+            bool didOpenFile = false;
+
+            // connect as user2
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.Public);
+            storeApi = StoreApi.Create(connection);
+
+            // getStore
+            try
+            {
+                storeApi.GetStore(config.Read("storeId", "Store_1"));
+                didGetStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't get store.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetStore, Is.False);
+
+            // updateStore
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateStore(
+                    config.Read("storeId", "Store_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    1,
+                    false,
+                    false
+                );
+                didUpdateStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Update store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateStore, Is.False);
+
+            // deleteStore
+            try
+            {
+                storeApi.DeleteStore(config.Read("storeId", "Store_1"));
+                didDeleteStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't delete store.\nMessage: {e.Message}");
+            }
+            Assert.That(didDeleteStore, Is.False);
+
+            // getFile
+            try
+            {
+                storeApi.GetFile(config.Read("info_fileId", "File_1"));
+                didGetFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't get file.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetFile, Is.False);
+
+            // listFiles
+            try
+            {
+                PagingList<File> listFiles = storeApi.ListFiles(
+                    config.Read("storeId", "Store_1"),
+                    SetPagingQuery(0, 1, "desc")
+                );
+                didListFiles = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Listing files failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didListFiles, Is.False);
+
+            // createFile 
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.CreateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didCreateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+            }
+            Assert.That(didCreateFile, Is.False);
+
+            // updateFile
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didUpdateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateFile, Is.False);
+
+            // openFile 
+            try
+            {
+                storeApi.OpenFile(config.Read("info_fileId", "File_1"));
+                didOpenFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't open the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didOpenFile, Is.True);
+        }
+
+        // openFile used - throws Invalid request exception
+        [Test, Order(34), Description("Test sequence of updating, writing and closing the file")]
         public void TestSequence_OpenReadUpdateCloseFile_FileVersionMismatch()
         {
             byte[] privateMeta = [];
@@ -2977,8 +2972,8 @@ namespace EndpointCSharpTests
             Assert.That(didClose_WrongVersion, Is.False);
         }
 
-        // error - invalidNumberOfParams !Cannot get store.policy
-        [Test, Order(37), Description("Create store with policy.")]
+        // invalid request exception
+        [Test, Order(35), Description("Create store with policy.")]
         public void CreateStoreWithPolicy()
         {
             byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -3019,26 +3014,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,
@@ -3102,8 +3097,8 @@ namespace EndpointCSharpTests
             Assert.That(didGetStore_User2, Is.False);
         }
 
-        // error - invalidNumberOfParams !Cannot get store.policy
-        [Test, Order(38), Description("Update store policy.")]
+        // invalid request exception
+        [Test, Order(36), Description("Update store policy.")]
         public void UpdateStorePolicy()
         {
             byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
@@ -3144,26 +3139,26 @@ namespace EndpointCSharpTests
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_1_id", "Login"),
-                            UserId = config.Read("user_1_pubKey")
+                            UserId = config.Read("user_1_id", "Login"),
+                            PubKey = config.Read("user_1_pubKey", "Login")
                         },
                         new UserWithPubKey
                         {
-                            PubKey = config.Read("user_2_id", "Login"),
-                            UserId = config.Read("user_2_pubKey")
+                            UserId = config.Read("user_2_id", "Login"),
+                            PubKey = config.Read("user_2_pubKey", "Login")
                         }
                     },
                     publicMeta,

@@ -9,5 +9,7 @@ namespace EndpointCSharpTests.Utils
     internal class ThreadPublicMeta
     {
         public ThreadPublicMeta() { }
+
+        public string String = "public";
     }
 }
