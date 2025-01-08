@@ -55,7 +55,7 @@ namespace PrivMX.Endpoint.Core
 
         ~Connection()
         {
-            ConnectionNative.privmx_endpoint_deleteConnection(ptr);
+            ConnectionNative.privmx_endpoint_freeConnection(ptr);
         }
 
         /// <summary>

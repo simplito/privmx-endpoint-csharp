@@ -35,7 +35,7 @@ namespace PrivMX.Endpoint.Crypto.Internal
         public static extern int privmx_endpoint_newCryptoApi(out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_deleteCryptoApi(IntPtr ptr);
+        public static extern int privmx_endpoint_freeCryptoApi(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
         public static extern int privmx_endpoint_execCryptoApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);

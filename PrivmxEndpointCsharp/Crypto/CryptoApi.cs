@@ -39,7 +39,7 @@ namespace PrivMX.Endpoint.Crypto
 
         ~CryptoApi()
         {
-            CryptoApiNative.privmx_endpoint_deleteCryptoApi(ptr);
+            CryptoApiNative.privmx_endpoint_freeCryptoApi(ptr);
         }
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace PrivMX.Endpoint.Thread
 
         ~ThreadApi()
         {
-            ThreadApiNative.privmx_endpoint_deleteThreadApi(ptr);
+            ThreadApiNative.privmx_endpoint_freeThreadApi(ptr);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>ID of the created Thread.</returns>
         public string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
         {
-            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.CreateThread, new List<object>{contextId, users, managers, publicMeta, privateMeta});
+            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.CreateThread, new List<object>{contextId, users, managers, publicMeta, privateMeta, policies});
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="policies">(optional) Thread policy.</param>
         public void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateThread, new List<object>{threadId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateThread, new List<object>{threadId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>

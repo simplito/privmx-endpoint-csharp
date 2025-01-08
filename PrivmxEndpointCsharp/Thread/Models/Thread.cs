@@ -10,6 +10,7 @@
 //
 
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models;
 
 namespace PrivMX.Endpoint.Thread.Models
 {
@@ -77,6 +78,11 @@ namespace PrivMX.Endpoint.Thread.Models
         /// Private metadata.
         /// </summary>
         public byte[] PrivateMeta { get; set; }
+
+        /// <summary>
+        /// Thread's policy.
+        /// </summary>
+        public ContainerPolicy Policy { get; set; }
 
         /// <summary>
         /// Total number of messages in the Thread.

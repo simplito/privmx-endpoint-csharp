@@ -47,7 +47,7 @@ namespace PrivMX.Endpoint.Inbox.Internal
         public static extern int privmx_endpoint_newInboxApi(IntPtr connectionPtr, IntPtr threadApiPtr, IntPtr storeApiPtr, out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_deleteInboxApi(IntPtr ptr);
+        public static extern int privmx_endpoint_freeInboxApi(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
         public static extern int privmx_endpoint_execInboxApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);

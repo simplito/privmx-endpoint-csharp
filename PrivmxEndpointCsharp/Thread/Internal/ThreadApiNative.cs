@@ -40,7 +40,7 @@ namespace PrivMX.Endpoint.Thread.Internal
         public static extern int privmx_endpoint_newThreadApi(IntPtr connectionPtr, out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_deleteThreadApi(IntPtr ptr);
+        public static extern int privmx_endpoint_freeThreadApi(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
         public static extern int privmx_endpoint_execThreadApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
