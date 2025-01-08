@@ -58,7 +58,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Created Store ID.</returns>
         public string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
         {
-            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CreateStore, new List<object>{contextId, users, managers, publicMeta, privateMeta});
+            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CreateStore, new List<object>{contextId, users, managers, publicMeta, privateMeta, policies});
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="policies">(optional) Store policy.</param>
         public void UpdateStore(string storeId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateStore, new List<object>{storeId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateStore, new List<object>{storeId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>
