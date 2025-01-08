@@ -2201,9 +2201,7 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        
-        
-        // error - invalidNumberOfParams
+        // error - invalidNumberOfParams, !Cannot get thread.policy
         [Test, Order(22), Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
@@ -2315,9 +2313,7 @@ namespace EndpointCSharpTests
                 Console.WriteLine($"Getting thread (user2) failed.\nMessage: {e.Message}");
             }
             Assert.That(didGetThread_User2 , Is.False);
-        }
-
-        
+        }    
         
         // error - invalidNumberOfParams
         [Test, Order(23), Description("Update thread policy. Try to get message as User2 afterwards.")]

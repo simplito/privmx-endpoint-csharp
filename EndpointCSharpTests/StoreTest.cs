@@ -332,7 +332,7 @@ namespace EndpointCSharpTests
             byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
             byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
 
-            bool didCreate_IncorrectContectId = false;
+            bool didCreate_IncorrectContextId = false;
             bool didCreate_IncorrectUsers = false;
             bool didCreate_IncorrectManagers = false;
             bool didCreate_NoManagers = false;
@@ -362,13 +362,13 @@ namespace EndpointCSharpTests
                     publicMeta,
                     privateMeta
                 );
-                didCreate_IncorrectContectId = true;
+                didCreate_IncorrectContextId = true;
             }
             catch (EndpointNativeException e)
             {
                 Console.WriteLine($"Create store failed. Try: incorrect contextId.\nMessage: {e.Message}");
             }
-            Assert.That(didCreate_IncorrectContectId, Is.False);
+            Assert.That(didCreate_IncorrectContextId, Is.False);
 
             // incorrect users
             try
@@ -1071,7 +1071,6 @@ namespace EndpointCSharpTests
             }
         }
 
-        // error - connection problems while disconnecting from user 1 and connecting to user 2 afterwards
         [Test, Order(8), Description("Delete store - 2 incorrect tries.")]
         public void DeleteStore_Incorrect()
         {
@@ -2583,69 +2582,652 @@ namespace EndpointCSharpTests
             }
         }
 
+        // updateStore used - error - invalidNumberOfParams, also openFile used - throws Invalid request exception
         [Test, Order(34), Description("Try a series of actions on files and store while not being authorized to do so.")]
         public void AccessDenied_NotInUsersOrManagers()
         {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didGetStore = false;
+            bool didUpdateStore = false;
+            bool didDeleteStore = false;
+            bool didGetFile = false;
+            bool didListFiles = false;
+            bool didCreateFile = false;
+            bool didUpdateFile = false;
+            bool didOpenFile = false;
+
+            // connect as user2
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
+            storeApi = StoreApi.Create(connection);
+
+            // getStore
             try
             {
-
+                storeApi.GetStore(config.Read("storeId", "Store_1"));
+                didGetStore = true;
             }
             catch (EndpointNativeException e)
             {
-
+                Console.WriteLine($"Couldn't get store.\nMessage: {e.Message}");
             }
+            Assert.That(didGetStore, Is.False);
+
+            // updateStore
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateStore(
+                    config.Read("storeId", "Store_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    1,
+                    false,
+                    false
+                );
+                didUpdateStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Update store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateStore, Is.False);
+
+            // deleteStore
+            try
+            {
+                storeApi.DeleteStore(config.Read("storeId", "Store_1"));
+                didDeleteStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't delete store.\nMessage: {e.Message}");
+            }
+            Assert.That(didDeleteStore, Is.False);
+
+            // getFile
+            try
+            {
+                storeApi.GetFile(config.Read("info_fileId", "File_1"));
+                didGetFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't get file.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetFile, Is.False);
+
+            // listFiles
+            try
+            {
+                PagingList<File> listFiles = storeApi.ListFiles(
+                    config.Read("storeId", "Store_1"),
+                    SetPagingQuery(0, 1, "desc")
+                );
+                didListFiles = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Listing files failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didListFiles, Is.False);
+
+            // createFile 
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.CreateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didCreateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+            }
+            Assert.That(didCreateFile, Is.False);
+
+            // updateFile
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didUpdateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateFile, Is.False);
+
+            // openFile 
+            try
+            {
+                storeApi.OpenFile(config.Read("info_fileId", "File_1"));
+                didOpenFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't open the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didOpenFile, Is.True);
         }
 
+        // updateStore used - error - invalidNumberOfParams, also openFile used - throws Invalid request exception
         [Test, Order(35), Description("Try a series of actions on files and store while logged in as public.")]
         public void AccessDenied_Public()
         {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+
+            bool didGetStore = false;
+            bool didUpdateStore = false;
+            bool didDeleteStore = false;
+            bool didGetFile = false;
+            bool didListFiles = false;
+            bool didCreateFile = false;
+            bool didUpdateFile = false;
+            bool didOpenFile = false;
+
+            // connect as user2
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.Public);
+            storeApi = StoreApi.Create(connection);
+
+            // getStore
             try
             {
-
+                storeApi.GetStore(config.Read("storeId", "Store_1"));
+                didGetStore = true;
             }
             catch (EndpointNativeException e)
             {
-
+                Console.WriteLine($"Couldn't get store.\nMessage: {e.Message}");
             }
+            Assert.That(didGetStore, Is.False);
+
+            // updateStore
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateStore(
+                    config.Read("storeId", "Store_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    1,
+                    false,
+                    false
+                );
+                didUpdateStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Update store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateStore, Is.False);
+
+            // deleteStore
+            try
+            {
+                storeApi.DeleteStore(config.Read("storeId", "Store_1"));
+                didDeleteStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't delete store.\nMessage: {e.Message}");
+            }
+            Assert.That(didDeleteStore, Is.False);
+
+            // getFile
+            try
+            {
+                storeApi.GetFile(config.Read("info_fileId", "File_1"));
+                didGetFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't get file.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetFile, Is.False);
+
+            // listFiles
+            try
+            {
+                PagingList<File> listFiles = storeApi.ListFiles(
+                    config.Read("storeId", "Store_1"),
+                    SetPagingQuery(0, 1, "desc")
+                );
+                didListFiles = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Listing files failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didListFiles, Is.False);
+
+            // createFile 
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.CreateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didCreateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't create file.\nMessage: {e.Message}");
+            }
+            Assert.That(didCreateFile, Is.False);
+
+            // updateFile
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateFile(
+                    config.Read("storeId", "Store_1"),
+                    publicMeta,
+                    privateMeta,
+                    64
+                );
+                didUpdateFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdateFile, Is.False);
+
+            // openFile 
+            try
+            {
+                storeApi.OpenFile(config.Read("info_fileId", "File_1"));
+                didOpenFile = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't open the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didOpenFile, Is.True);
         }
 
+        // openFile used - throws Invalid request exception
         [Test, Order(36), Description("Test sequence of updating, writing and closing the file")]
         public void TestSequence_OpenReadUpdateCloseFile_FileVersionMismatch()
         {
+            byte[] privateMeta = [];
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            long handle = 0;
+            long updateHnadle = 0;
+
+            bool didCreate = false;
+            bool didUpdate = false;
+            bool didClose = false;
+            bool didRead_WrongVersion = false;
+            bool didClose_WrongVersion = false;
+
+            // createFile
             try
             {
-
+                handle = storeApi.OpenFile(config.Read("info_fileId", "File_1"));
+                didCreate = true;
             }
             catch (EndpointNativeException e)
             {
-
+                Console.WriteLine($"Couldn't create the file.\nMessage: {e.Message}");
             }
+            Assert.That(didCreate, Is.True);
+
+            // updateFile
+            try
+            {
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                updateHnadle = storeApi.UpdateFile(
+                    config.Read("info_fileId", "File_1"),
+                    publicMeta,
+                    privateMeta,
+                    0
+                );
+                didUpdate = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't update the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didUpdate, Is.True);
+
+            // closeFile
+            try
+            {
+                storeApi.CloseFile(updateHnadle);
+                didClose = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't close the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didClose, Is.True);
+
+            // FileVersionMismatchHandleClosedException
+            try
+            {
+                storeApi.ReadFromFile(handle, StringToInt64(config.Read("size", "File_1")));
+                didRead_WrongVersion = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't read from the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didRead_WrongVersion, Is.False);
+
+            try
+            {
+                storeApi.CloseFile(handle);
+                didClose_WrongVersion = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Couldn't close the file.\nMessage: {e.Message}");
+            }
+            Assert.That(didClose_WrongVersion, Is.False);
         }
 
+        // error - invalidNumberOfParams !Cannot get store.policy
         [Test, Order(37), Description("Create store with policy.")]
         public void CreateStoreWithPolicy()
         {
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            string storeId = string.Empty;
+            Store store = null;
+
+            bool didCreate = false;
+            bool didGetStore = false;
+            bool didGetStore_User2 = false;
+
+            ContainerPolicy policy = new ContainerPolicy
+            {
+                Item = new ItemPolicy
+                {
+                    Get = "owner",
+                    ListMy = "owner",
+                    ListAll = "owner",
+                    Create = "owner",
+                    Update = "owner",
+                    Delete_ = "owner"
+                },
+                Get = "owner",
+                Update = "owner",
+                Delete_ = "owner",
+                UpdatePolicy = "owner",
+                UpdaterCanBeRemovedFromManagers = "no",
+                OwnerCanBeRemovedFromManagers = "no"
+            };
+
+            // create store with policy
             try
             {
-
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeId = storeApi.CreateStore(
+                    config.Read("contextId", "Context_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    policy
+                );
+                didCreate = true;
             }
             catch (EndpointNativeException e)
             {
-
+                Console.WriteLine($"Create store failed.\nMessage: {e.Message}");
             }
+            Assert.That(didCreate, Is.True);
+
+            // get store and check it
+            try
+            {
+                store = storeApi.GetStore(storeId);
+                didGetStore = true;
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(store.ContextId, Is.EqualTo(config.Read("contextId", "Store_1")));
+                    Assert.That(store.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(store.PrivateMeta, Is.EqualTo(privateMeta));
+                    Assert.That(store.Users, Has.Count.EqualTo(2));
+                    if (store.Users.Count == 2)
+                    {
+                        Assert.That(store.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(store.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    Assert.That(store.Managers, Has.Count.EqualTo(2));
+                    if (store.Managers.Count == 2)
+                    {
+                        Assert.That(store.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(store.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    //asserts for policy
+                });
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Get store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetStore, Is.True);
+
+            // get store as user_2 (wrong)
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
+            storeApi = StoreApi.Create(connection);
+
+            try
+            {
+                store = storeApi.GetStore(storeId);
+                didGetStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Get store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetStore_User2, Is.False);
         }
 
+        // error - invalidNumberOfParams !Cannot get store.policy
         [Test, Order(38), Description("Update store policy.")]
         public void UpdateStorePolicy()
         {
+            byte[] privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+            byte[] publicMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPublicMeta());
+            string storeId = string.Empty;
+            Store store = null;
+
+            bool didCreate = false;
+            bool didGetStore = false;
+            bool didGetStore_User2 = false;
+
+            ContainerPolicy policy = new ContainerPolicy
+            {
+                Item = new ItemPolicy
+                {
+                    Get = "owner",
+                    ListMy = "owner",
+                    ListAll = "owner",
+                    Create = "owner",
+                    Update = "owner",
+                    Delete_ = "owner"
+                },
+                Get = "owner",
+                Update = "owner",
+                Delete_ = "owner",
+                UpdatePolicy = "owner",
+                UpdaterCanBeRemovedFromManagers = "no",
+                OwnerCanBeRemovedFromManagers = "no"
+            };
+
+            // update store with policy
             try
             {
-
+                privateMeta = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ThreadPrivateMeta("text", Guid.NewGuid().ToString()));
+                storeApi.UpdateStore(
+                    config.Read("storeId", "Store_1"),
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    new List<UserWithPubKey>
+                    {
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_1_id", "Login"),
+                            UserId = config.Read("user_1_pubKey")
+                        },
+                        new UserWithPubKey
+                        {
+                            PubKey = config.Read("user_2_id", "Login"),
+                            UserId = config.Read("user_2_pubKey")
+                        }
+                    },
+                    publicMeta,
+                    privateMeta,
+                    1,
+                    true,
+                    true,
+                    policy
+                );
+                didCreate = true;
             }
             catch (EndpointNativeException e)
             {
-
+                Console.WriteLine($"Create store failed.\nMessage: {e.Message}");
             }
+            Assert.That(didCreate, Is.True);
+
+            // get store and check it
+            try
+            {
+                store = storeApi.GetStore(storeId);
+                didGetStore = true;
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(store.ContextId, Is.EqualTo(config.Read("contextId", "Store_1")));
+                    Assert.That(store.PublicMeta, Is.EqualTo(publicMeta));
+                    Assert.That(store.PrivateMeta, Is.EqualTo(privateMeta));
+                    Assert.That(store.Users, Has.Count.EqualTo(2));
+                    if (store.Users.Count == 2)
+                    {
+                        Assert.That(store.Users[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(store.Users[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    Assert.That(store.Managers, Has.Count.EqualTo(2));
+                    if (store.Managers.Count == 2)
+                    {
+                        Assert.That(store.Managers[0], Is.EqualTo(config.Read("user_1_id", "Login")));
+                        Assert.That(store.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
+                    }
+                    //asserts for policy
+                });
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Get store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetStore, Is.True);
+
+            // get store as user_2 (wrong)
+            Disconnect(ref connection);
+            ConnectAs(ref connection, ConnectionType.User2);
+            storeApi = StoreApi.Create(connection);
+
+            try
+            {
+                store = storeApi.GetStore(storeId);
+                didGetStore = true;
+            }
+            catch (EndpointNativeException e)
+            {
+                Console.WriteLine($"Get store failed.\nMessage: {e.Message}");
+            }
+            Assert.That(didGetStore_User2, Is.False);
         }
     }
 }
