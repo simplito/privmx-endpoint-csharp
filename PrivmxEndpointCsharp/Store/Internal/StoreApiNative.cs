@@ -46,7 +46,7 @@ namespace PrivMX.Endpoint.Store.Internal
         public static extern int privmx_endpoint_newStoreApi(IntPtr connectionPtr, out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_deleteStoreApi(IntPtr ptr);
+        public static extern int privmx_endpoint_freeStoreApi(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
         public static extern int privmx_endpoint_execStoreApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);

@@ -43,7 +43,7 @@ namespace PrivMX.Endpoint.Thread
 
         ~ThreadApi()
         {
-            ThreadApiNative.privmx_endpoint_deleteThreadApi(ptr);
+            ThreadApiNative.privmx_endpoint_freeThreadApi(ptr);
         }
 
         /// <summary>
