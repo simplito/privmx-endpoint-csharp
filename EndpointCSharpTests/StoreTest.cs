@@ -2374,7 +2374,6 @@ namespace EndpointCSharpTests
             }
         }
 
-        // handle is 3??
         [Test, Order(31), Description("Write to file - 2 correct tries")]
         public void WriteToFile_Correct()
         {
@@ -2972,7 +2971,7 @@ namespace EndpointCSharpTests
             Assert.That(didClose_WrongVersion, Is.False);
         }
 
-        // invalid request exception
+        // UpdaterCanBeRemovedFromManagers err
         [Test, Order(35), Description("Create store with policy.")]
         public void CreateStoreWithPolicy()
         {
@@ -3000,7 +2999,7 @@ namespace EndpointCSharpTests
                 Update = "owner",
                 Delete_ = "owner",
                 UpdatePolicy = "owner",
-                UpdaterCanBeRemovedFromManagers = "no",
+                //UpdaterCanBeRemovedFromManagers = "no",
                 OwnerCanBeRemovedFromManagers = "no"
             };
 
@@ -3072,6 +3071,19 @@ namespace EndpointCSharpTests
                         Assert.That(store.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     //asserts for policy
+                    Assert.That(store.Policy.Item.Get, Is.EqualTo(policy.Item.Get));
+                    Assert.That(store.Policy.Item.ListMy, Is.EqualTo(policy.Item.ListMy));
+                    Assert.That(store.Policy.Item.ListAll, Is.EqualTo(policy.Item.ListAll));
+                    Assert.That(store.Policy.Item.Create, Is.EqualTo(policy.Item.Create));
+                    Assert.That(store.Policy.Item.Update, Is.EqualTo(policy.Item.Update));
+                    Assert.That(store.Policy.Item.Delete_, Is.EqualTo(policy.Item.Delete_));
+
+                    Assert.That(store.Policy.Get, Is.EqualTo(policy.Get));
+                    Assert.That(store.Policy.Update, Is.EqualTo(policy.Update));
+                    Assert.That(store.Policy.Delete_, Is.EqualTo(policy.Delete_));
+                    Assert.That(store.Policy.UpdatePolicy, Is.EqualTo(policy.UpdatePolicy));
+                    Assert.That(store.Policy.UpdaterCanBeRemovedFromManagers, Is.EqualTo(policy.UpdaterCanBeRemovedFromManagers));
+                    Assert.That(store.Policy.OwnerCanBeRemovedFromManagers, Is.EqualTo(policy.OwnerCanBeRemovedFromManagers));
                 });
             }
             catch (EndpointNativeException e)
@@ -3097,7 +3109,7 @@ namespace EndpointCSharpTests
             Assert.That(didGetStore_User2, Is.False);
         }
 
-        // invalid request exception
+        // UpdaterCanBeRemovedFromManagers err
         [Test, Order(36), Description("Update store policy.")]
         public void UpdateStorePolicy()
         {
@@ -3125,7 +3137,7 @@ namespace EndpointCSharpTests
                 Update = "owner",
                 Delete_ = "owner",
                 UpdatePolicy = "owner",
-                UpdaterCanBeRemovedFromManagers = "no",
+                //UpdaterCanBeRemovedFromManagers = "no",
                 OwnerCanBeRemovedFromManagers = "no"
             };
 
@@ -3179,12 +3191,12 @@ namespace EndpointCSharpTests
             // get store and check it
             try
             {
-                store = storeApi.GetStore(storeId);
+                store = storeApi.GetStore(config.Read("storeId", "Store_1"));
                 didGetStore = true;
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(store.ContextId, Is.EqualTo(config.Read("contextId", "Store_1")));
+                    Assert.That(store.ContextId, Is.EqualTo(config.Read("contextId", "Context_1")));
                     Assert.That(store.PublicMeta, Is.EqualTo(publicMeta));
                     Assert.That(store.PrivateMeta, Is.EqualTo(privateMeta));
                     Assert.That(store.Users, Has.Count.EqualTo(2));
@@ -3200,6 +3212,19 @@ namespace EndpointCSharpTests
                         Assert.That(store.Managers[1], Is.EqualTo(config.Read("user_2_id", "Login")));
                     }
                     //asserts for policy
+                    Assert.That(store.Policy.Item.Get, Is.EqualTo(policy.Item.Get));
+                    Assert.That(store.Policy.Item.ListMy, Is.EqualTo(policy.Item.ListMy));
+                    Assert.That(store.Policy.Item.ListAll, Is.EqualTo(policy.Item.ListAll));
+                    Assert.That(store.Policy.Item.Create, Is.EqualTo(policy.Item.Create));
+                    Assert.That(store.Policy.Item.Update, Is.EqualTo(policy.Item.Update));
+                    Assert.That(store.Policy.Item.Delete_, Is.EqualTo(policy.Item.Delete_));
+
+                    Assert.That(store.Policy.Get, Is.EqualTo(policy.Get));
+                    Assert.That(store.Policy.Update, Is.EqualTo(policy.Update));
+                    Assert.That(store.Policy.Delete_, Is.EqualTo(policy.Delete_));
+                    Assert.That(store.Policy.UpdatePolicy, Is.EqualTo(policy.UpdatePolicy));
+                    Assert.That(store.Policy.UpdaterCanBeRemovedFromManagers, Is.EqualTo(policy.UpdaterCanBeRemovedFromManagers));
+                    Assert.That(store.Policy.OwnerCanBeRemovedFromManagers, Is.EqualTo(policy.OwnerCanBeRemovedFromManagers));
                 });
             }
             catch (EndpointNativeException e)
@@ -3215,7 +3240,7 @@ namespace EndpointCSharpTests
 
             try
             {
-                store = storeApi.GetStore(storeId);
+                store = storeApi.GetStore(config.Read("storeId", "Store_1"));
                 didGetStore = true;
             }
             catch (EndpointNativeException e)

@@ -2154,11 +2154,6 @@ namespace EndpointCSharpTests
             Assert.That(didDeleteMessage, Is.False);
         }
 
-        /*Failed to create thread.
-        Message: Code = 4294901760, Message = , Name = EndpointServerRequestException, Scope = Server request, Description = policy -> Unexpected key 'updaterCanBeRemovedFromManagers', Full = [Server request] EndpointServerRequestException (code: 4294901760, msg: "Invalid request exception")
-
-        Description: 
-        policy -> Unexpected key 'updaterCanBeRemovedFromManagers'*/
         [Test, Order(22), Description("Create thread with policy. Try to get it as User2 afterwards.")]
         public void CreateThread_Policy()
         {
@@ -2183,14 +2178,14 @@ namespace EndpointCSharpTests
                 Update = "owner",
                 Delete_ = "owner",
                 UpdatePolicy = "owner",
-                UpdaterCanBeRemovedFromManagers = "no",
+                //UpdaterCanBeRemovedFromManagers = "no",
                 OwnerCanBeRemovedFromManagers = "no"
             };
 
             try
             {
                 threadId = threadApi.CreateThread(
-                    config.Read("threadId", "Thread_1"),
+                    config.Read("contextId", "Context_1"),
                     new List<UserWithPubKey>
                     {
                         new UserWithPubKey
@@ -2285,11 +2280,6 @@ namespace EndpointCSharpTests
             Assert.That(didGetThread_User2 , Is.False);
         }
 
-        /*Failed to create thread.
-        Message: Code = 4294901760, Message = , Name = EndpointServerRequestException, Scope = Server request, Description = policy -> Unexpected key 'updaterCanBeRemovedFromManagers', Full = [Server request] EndpointServerRequestException (code: 4294901760, msg: "Invalid request exception")
-
-        Description: 
-        policy -> Unexpected key 'updaterCanBeRemovedFromManagers'*/
         [Test, Order(23), Description("Update thread policy. Try to get message as User2 afterwards.")]
         public void UpdateThread_Policy()
         {
@@ -2314,7 +2304,7 @@ namespace EndpointCSharpTests
                 Update = "owner",
                 Delete_ = "owner",
                 UpdatePolicy = "owner",
-                UpdaterCanBeRemovedFromManagers = "no",
+                //UpdaterCanBeRemovedFromManagers = "no",
                 OwnerCanBeRemovedFromManagers = "no"
             };
 
