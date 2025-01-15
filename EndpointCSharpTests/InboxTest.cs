@@ -4,17 +4,8 @@ using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Inbox;
 using PrivMX.Endpoint.Inbox.Models;
 using PrivMX.Endpoint.Store;
-using PrivMX.Endpoint.Store.Models;
 using PrivMX.Endpoint.Thread;
 using File = PrivMX.Endpoint.Store.Models.File;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
-using System.Reflection.Metadata;
 using System.Security.Cryptography;
 
 namespace EndpointCSharpTests

@@ -2,9 +2,9 @@
 using PrivMX.Endpoint.Core;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Thread;
+using System.Security.Cryptography;
 using Thread = PrivMX.Endpoint.Thread.Models.Thread;
 using Message = PrivMX.Endpoint.Thread.Models.Message;
-using System.Security.Cryptography;
 
 namespace EndpointCSharpTests
 {

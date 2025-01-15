@@ -3,15 +3,7 @@ using PrivMX.Endpoint.Core;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Store;
 using PrivMX.Endpoint.Store.Models;
-using PrivMX.Endpoint.Thread;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using File = PrivMX.Endpoint.Store.Models.File;
 
 namespace EndpointCSharpTests
