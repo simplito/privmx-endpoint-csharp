@@ -20,7 +20,7 @@ namespace PrivMX.Endpoint.Core.Internal
         {
             Connect = 0,
             ConnectPublic = 1,
-            GetInstanceId = 2,
+            GetConnectionId = 2,
             ListContexts = 3,
             Disconnect = 4
 

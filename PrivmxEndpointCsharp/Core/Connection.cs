@@ -62,9 +62,9 @@ namespace PrivMX.Endpoint.Core
         /// Gets the ID of the current connection.
         /// </summary>
         /// <returns>ID of the connection.</returns>
-        public long GetInstanceId()
+        public long GetConnectionId()
         {
-            return executor.Execute<long>(ptr, (int)ConnectionNative.Method.GetInstanceId, new List<object> { });
+            return executor.Execute<long>(ptr, (int)ConnectionNative.Method.GetConnectionId, new List<object> { });
         }
 
         /// <summary>

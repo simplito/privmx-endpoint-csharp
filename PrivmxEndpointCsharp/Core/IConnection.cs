@@ -15,7 +15,7 @@ namespace PrivMX.Endpoint.Core
 {
     public interface IConnection
     {
-        long GetInstanceId();
+        long GetConnectionId();
         PagingList<Context> ListContexts(PagingQuery pagingQuery);
         void Disconnect();
     }
