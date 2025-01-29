@@ -79,13 +79,29 @@ namespace PrivMX.Endpoint.Crypto
         /// <summary>
         /// Derives a private key from a password and salt.
         /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
+        /// This method is deprecated. Use <see cref="CryptoApi.DerivePrivateKey2()"/> instead.
         /// </summary>
         /// <param name="password">The password used to derive from.</param>
         /// <param name="salt">The random additional data used to derive.</param>
         /// <returns>Derived private key in WIF format.</returns>
+        [Obsolete("Use CryptoApi.DerivePrivateKey2() instead")]
         public string DerivePrivateKey(string password, string salt)
         {
             return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey, new List<object>{password, salt});
+        }
+
+        /// <summary>
+        /// Derives a private key from a password and salt.
+        /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
+        /// Compared to <see cref="CryptoApi.DerivePrivateKey()"/>, this version of the derive function has an increased number of rounds.
+        /// This makes using this function a safer choice, but it makes the derived key different than in the previous version.
+        /// </summary>
+        /// <param name="password">The password used to derive from.</param>
+        /// <param name="salt">The random additional data used to derive.</param>
+        /// <returns>Derived private key in WIF format.</returns>
+        public string DerivePrivateKey2(string password, string salt)
+        {
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey2, new List<object>{password, salt});
         }
 
         /// <summary>
