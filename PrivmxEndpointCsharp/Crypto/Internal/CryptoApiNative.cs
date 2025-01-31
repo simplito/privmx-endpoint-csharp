@@ -23,12 +23,13 @@ namespace PrivMX.Endpoint.Crypto.Internal
             SignData = 1,
             GeneratePrivateKey = 2,
             DerivePrivateKey = 3,
-            DerivePublicKey = 4,
-            GenerateKeySymmetric = 5,
-            EncryptDataSymmetric = 6,
-            DecryptDataSymmetric = 7,
-            ConvertPEMKeytoWIFKey = 8,
-            VerifySignature = 9,
+            DerivePrivateKey2 = 4,
+            DerivePublicKey = 5,
+            GenerateKeySymmetric = 6,
+            EncryptDataSymmetric = 7,
+            DecryptDataSymmetric = 8,
+            ConvertPEMKeytoWIFKey = 9,
+            VerifySignature = 10,
         }
 
         [DllImport("libprivmxendpointinterface")]

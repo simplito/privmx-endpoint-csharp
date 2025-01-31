@@ -29,6 +29,6 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// ID of the connection emitting the event.
         /// </summary>
-        public string InstanceId { get; set; }
+        public long ConnectionId { get; set; }
     }
 }

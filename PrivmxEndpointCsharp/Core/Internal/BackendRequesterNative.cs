@@ -14,30 +14,26 @@ using System.Runtime.InteropServices;
 
 namespace PrivMX.Endpoint.Core.Internal
 {
-    internal class ConnectionNative : INativeExecutor
+    internal class BackendRequesterNative : INativeExecutor
     {
         public enum Method
         {
-            Connect = 0,
-            ConnectPublic = 1,
-            GetConnectionId = 2,
-            ListContexts = 3,
-            Disconnect = 4
+            BackendRequest = 0
 
         }
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_newConnection(out IntPtr outPtr);
+        public static extern int privmx_endpoint_newBackendRequester(out IntPtr outPtr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_freeConnection(IntPtr ptr);
+        public static extern int privmx_endpoint_freeBackendRequester(IntPtr ptr);
 
         [DllImport("libprivmxendpointinterface")]
-        public static extern int privmx_endpoint_execConnection(IntPtr ptr, int method, IntPtr value, out IntPtr result);
+        public static extern int privmx_endpoint_execBackendRequester(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)
         {
-            return privmx_endpoint_execConnection(ptr, method, value, out result);
+            return privmx_endpoint_execBackendRequester(ptr, method, value, out result);
         }
     }
 }

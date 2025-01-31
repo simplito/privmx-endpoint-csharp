@@ -2,8 +2,55 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64;android-arm;android-arm64</RuntimeIdentifiers>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>2.1.1</Version>
+    <Title>Privmx Endpoint</Title>
+    <PackageName>Privmx Endpoint</PackageName>
+    <Authors>Patryk Kisielewski</Authors>
+    <PackageProjectUrl>https://privmx.dev/</PackageProjectUrl>
+    <Company>Simplito sp. z o.o.</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/simplito/privmx-endpoint-csharp</RepositoryUrl>
+    <PackageTags>PrivMX</PackageTags>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="LICENSE" Pack="true" PackagePath=""/>
+    <None Include="../Readme.md" Pack="true" PackagePath="\Readme.md"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="native\win-x64\*.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\android-arm\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/android-arm/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\android-arm64\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/android-arm64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\linux-x64\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="osx-arm64\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-arm64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
