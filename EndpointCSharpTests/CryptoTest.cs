@@ -84,7 +84,7 @@ namespace EndpointCSharpTests
 
             try
             {
-                keyWIF = cryptoApi.DerivePrivateKey("pass", "salt");
+                keyWIF = cryptoApi.DerivePrivateKey2("pass", "salt");
             }
             catch (EndpointNativeException e)
             {

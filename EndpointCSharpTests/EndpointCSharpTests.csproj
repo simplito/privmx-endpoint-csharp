@@ -96,4 +96,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ini-test-files\" />
+    <Folder Include="libs\" />
+  </ItemGroup>
+
 </Project>

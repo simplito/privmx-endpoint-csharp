@@ -18,7 +18,7 @@ namespace EndpointCsharpTests
             {
                 Connection connection = Connection.Connect(userPrivKey, solutionId, address);
                 didConnect = true;
-                Console.WriteLine($"Connection instance Id: {connection.GetInstanceId()}");
+                Console.WriteLine($"Connection instance Id: {connection.GetConnectionId()}");
                 Disconnect(connection);
                 didDisconnect = true;
             }
