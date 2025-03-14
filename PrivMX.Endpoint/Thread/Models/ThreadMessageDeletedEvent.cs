@@ -15,6 +15,7 @@ namespace PrivMX.Endpoint.Thread.Models
 {
     /// <summary>
     /// Represents the event of type "threadMessageDeleted".
+    /// 
     /// This event is emitting when message events are subscribed and a new message is created.
     /// </summary>
     public class ThreadMessageDeletedEvent : Event

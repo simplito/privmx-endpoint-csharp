@@ -15,6 +15,7 @@ namespace PrivMX.Endpoint.Thread.Models
 {
     /// <summary>
     /// Represents the event of type "threadStatsChanged".
+    /// 
     /// This event is emitting when Thread events are subscribed and statistics of a Thread is changed.
     /// </summary>
     public class ThreadStatsChangedEvent : Event

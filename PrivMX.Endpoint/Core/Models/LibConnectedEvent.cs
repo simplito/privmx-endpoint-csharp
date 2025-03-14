@@ -13,6 +13,7 @@ namespace PrivMX.Endpoint.Core.Models
 {
     /// <summary>
     /// Represents the event of type "libConnected".
+    /// 
     /// This event is emitting when connection is established with the Platform backend.
     /// </summary>
     public class LibConnectedEvent : Event {}

@@ -44,6 +44,7 @@ namespace PrivMX.Endpoint.Core
 
         /// <summary>
         /// Puts the <see cref="LibBreakEvent"/> event into the event queue.
+        /// 
         /// This method is useful for interrupting a blocking <see cref="WaitEvent()"/> call and breaking an event processing loop.
         /// </summary>
         public void EmitBreakEvent()
@@ -62,6 +63,7 @@ namespace PrivMX.Endpoint.Core
 
         /// <summary>
         /// Gets or waits for a new event from the queue.
+        /// 
         /// Waiting can be canceled by <see cref="EmitBreakEvent()"/>.
         /// </summary>
         /// <returns>A new event.</returns>

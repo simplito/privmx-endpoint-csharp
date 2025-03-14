@@ -86,6 +86,7 @@ namespace PrivMX.Endpoint.Inbox.Models
 
         /// <summary>
         /// Status code of decryption and verification of the Thread.
+        /// 
         /// If value is equal 0, then the Thread is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
         /// </summary>
         public long StatusCode { get; set; }

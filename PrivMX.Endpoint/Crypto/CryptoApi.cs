@@ -67,6 +67,7 @@ namespace PrivMX.Endpoint.Crypto
 
         /// <summary>
         /// Generates a new random private key.
+        /// 
         /// The returned key is private key of elliptic curve cryptography.
         /// </summary>
         /// <param name="randomSeed">Optional string used as the seed of random generator.</param>
@@ -78,8 +79,10 @@ namespace PrivMX.Endpoint.Crypto
 
         /// <summary>
         /// Derives a private key from a password and salt.
+        /// 
         /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
-        /// This method is deprecated. Use <see cref="CryptoApi.DerivePrivateKey2()"/> instead.
+        /// 
+        /// This method is deprecated. Use <see cref="CryptoApi.DerivePrivateKey2"/> method instead.
         /// </summary>
         /// <param name="password">The password used to derive from.</param>
         /// <param name="salt">The random additional data used to derive.</param>
@@ -92,8 +95,10 @@ namespace PrivMX.Endpoint.Crypto
 
         /// <summary>
         /// Derives a private key from a password and salt.
+        /// 
         /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
-        /// Compared to <see cref="CryptoApi.DerivePrivateKey()"/>, this version of the derive function has an increased number of rounds.
+        /// 
+        /// Compared to <see cref="CryptoApi.DerivePrivateKey"/> method, this version of the derive function has an increased number of rounds.
         /// This makes using this function a safer choice, but it makes the derived key different than in the previous version.
         /// </summary>
         /// <param name="password">The password used to derive from.</param>
@@ -106,6 +111,7 @@ namespace PrivMX.Endpoint.Crypto
 
         /// <summary>
         /// Derives public key from a private key.
+        /// 
         /// The returned key is public key of elliptic curve cryptography.
         /// </summary>
         /// <param name="privateKey">The private key in WIF format.</param>
@@ -126,6 +132,7 @@ namespace PrivMX.Endpoint.Crypto
 
         /// <summary>
         /// Encrypts data using a symmetric key.
+        /// 
         /// AES algorithm is used to encrypt data.
         /// </summary>
         /// <param name="data">Data to encrypt.</param>

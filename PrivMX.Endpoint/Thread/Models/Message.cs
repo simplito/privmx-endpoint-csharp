@@ -43,6 +43,7 @@ namespace PrivMX.Endpoint.Thread.Models
 
         /// <summary>
         /// Status code of decryption and verification of the message.
+        /// 
         /// If value is equal 0, then the message is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
         /// </summary>
         public long StatusCode {get;set;}

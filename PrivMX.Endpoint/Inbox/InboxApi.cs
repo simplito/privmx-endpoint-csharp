@@ -127,6 +127,7 @@ namespace PrivMX.Endpoint.Inbox
 
         /// <summary>
         /// Prepares a request to send data to an Inbox.
+        /// 
         /// You do not have to be logged in to call this function.
         /// </summary>
         /// <param name="inboxId">ID of the Inbox to which the request applies.</param>
@@ -141,6 +142,7 @@ namespace PrivMX.Endpoint.Inbox
 
         /// <summary>
         /// Sends data to an Inbox.
+        /// 
         /// You do not have to be logged in to call this function.
         /// </summary>
         /// <param name="inboxHandle">ID of the Inbox to which the request applies.</param>
@@ -193,7 +195,9 @@ namespace PrivMX.Endpoint.Inbox
 
         /// <summary>
         /// Sends a file's data chunk to an Inbox.
+        /// 
         /// To send the entire file - divide it into pieces of the desired size and call the function for each fragment.
+        /// 
         /// You do not have to be logged in to call this function.
         /// </summary>
         /// <param name="inboxHandle">ID of the Inbox to which the request applies.</param>

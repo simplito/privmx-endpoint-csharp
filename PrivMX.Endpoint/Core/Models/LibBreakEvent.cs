@@ -13,6 +13,7 @@ namespace PrivMX.Endpoint.Core.Models
 {
     /// <summary>
     /// Represents the event of type "libBreak".
+    /// 
     /// This event is emitting only by calling <see cref="EventQueue.EmitBreakEvent()"/>.
     /// It is useful for breaking an event processing loop.
     /// </summary>

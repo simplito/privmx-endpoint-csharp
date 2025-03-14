@@ -17,6 +17,7 @@ namespace PrivMX.Endpoint.Core
     {
         /// <summary>
         /// Sets path to a file containing a bundle of CA certificates in PEM format.
+        /// 
         /// This bundle is used by the library for TLS with HTTPS connections.
         /// </summary>
         /// <param name="certsPath"></param>
