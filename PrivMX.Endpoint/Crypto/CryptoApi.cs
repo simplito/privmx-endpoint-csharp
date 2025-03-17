@@ -70,7 +70,7 @@ namespace PrivMX.Endpoint.Crypto
         /// 
         /// The returned key is private key of elliptic curve cryptography.
         /// </summary>
-        /// <param name="randomSeed">Optional string used as the seed of random generator.</param>
+        /// <param name="randomSeed">(optional) String used as the seed of random generator.</param>
         /// <returns>Generated private key in WIF format.</returns>
         public string GeneratePrivateKey(string randomSeed = null)
         {

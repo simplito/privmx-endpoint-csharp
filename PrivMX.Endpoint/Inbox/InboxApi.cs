@@ -58,7 +58,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="managers">Vector of UserWithPubKey structs which indicates who will have access (and management rights) to the created Inbox.</param>
         /// <param name="publicMeta">Public (unencrypted) metadata.</param>
         /// <param name="privateMeta">Private (encrypted) metadata.</param>
-        /// <param name="filesConfig">Optional configuration of files.</param>
+        /// <param name="filesConfig">(optional) Configuration of files.</param>
         /// <param name="policies">(optional) Inbox policy.</param>
         /// <returns>ID of the created Inbox.</returns>
         public string CreateInbox(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig filesConfig, ContainerPolicyWithoutItem policies = null)
@@ -74,7 +74,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="managers">Vector of UserWithPubKey structs which indicates who will have access (and management rights) to the created Inbox.</param>
         /// <param name="publicMeta">Public (unencrypted) metadata.</param>
         /// <param name="privateMeta">Private (encrypted) metadata.</param>
-        /// <param name="filesConfig">Optional configuration of files.</param>
+        /// <param name="filesConfig">(optional) Configuration of files.</param>
         /// <param name="version">Current version of the updated Inbox.</param>
         /// <param name="force">Force update without checking version.</param>
         /// <param name="forceGenerateNewKey">Force to regenerate a key for the Inbox.</param>
@@ -132,8 +132,8 @@ namespace PrivMX.Endpoint.Inbox
         /// </summary>
         /// <param name="inboxId">ID of the Inbox to which the request applies.</param>
         /// <param name="data">Entry data to send.</param>
-        /// <param name="inboxFileHandles">Optional list of file handles that will be sent with the request.</param>
-        /// <param name="userPrivKey">Optional sender's private key which can be used later to encrypt data for that sender.</param>
+        /// <param name="inboxFileHandles">(optional) List of file handles that will be sent with the request.</param>
+        /// <param name="userPrivKey">(optional) Sender's private key which can be used later to encrypt data for that sender.</param>
         /// <returns>Inbox handle.</returns>
         public long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string userPrivKey)
         {

@@ -35,7 +35,7 @@ namespace PrivMX.Endpoint.Core.Models
         public string SortOrder { get; set; }
 
         /// <summary>
-        /// Optional Id of the item from which to list subsequent items.
+        /// (optional) Id of the item from which to list subsequent items.
         /// 
         /// If this parameter is passed, the Skip parameter is not used and can be any number.
         /// </summary>
