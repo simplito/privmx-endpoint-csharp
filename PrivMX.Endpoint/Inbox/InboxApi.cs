@@ -56,8 +56,8 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="contextId">ID of the Context of the new Inbox.</param>
         /// <param name="users">Vector of UserWithPubKey structs which indicates who will have access to the created Inbox.</param>
         /// <param name="managers">Vector of UserWithPubKey structs which indicates who will have access (and management rights) to the created Inbox.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="filesConfig">(optional) Configuration of files.</param>
         /// <param name="policies">(optional) Inbox policy.</param>
         /// <returns>ID of the created Inbox.</returns>
@@ -72,8 +72,8 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxId">ID of the Inbox to update.</param>
         /// <param name="users">Vector of UserWithPubKey structs which indicates who will have access to the created Inbox.</param>
         /// <param name="managers">Vector of UserWithPubKey structs which indicates who will have access (and management rights) to the created Inbox.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="filesConfig">(optional) Configuration of files.</param>
         /// <param name="version">Current version of the updated Inbox.</param>
         /// <param name="force">Force update without checking version.</param>

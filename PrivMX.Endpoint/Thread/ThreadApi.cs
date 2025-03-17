@@ -52,8 +52,8 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="contextId">ID of the Context to create the Thread in.</param>
         /// <param name="users">Array of <see cref="UserWithPubKey"/> which indicates who will have access to the created Thread.</param>
         /// <param name="managers">Array of <see cref="UserWithPubKey"/> which indicates who will have access (and management rights) to the created Thread.</param>
-        /// <param name="publicMeta">Public (unencrypted) meta data.</param>
-        /// <param name="privateMeta">Private (encrypted) meta data.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="policies">(optional) Thread policy.</param>
         /// <returns>ID of the created Thread.</returns>
         public string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
@@ -67,8 +67,8 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="threadId">ID of the Thread to update.</param>
         /// <param name="users">Array of <see cref="UserWithPubKey"/> structs which indicates who will have access to the created Thread.</param>
         /// <param name="managers">Array of <see cref="UserWithPubKey"/> structs which indicates who will have access (and management rights) to the created Thread.</param>
-        /// <param name="publicMeta">Public (unencrypted) meta data.</param>
-        /// <param name="privateMeta">Private (encrypted) meta data.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="version">Current version of the updated Thread.</param>
         /// <param name="force">Force update (without checking version).</param>
         /// <param name="forceGenerateNewKey">Force to regenerate a key for the Thread.</param>

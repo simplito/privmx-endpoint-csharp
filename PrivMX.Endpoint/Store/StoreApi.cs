@@ -52,8 +52,8 @@ namespace PrivMX.Endpoint.Store
         /// <param name="contextId">ID of the Context to create the Store in.</param>
         /// <param name="users">Array of UserWithPubKey structs which indicates who will have access to the created Store.</param>
         /// <param name="managers">Array of UserWithPubKey structs which indicates who will have access (and management rights) to the created Store.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="policies">(optional) Store policy.</param>
         /// <returns>Created Store ID.</returns>
         public string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
@@ -67,8 +67,8 @@ namespace PrivMX.Endpoint.Store
         /// <param name="storeId">ID of the Store to update.</param>
         /// <param name="users">Array of UserWithPubKey structs which indicates who will have access to the created Store.</param>
         /// <param name="managers">Array of UserWithPubKey structs which indicates who will have access (and management rights) to the created Store.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="version">Current version of the updated Store.</param>
         /// <param name="force">Force update (without checking version).</param>
         /// <param name="forceGenerateNewKey">Force to renenerate a key for the Store.</param>
