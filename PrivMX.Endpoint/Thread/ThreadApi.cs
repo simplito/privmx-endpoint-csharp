@@ -182,7 +182,7 @@ namespace PrivMX.Endpoint.Thread
         /// <summary>
         /// Subscribes for the events in given Thread.
         /// </summary>
-        /// <param name="threadId">ID of the Thread to subscribe to.</param>
+        /// <param name="threadId">ID of the Thread to subscribe for.</param>
         public void SubscribeForMessageEvents(string threadId)
         {
             executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForMessageEvents, new List<object>{threadId});

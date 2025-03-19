@@ -17,7 +17,7 @@ namespace PrivMX.Endpoint.Store.Models
     /// <summary>
     /// Represents the event of type "storeDeleted".
     /// 
-    /// This event is emitting when Store events are subscribed and a Store is deleted.
+    /// This event is emitted when Store events are subscribed and a Store is deleted.
     /// </summary>
     public class StoreDeletedEvent : Event
     {

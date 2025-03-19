@@ -16,7 +16,7 @@ namespace PrivMX.Endpoint.Thread.Models
     /// <summary>
     /// Represents the event of type "storeFileDeleted".
     /// 
-    /// This event is emitting when file events are subscribed and a file is deleted.
+    /// This event is emitted when file events are subscribed and a file is deleted.
     /// </summary>
     public class StoreFileDeletedEvent : Event
     {

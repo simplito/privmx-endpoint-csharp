@@ -16,7 +16,7 @@ namespace PrivMX.Endpoint.Store.Models
     /// <summary>
     /// Represents the event of type "storeFileUpdated".
     /// 
-    /// This event is emitting when file events are subscribed and a file is updated.
+    /// This event is emitted when file events are subscribed and a file is updated.
     /// </summary>
     public class StoreFileUpdatedEvent : Event
     {

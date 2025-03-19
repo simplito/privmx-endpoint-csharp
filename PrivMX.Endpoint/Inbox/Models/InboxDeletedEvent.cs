@@ -16,7 +16,7 @@ namespace PrivMX.Endpoint.Inbox.Models
     /// <summary>
     /// Represents the event of type "inboxDeleted".
     /// 
-    /// This event is emitting when Inbox events are subscribed and a Inbox is deleted.
+    /// This event is emitted when Inbox events are subscribed and a Inbox is deleted.
     /// </summary>
     public class InboxDeletedEvent : Event
     {

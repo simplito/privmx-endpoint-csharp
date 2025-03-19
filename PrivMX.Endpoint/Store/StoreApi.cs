@@ -245,7 +245,7 @@ namespace PrivMX.Endpoint.Store
         /// <summary>
         /// Subscribes for the events in given Store.
         /// </summary>
-        /// <param name="storeId">ID of the store to subscribe to.</param>
+        /// <param name="storeId">ID of the Store to subscribe for.</param>
         public void SubscribeForFileEvents(string storeId)
         {
             executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForFileEvents, new List<object>{storeId});
@@ -254,7 +254,7 @@ namespace PrivMX.Endpoint.Store
         /// <summary>
         /// Unsubscribes from the events in given Store.
         /// </summary>
-        /// <param name="storeId">ID of the store to unsubscribe from.</param>
+        /// <param name="storeId">ID of the Store to unsubscribe from.</param>
         public void UnsubscribeFromFileEvents(string storeId)
         {
             executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromFileEvents, new List<object>{storeId});
