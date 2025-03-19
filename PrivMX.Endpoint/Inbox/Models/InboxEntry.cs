@@ -9,8 +9,8 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
 using PrivMX.Endpoint.Store.Models;
+using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Inbox.Models
 {

@@ -11,7 +11,7 @@
 
 using PrivMX.Endpoint.Core.Models;
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
     /// Represents the event of type "storeFileDeleted".

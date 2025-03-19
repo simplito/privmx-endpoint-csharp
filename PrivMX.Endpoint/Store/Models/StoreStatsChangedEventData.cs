@@ -9,7 +9,7 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
     /// Represents payload of the StoreStatsChangedEvent.
