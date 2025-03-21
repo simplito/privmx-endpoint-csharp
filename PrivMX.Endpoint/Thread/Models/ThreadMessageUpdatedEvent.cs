@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Updated message.
         /// </summary>
-        public Message Data { get; set; }
+        public Message Data { get; set; } = null!;
     }
 }

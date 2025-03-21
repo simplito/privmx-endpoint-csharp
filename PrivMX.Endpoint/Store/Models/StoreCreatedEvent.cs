@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Created Store.
         /// </summary>
-        public Store Data { get; set; }
+        public Store Data { get; set; } = null!;
     }
 }

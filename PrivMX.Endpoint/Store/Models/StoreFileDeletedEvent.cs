@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Metadata of the deleted file.
         /// </summary>
-        public StoreFileDeletedEventData Data { get; set; }
+        public StoreFileDeletedEventData Data { get; set; } = null!;
     }
 }

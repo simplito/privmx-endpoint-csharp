@@ -19,12 +19,12 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// Type of event.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = null!;
 
         /// <summary>
         /// Additional identifier of the subscribed source module and resource.
         /// </summary>
-        public string Channel { get; set; }
+        public string Channel { get; set; } = null!;
 
         /// <summary>
         /// ID of the connection emitting the event.

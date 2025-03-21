@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// Metadata of the deleted entry.
         /// </summary>
-        public InboxEntryDeletedEventData Data { get; set; }
+        public InboxEntryDeletedEventData Data { get; set; } = null!;
     }
 }

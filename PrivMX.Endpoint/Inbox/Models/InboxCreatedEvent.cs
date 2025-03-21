@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// Created Inbox.
         /// </summary>
-        public Inbox Data { get; set; }
+        public Inbox Data { get; set; } = null!;
     }
 }

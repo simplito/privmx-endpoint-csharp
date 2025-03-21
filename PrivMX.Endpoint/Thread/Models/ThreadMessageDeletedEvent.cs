@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Deleted message metadata.
         /// </summary>
-        public ThreadDeletedMessageEventData Data { get; set; }
+        public ThreadDeletedMessageEventData Data { get; set; } = null!;
     }
 }

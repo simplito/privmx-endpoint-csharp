@@ -24,6 +24,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Metadata of the deleted Store.
         /// </summary>
-        public StoreDeletedEventData Data { get; set; }
+        public StoreDeletedEventData Data { get; set; } = null!;
     }
 }

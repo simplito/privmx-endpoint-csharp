@@ -32,13 +32,13 @@ namespace PrivMX.Endpoint.Core.Models
         /// Allowed values: "asc" - ascending sort order, "desc" - descending sort order.
         /// Currently, results list items are sorted by creation date.
         /// </summary>
-        public string SortOrder { get; set; }
+        public string SortOrder { get; set; } = null!;
 
         /// <summary>
         /// (optional) ID of the item from which to list subsequent items.
         /// 
         /// If this parameter is passed, the Skip parameter is not used and can be any number.
         /// </summary>
-        public string LastId { get; set; }
+        public string? LastId { get; set; }
     }
 }

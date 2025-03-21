@@ -19,16 +19,16 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// ID of the Context to which the Store belongs.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
 
         /// <summary>
         /// ID of the Store that the file is deleted from.
         /// </summary>
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } = null!;
 
         /// <summary>
         /// ID of the deleted file.
         /// </summary>
-        public string FileId { get; set; }
+        public string FileId { get; set; } = null!;
     }
 }

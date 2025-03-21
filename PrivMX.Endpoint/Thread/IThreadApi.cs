@@ -17,8 +17,8 @@ namespace PrivMX.Endpoint.Thread
 {
     public interface IThreadApi
     {
-        string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null);
-        void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null);
+        string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null);
+        void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null);
         void DeleteThread(string threadId);
         Models.Thread GetThread(string threadId);
         PagingList<Models.Thread> ListThreads(string contextId, PagingQuery pagingQuery);

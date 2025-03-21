@@ -19,12 +19,12 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// ID of the Context to which the Store belongs.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
 
         /// <summary>
         /// ID of the Store.
         /// </summary>
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } = null!;
 
         /// <summary>
         /// List file timestamp.

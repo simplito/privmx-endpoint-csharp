@@ -36,7 +36,7 @@ namespace PrivMX.Endpoint.Inbox
         static public InboxApi Create(Connection connection, ThreadApi threadApi, StoreApi storeApi)
         {
             InboxApi inboxApi = new InboxApi(connection, threadApi, storeApi);
-            inboxApi.executor.ExecuteVoid(inboxApi.ptr, (int)InboxApiNative.Method.Create, new List<object>{});
+            inboxApi.executor.ExecuteVoid(inboxApi.ptr, (int)InboxApiNative.Method.Create, new List<object?>{});
             return inboxApi;
         }
 
@@ -61,9 +61,9 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="filesConfig">(optional) Configuration of files.</param>
         /// <param name="policies">(optional) Inbox policy.</param>
         /// <returns>ID of the created Inbox.</returns>
-        public string CreateInbox(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig filesConfig, ContainerPolicyWithoutItem policies = null)
+        public string CreateInbox(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig? filesConfig, ContainerPolicyWithoutItem? policies = null)
         {
-            return executor.Execute<string>(ptr, (int)InboxApiNative.Method.CreateInbox, new List<object>{contextId, users, managers, publicMeta, privateMeta, filesConfig, policies});
+            return executor.Execute<string>(ptr, (int)InboxApiNative.Method.CreateInbox, new List<object?>{contextId, users, managers, publicMeta, privateMeta, filesConfig, policies});
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="force">Force update without checking version.</param>
         /// <param name="forceGenerateNewKey">Force to regenerate a key for the Inbox.</param>
         /// <param name="policies">(optional) Inbox policy.</param>
-        public void UpdateInbox(string inboxId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig filesConfig, long version, bool force, bool forceGenerateNewKey, ContainerPolicyWithoutItem policies = null)
+        public void UpdateInbox(string inboxId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig? filesConfig, long version, bool force, bool forceGenerateNewKey, ContainerPolicyWithoutItem? policies = null)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UpdateInbox, new List<object>{inboxId, users, managers, publicMeta, privateMeta, filesConfig, version, force, forceGenerateNewKey, policies});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UpdateInbox, new List<object?>{inboxId, users, managers, publicMeta, privateMeta, filesConfig, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>Information about about the Inbox.</returns>
         public Models.Inbox GetInbox(string inboxId)
         {
-            return executor.Execute<Models.Inbox>(ptr, (int)InboxApiNative.Method.GetInbox, new List<object>{inboxId});
+            return executor.Execute<Models.Inbox>(ptr, (int)InboxApiNative.Method.GetInbox, new List<object?>{inboxId});
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>List of Inboxes.</returns>
         public PagingList<Models.Inbox> ListInboxes(string contextId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Models.Inbox>>(ptr, (int)InboxApiNative.Method.ListInboxes, new List<object>{contextId, pagingQuery});
+            return executor.Execute<PagingList<Models.Inbox>>(ptr, (int)InboxApiNative.Method.ListInboxes, new List<object?>{contextId, pagingQuery});
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>Public accessible information about the Inbox.</returns>
         public InboxPublicView GetInboxPublicView(string inboxId)
         {
-            return executor.Execute<InboxPublicView>(ptr, (int)InboxApiNative.Method.GetInboxPublicView, new List<object>{inboxId});
+            return executor.Execute<InboxPublicView>(ptr, (int)InboxApiNative.Method.GetInboxPublicView, new List<object?>{inboxId});
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxId">ID of the Inbox to delete.</param>
         public void DeleteInbox(string inboxId)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.DeleteInbox, new List<object>{inboxId});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.DeleteInbox, new List<object?>{inboxId});
         }
 
         /// <summary>
@@ -132,12 +132,12 @@ namespace PrivMX.Endpoint.Inbox
         /// </summary>
         /// <param name="inboxId">ID of the Inbox to which the request applies.</param>
         /// <param name="data">Entry data to send.</param>
-        /// <param name="inboxFileHandles">(optional) List of file handles that will be sent with the request.</param>
+        /// <param name="inboxFileHandles">List of file handles that will be sent with the request.</param>
         /// <param name="userPrivKey">(optional) Sender's private key which can be used later to encrypt data for that sender.</param>
         /// <returns>Inbox handle.</returns>
-        public long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string userPrivKey)
+        public long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string? userPrivKey)
         {
-            return executor.Execute<long>(ptr, (int)InboxApiNative.Method.PrepareEntry, new List<object>{inboxId, data, inboxFileHandles, userPrivKey});
+            return executor.ExecuteValue<long>(ptr, (int)InboxApiNative.Method.PrepareEntry, new List<object?>{inboxId, data, inboxFileHandles, userPrivKey});
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxHandle">ID of the Inbox to which the request applies.</param>
         public void SendEntry(long inboxHandle)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SendEntry, new List<object>{inboxHandle});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SendEntry, new List<object?>{inboxHandle});
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>Data of the entry stored in the Inbox.</returns>
         public InboxEntry ReadEntry(string inboxEntryId)
         {
-            return executor.Execute<InboxEntry>(ptr, (int)InboxApiNative.Method.ReadEntry, new List<object>{inboxEntryId});
+            return executor.Execute<InboxEntry>(ptr, (int)InboxApiNative.Method.ReadEntry, new List<object?>{inboxEntryId});
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>List of entries.</returns>
         public PagingList<InboxEntry> ListEntries(string inboxId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<InboxEntry>>(ptr, (int)InboxApiNative.Method.ListEntries, new List<object>{inboxId, pagingQuery});
+            return executor.Execute<PagingList<InboxEntry>>(ptr, (int)InboxApiNative.Method.ListEntries, new List<object?>{inboxId, pagingQuery});
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxEntryId">ID of an entry to delete.</param>
         public void DeleteEntry(string inboxEntryId)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.DeleteEntry, new List<object>{inboxEntryId});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.DeleteEntry, new List<object?>{inboxEntryId});
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>File handle.</returns>
         public long CreateFileHandle(byte[] publicMeta, byte[] privateMeta, long fileSize)
         {
-            return executor.Execute<long>(ptr, (int)InboxApiNative.Method.CreateFileHandle, new List<object>{publicMeta, privateMeta, fileSize});
+            return executor.ExecuteValue<long>(ptr, (int)InboxApiNative.Method.CreateFileHandle, new List<object?>{publicMeta, privateMeta, fileSize});
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="dataChunk">File chunk to send.</param>
         public void WriteToFile(long inboxHandle, long inboxFileHandle, byte[] dataChunk)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.WriteToFile, new List<object>{inboxHandle, inboxFileHandle, dataChunk});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.WriteToFile, new List<object?>{inboxHandle, inboxFileHandle, dataChunk});
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>Handle to read file data.</returns>
         public long OpenFile(string fileId)
         {
-            return executor.Execute<long>(ptr, (int)InboxApiNative.Method.OpenFile, new List<object>{fileId});
+            return executor.ExecuteValue<long>(ptr, (int)InboxApiNative.Method.OpenFile, new List<object?>{fileId});
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>File data chunk which size is equal to length, or smaller size when is end of file.</returns>
         public byte[] ReadFromFile(long fileHandle, long length)
         {
-            return executor.Execute<byte[]>(ptr, (int)InboxApiNative.Method.ReadFromFile, new List<object>{fileHandle, length});
+            return executor.Execute<byte[]>(ptr, (int)InboxApiNative.Method.ReadFromFile, new List<object?>{fileHandle, length});
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="position">New position of the cursor.</param>
         public void SeekInFile(long fileHandle, long position)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SeekInFile, new List<object>{fileHandle, position});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SeekInFile, new List<object?>{fileHandle, position});
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <returns>ID of closed file.</returns>
         public string CloseFile(long fileHandle)
         {
-            return executor.Execute<string>(ptr, (int)InboxApiNative.Method.CloseFile, new List<object>{fileHandle});
+            return executor.Execute<string>(ptr, (int)InboxApiNative.Method.CloseFile, new List<object?>{fileHandle});
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace PrivMX.Endpoint.Inbox
         /// </summary>
         public void SubscribeForInboxEvents()
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForInboxEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForInboxEvents, new List<object?>{});
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace PrivMX.Endpoint.Inbox
         /// </summary>
         public void UnsubscribeFromInboxEvents()
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromInboxEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromInboxEvents, new List<object?>{});
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxId">ID of the Inbox.</param>
         public void SubscribeForEntryEvents(string inboxId)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForEntryEvents, new List<object>{inboxId});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForEntryEvents, new List<object?>{inboxId});
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxId">ID of the Inbox.</param>
         public void UnsubscribeFromEntryEvents(string inboxId)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromEntryEvents, new List<object>{inboxId});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromEntryEvents, new List<object?>{inboxId});
         }
     }
 }

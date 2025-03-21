@@ -17,7 +17,7 @@ namespace PrivMX.Endpoint.Crypto
     {
         byte[] SignData(byte[] data, string privateKey);
         bool VerifySignature(byte[] data, byte[] signature, string publicKey);
-        string GeneratePrivateKey(string randomSeed = null);
+        string GeneratePrivateKey(string? randomSeed = null);
         [Obsolete("Use ICryptoApi.DerivePrivateKey2() instead")]
         string DerivePrivateKey(string password, string salt);
         string DerivePrivateKey2(string password, string salt);

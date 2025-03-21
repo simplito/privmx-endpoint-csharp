@@ -32,7 +32,7 @@ namespace PrivMX.Endpoint.Thread
         public static ThreadApi Create(Connection connection)
         {
             ThreadApi threadApi = new ThreadApi(connection);
-            threadApi.executor.ExecuteVoid(threadApi.ptr, (int)ThreadApiNative.Method.Create, new List<object>{});
+            threadApi.executor.ExecuteVoid(threadApi.ptr, (int)ThreadApiNative.Method.Create, new List<object?>{});
             return threadApi;
         }
 
@@ -56,9 +56,9 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="policies">(optional) Thread policy.</param>
         /// <returns>ID of the created Thread.</returns>
-        public string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
+        public string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null)
         {
-            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.CreateThread, new List<object>{contextId, users, managers, publicMeta, privateMeta, policies});
+            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.CreateThread, new List<object?>{contextId, users, managers, publicMeta, privateMeta, policies});
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="force">Force update (without checking version).</param>
         /// <param name="forceGenerateNewKey">Force to regenerate a key for the Thread.</param>
         /// <param name="policies">(optional) Thread policy.</param>
-        public void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null)
+        public void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateThread, new List<object>{threadId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateThread, new List<object?>{threadId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="threadId">ID of the Thread to delete.</param>
         public void DeleteThread(string threadId)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.DeleteThread, new List<object>{threadId});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.DeleteThread, new List<object?>{threadId});
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>Information about about the Thread.</returns>
         public Models.Thread GetThread(string threadId)
         {
-            return executor.Execute<Models.Thread>(ptr, (int)ThreadApiNative.Method.GetThread, new List<object> { threadId });
+            return executor.Execute<Models.Thread>(ptr, (int)ThreadApiNative.Method.GetThread, new List<object?> { threadId });
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>List of Threads.</returns>
         public PagingList<Models.Thread> ListThreads(string contextId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Models.Thread>>(ptr, (int)ThreadApiNative.Method.ListThreads, new List<object>{contextId, pagingQuery});
+            return executor.Execute<PagingList<Models.Thread>>(ptr, (int)ThreadApiNative.Method.ListThreads, new List<object?>{contextId, pagingQuery});
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>Message.</returns>
         public Message GetMessage(string messageId)
         {
-            return executor.Execute<Message>(ptr, (int)ThreadApiNative.Method.GetMessage, new List<object>{messageId});
+            return executor.Execute<Message>(ptr, (int)ThreadApiNative.Method.GetMessage, new List<object?>{messageId});
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>List of messages.</returns>
         public PagingList<Message> ListMessages(string threadId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Message>>(ptr, (int)ThreadApiNative.Method.ListMessages, new List<object>{threadId, pagingQuery});
+            return executor.Execute<PagingList<Message>>(ptr, (int)ThreadApiNative.Method.ListMessages, new List<object?>{threadId, pagingQuery});
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>ID of the new message.</returns>
         public string SendMessage(string threadId, byte[] publicMeta, byte[] privateMeta, byte[] data)
         {
-            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.SendMessage, new List<object>{threadId, publicMeta, privateMeta, data});
+            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.SendMessage, new List<object?>{threadId, publicMeta, privateMeta, data});
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="data">Content of the message.</param>
         public void UpdateMessage(string messageId, byte[] publicMeta, byte[] privateMeta, byte[] data)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateMessage, new List<object>{messageId, publicMeta, privateMeta, data});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UpdateMessage, new List<object?>{messageId, publicMeta, privateMeta, data});
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="messageId">ID of the message to delete.</param>
         public void DeleteMessage(string messageId)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.DeleteMessage, new List<object>{messageId});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.DeleteMessage, new List<object?>{messageId});
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace PrivMX.Endpoint.Thread
         /// </summary>
         public void SubscribeForThreadEvents()
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForThreadEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForThreadEvents, new List<object?>{});
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace PrivMX.Endpoint.Thread
         /// </summary>
         public void UnsubscribeFromThreadEvents()
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromThreadEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromThreadEvents, new List<object?>{});
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="threadId">ID of the Thread to subscribe for.</param>
         public void SubscribeForMessageEvents(string threadId)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForMessageEvents, new List<object>{threadId});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForMessageEvents, new List<object?>{threadId});
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace PrivMX.Endpoint.Thread
         /// <param name="threadId">ID of the Thread to unsubscribe from.</param>
         public void UnsubscribeFromMessageEvents(string threadId)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromMessageEvents, new List<object>{threadId});
+            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromMessageEvents, new List<object?>{threadId});
         }
     }
 }

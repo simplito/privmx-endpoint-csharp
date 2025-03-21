@@ -19,11 +19,11 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the Thread that the message is deleted from.
         /// </summary>
-        public string ThreadId { get; set; }
+        public string ThreadId { get; set; } = null!;
 
         /// <summary>
         /// ID of the deleted message.
         /// </summary>
-        public string MessageId { get; set; }
+        public string MessageId { get; set; } = null!;
     }
 }

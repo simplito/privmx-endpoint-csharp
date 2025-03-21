@@ -16,7 +16,7 @@ namespace PrivMX.Endpoint.Core
     public interface IEventQueue
     {
         Event WaitEvent();
-        Event GetEvent();
+        Event? GetEvent();
         void EmitBreakEvent();
     }
 }

@@ -19,11 +19,11 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// ID of the Inbox that the entry is deleted from.
         /// </summary>
-        public string InboxId { get; set; }
+        public string InboxId { get; set; } = null!;
 
         /// <summary>
         /// ID of the deleted Inbox entry.
         /// </summary>
-        public string EntryId { get; set; }
+        public string EntryId { get; set; } = null!;
     }
 }

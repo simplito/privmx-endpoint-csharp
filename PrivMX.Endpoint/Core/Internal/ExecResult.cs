@@ -13,10 +13,10 @@ using PrivMX.Endpoint.Core.Models;
 
 namespace PrivMX.Endpoint.Core.Internal
 {
-    internal class ExecResult<T>
+    internal class ExecResult<T> where T : class
     {
         public bool Status { get; set; }
-        public T Result { get; set; }
-        public Error Error { get; set; }
+        public T? Result { get; set; }
+        public Error? Error { get; set; }
     }
 }

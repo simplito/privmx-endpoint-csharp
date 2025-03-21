@@ -19,6 +19,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// ID of the deleted Store.
         /// </summary>
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } = null!;
     }
 }

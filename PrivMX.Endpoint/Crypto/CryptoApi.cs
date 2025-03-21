@@ -28,7 +28,7 @@ namespace PrivMX.Endpoint.Crypto
         static public CryptoApi Create()
         {
             CryptoApi cryptoApi = new CryptoApi();
-            cryptoApi.executor.ExecuteVoid(cryptoApi.ptr, (int)CryptoApiNative.Method.Create, new List<object>{});
+            cryptoApi.executor.ExecuteVoid(cryptoApi.ptr, (int)CryptoApiNative.Method.Create, new List<object?>{});
             return cryptoApi;
         }
 
@@ -50,7 +50,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Signature of data.</returns>
         public byte[] SignData(byte[] data, string privateKey)
         {
-            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.SignData, new List<object>{data, privateKey});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.SignData, new List<object?>{data, privateKey});
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Verification status.</returns>
         public bool VerifySignature(byte[] data, byte[] signature, string publicKey)
         {
-            return executor.Execute<bool>(ptr, (int)CryptoApiNative.Method.VerifySignature, new List<object>{data, signature, publicKey});
+            return executor.ExecuteValue<bool>(ptr, (int)CryptoApiNative.Method.VerifySignature, new List<object?>{data, signature, publicKey});
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace PrivMX.Endpoint.Crypto
         /// </summary>
         /// <param name="randomSeed">(optional) String used as the seed of random generator.</param>
         /// <returns>Generated private key in WIF format.</returns>
-        public string GeneratePrivateKey(string randomSeed = null)
+        public string GeneratePrivateKey(string? randomSeed = null)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.GeneratePrivateKey, new List<object>{randomSeed});
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.GeneratePrivateKey, new List<object?>{randomSeed});
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace PrivMX.Endpoint.Crypto
         [Obsolete("Use CryptoApi.DerivePrivateKey2() instead")]
         public string DerivePrivateKey(string password, string salt)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey, new List<object>{password, salt});
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey, new List<object?>{password, salt});
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Derived private key in WIF format.</returns>
         public string DerivePrivateKey2(string password, string salt)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey2, new List<object>{password, salt});
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey2, new List<object?>{password, salt});
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Public key in Base58 format.</returns>
         public string DerivePublicKey(string privateKey)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePublicKey, new List<object>{privateKey});
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePublicKey, new List<object?>{privateKey});
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Generated symmetric key.</returns>
         public byte[] GenerateKeySymmetric()
         {
-            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.GenerateKeySymmetric, new List<object>{});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.GenerateKeySymmetric, new List<object?>{});
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Encrypted data.</returns>
         public byte[] EncryptDataSymmetric(byte[] data, byte[] symmetricKey)
         {
-            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.EncryptDataSymmetric, new List<object>{data, symmetricKey});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.EncryptDataSymmetric, new List<object?>{data, symmetricKey});
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Decrypted data.</returns>
         public byte[] DecryptDataSymmetric(byte[] data, byte[] symmetricKey)
         {
-            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.DecryptDataSymmetric, new List<object>{data, symmetricKey});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.DecryptDataSymmetric, new List<object?>{data, symmetricKey});
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <returns>Converted private key to WIF format.</returns>
         public string ConvertPEMKeytoWIFKey(string pemKey)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.ConvertPEMKeytoWIFKey, new List<object>{pemKey});
+            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.ConvertPEMKeytoWIFKey, new List<object?>{pemKey});
         }
     }
 }

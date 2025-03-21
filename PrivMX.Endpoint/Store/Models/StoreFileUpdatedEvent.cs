@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Updated file.
         /// </summary>
-        public File Data { get; set; }
+        public File Data { get; set; } = null!;
     }
 }

@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Thread statistics.
         /// </summary>
-        public ThreadStatsEventData Data { get; set; }
+        public ThreadStatsEventData Data { get; set; } = null!;
     }
 }

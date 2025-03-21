@@ -19,17 +19,17 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Server metadata.
         /// </summary>
-        public ServerFileInfo Info { get; set; }
+        public ServerFileInfo Info { get; set; } = null!;
 
         /// <summary>
         /// Public metadata.
         /// </summary>
-        public byte[] PublicMeta { get; set; }
+        public byte[] PublicMeta { get; set; } = null!;
 
         /// <summary>
         /// Private metadata.
         /// </summary>
-        public byte[] PrivateMeta { get; set; }
+        public byte[] PrivateMeta { get; set; } = null!;
         
         /// <summary>
         /// Size of the file.
@@ -39,7 +39,7 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Verified public key of the PublicMeta, PrivateMeta and Data author.
         /// </summary>
-        public string AuthorPubKey { get; set; }
+        public string AuthorPubKey { get; set; } = null!;
 
         /// <summary>
         /// Status code of decryption and verification of the message.

@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Updated Thread.
         /// </summary>
-        public Thread Data { get; set; }
+        public Thread Data { get; set; } = null!;
     }
 }

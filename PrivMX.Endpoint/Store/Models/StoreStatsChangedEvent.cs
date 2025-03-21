@@ -23,6 +23,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// Store statistics.
         /// </summary>
-        public StoreStatsChangedEventData Data { get; set; }
+        public StoreStatsChangedEventData Data { get; set; } = null!;
     }
 }
