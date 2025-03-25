@@ -14,6 +14,7 @@
     <PackageProjectUrl>https://privmx.dev/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/simplito/privmx-endpoint-csharp</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <Copyright>Copyright (c) 2025 Simplito sp. z o.o.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -29,6 +30,7 @@
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\LICENSE"/>
     <None Include="../README.md" Pack="true" PackagePath="\README.md"/>
+    <None Include="images/icon.png" Pack="true" PackagePath="\icon.png"/>
   </ItemGroup>
   <ItemGroup>
     <Content Include="native\win-x64\*.dll">
