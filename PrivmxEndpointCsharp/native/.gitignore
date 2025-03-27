@@ -1,3 +1,0 @@
-﻿# prevent accidential native libraries pushes to remote
-/**/*.dll
-/**/*.so

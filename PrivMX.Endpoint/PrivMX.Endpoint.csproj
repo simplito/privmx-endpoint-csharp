@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>
+    <PackageName>PrivMX.Endpoint</PackageName>
+    <PackageId>PrivMX.Endpoint</PackageId>
+    <Version>2.2.0</Version>
+    <Authors>Simplito sp. z o.o.</Authors>
+    <Product>PrivMX Endpoint C#</Product>
+    <Title>PrivMX Endpoint C#</Title>
+    <Description>C# wrapper for PrivMX, a platform allowing developers to build end-to-end encrypted apps used for communication through text messages, real-time data streaming and secure file exchange and storage.</Description>
+    <PackageTags>chat, files, cryptography, privacy, communication, storage, messaging, thread, secure, private, data-transfer, messages, decryption, e2ee, zero-knowledge, end-to-end-encryption, privacy-protection, privmx, simplito</PackageTags>
+    <PackageProjectUrl>https://privmx.dev/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/simplito/privmx-endpoint-csharp</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Copyright>Copyright (c) 2025 Simplito sp. z o.o.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RootNamespace>PrivMX.Endpoint</RootNamespace>
+    <AssemblyName>PrivMX.Endpoint</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../LICENSE" Pack="true" PackagePath="\LICENSE"/>
+    <None Include="../README.md" Pack="true" PackagePath="\README.md"/>
+    <None Include="images/icon.png" Pack="true" PackagePath="\icon.png"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="native\win-x64\*.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\android-arm\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/android-arm/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\android-arm64\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/android-arm64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\linux-x64\*.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="native\osx-arm64\*.dylib">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-arm64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

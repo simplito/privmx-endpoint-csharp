@@ -5,7 +5,7 @@ end-to-end (e2e) encryption. PrivMX is a privacy-focused platform designed to of
 collaboration solutions by integrating robust encryption across various data types and communication
 methods. This project enables seamless integration of PrivMX’s encryption functionalities in
 C# applications, preserving the security and performance of the original C++ library while making its
-capabilities accessible in the .NET ecosystem.
+capabilities accessible on the .NET platform.
 
 ## About PrivMX
 
@@ -24,7 +24,7 @@ making its encryption features accessible to developers using C#.
   environments.
 - Simple API: Easy-to-use interface for C# developers without compromising security.
 
-## Wrapper
+## Library
 
 PrivMX Endpoint C# is the fundamental wrapper library, essential for the Platform’s operational
 functionality.
@@ -34,13 +34,17 @@ customizing the Platform to meet your specific requirements.
 This library implements models, exception catching, and the following modules:
 
 - `CryptoApi` - Cryptographic methods used to encrypt/decrypt and sign your data or generate keys to
-  work with PrivMX Bridge.
-- `Connection` - Methods for managing connection with PrivMX Bridge.
+  work with PrivMX.
+- `Connection` - Methods for managing connection with PrivMX.
 - `ThreadApi` - Methods for managing Threads and sending/reading messages.
 - `StoreApi` - Methods for managing Stores and sending/reading files.
 - `InboxApi` - Methods for managing Inboxes and entries.
 
-## License information
+## Usage
+
+For more details about PrivMX and PrivMX Endpoint C#, including setup guides and API reference, visit [PrivMX documentation](https://docs.privmx.dev).
+
+## License Information
 
 **PrivMX Endpoint C#**\
 Copyright © 2024 Simplito sp. z o.o.
