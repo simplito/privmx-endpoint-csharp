@@ -40,5 +40,10 @@ namespace PrivMX.Endpoint.Core.Models
         /// If this parameter is passed, the Skip parameter is not used and can be any number.
         /// </summary>
         public string LastId { get; set; }
+
+        /// <summary>
+        /// (optional) Query for filtering by public metadata of items as a JSON formatted object.
+        /// </summary>
+        public string QueryAsJson { get; set; }
     }
 }
