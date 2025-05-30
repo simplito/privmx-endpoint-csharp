@@ -78,6 +78,16 @@ namespace PrivMX.Endpoint.Core
         }
 
         /// <summary>
+        /// Gets a list of users of the Context.
+        /// </summary>
+        /// <param name="contextId">ID of the Context to get users from.</param>
+        /// <returns></returns>
+        public List<UserInfo> GetContextUsers(string contextId)
+        {
+            return executor.Execute<List<UserInfo>>(ptr, (int)ConnectionNative.Method.GetContextUsers, new List<object> { contextId });
+        }
+
+        /// <summary>
         /// Disconnects from the PrivMX Bridge.
         /// </summary>
         public void Disconnect()

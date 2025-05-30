@@ -9,6 +9,7 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 
 namespace PrivMX.Endpoint.Core
@@ -17,6 +18,7 @@ namespace PrivMX.Endpoint.Core
     {
         long GetConnectionId();
         PagingList<Context> ListContexts(PagingQuery pagingQuery);
+        List<UserInfo> GetContextUsers(string contextId);
         void Disconnect();
     }
 }
