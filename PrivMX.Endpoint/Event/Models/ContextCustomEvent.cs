@@ -11,18 +11,16 @@
 
 using PrivMX.Endpoint.Core.Models;
 
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Event.Models
 {
     /// <summary>
-    /// Represents the event of type "inboxEntryDeleted".
-    /// 
-    /// This event is emitting when Inbox entry events are subscribed and an entry is deleted.
+    /// Holds data of event that arrives when custom context event is emitted.
     /// </summary>
-    public class InboxEntryDeletedEvent : Core.Models.Event
+    public class ContextCustomEvent : Core.Models.Event
     {
         /// <summary>
-        /// Metadata of the deleted entry.
+        /// Event's data
         /// </summary>
-        public InboxEntryDeletedEventData Data { get; set; }
+        public ContextCustomEventData Data { get; set; }
     }
 }

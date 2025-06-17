@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Thread.Models
     /// 
     /// This event is emitting when file events are subscribed and a file is deleted.
     /// </summary>
-    public class StoreFileDeletedEvent : Event
+    public class StoreFileDeletedEvent : Core.Models.Event
     {
         /// <summary>
         /// Metadata of the deleted file.

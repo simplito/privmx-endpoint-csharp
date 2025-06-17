@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Inbox.Models
     /// 
     /// This event is emitting when Inbox events are subscribed and a Inbox is updated.
     /// </summary>
-    public class InboxUpdatedEvent : Event
+    public class InboxUpdatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Updated Inbox.

@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Thread.Models
     /// 
     /// This event is emitting when Thread events are subscribed and a new Thread is created.
     /// </summary>
-    public class ThreadCreatedEvent : Event
+    public class ThreadCreatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Created Thread.

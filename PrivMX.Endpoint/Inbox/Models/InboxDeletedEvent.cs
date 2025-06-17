@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Inbox.Models
     /// 
     /// This event is emitting when Inbox events are subscribed and a Inbox is deleted.
     /// </summary>
-    public class InboxDeletedEvent : Event
+    public class InboxDeletedEvent : Core.Models.Event
     {
         /// <summary>
         /// Metadata of the deleted Inbox.

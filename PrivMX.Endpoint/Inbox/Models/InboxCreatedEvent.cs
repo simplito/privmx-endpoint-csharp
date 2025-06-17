@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Inbox.Models
     /// 
     /// This event is emitting when Inbox events are subscribed and a new Inbox is created.
     /// </summary>
-    public class InboxCreatedEvent : Event
+    public class InboxCreatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Created Inbox.

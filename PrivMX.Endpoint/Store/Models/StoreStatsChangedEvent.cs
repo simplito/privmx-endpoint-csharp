@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Thread.Models
     /// 
     /// This event is emitting when Store events are subscribed and statistics of a Store is changed.
     /// </summary>
-    public class StoreStatsChangedEvent : Event
+    public class StoreStatsChangedEvent : Core.Models.Event
     {
         /// <summary>
         /// Store statistics.

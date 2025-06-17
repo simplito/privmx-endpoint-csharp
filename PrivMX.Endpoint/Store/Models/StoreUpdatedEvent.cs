@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Store.Models
     /// 
     /// This event is emitting when Store events are subscribed and a Store is updated.
     /// </summary>
-    public class StoreUpdatedEvent : Event
+    public class StoreUpdatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Updated Store.

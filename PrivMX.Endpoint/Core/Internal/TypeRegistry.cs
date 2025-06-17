@@ -15,6 +15,7 @@ using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Store.Models;
 using PrivMX.Endpoint.Thread.Models;
 using PrivMX.Endpoint.Inbox.Models;
+using PrivMX.Endpoint.Event.Models;
 
 namespace PrivMX.Endpoint.Core.Internal
 {
@@ -47,7 +48,9 @@ namespace PrivMX.Endpoint.Core.Internal
             {"inbox$InboxUpdatedEvent", typeof(InboxUpdatedEvent)},
             {"inbox$InboxDeletedEvent", typeof(InboxDeletedEvent)},
             {"inbox$InboxEntryCreatedEvent", typeof(InboxEntryCreatedEvent)},
-            {"inbox$InboxEntryDeletedEvent", typeof(InboxEntryDeletedEvent)}
+            {"inbox$InboxEntryDeletedEvent", typeof(InboxEntryDeletedEvent)},
+
+            {"event$ContextCustomEvent", typeof(ContextCustomEvent)}
         };
     }
 }

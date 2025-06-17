@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Thread.Models
     /// 
     /// This event is emitting when message events are subscribed and a message is updated.
     /// </summary>
-    public class ThreadMessageUpdatedEvent : Event
+    public class ThreadMessageUpdatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Updated message.

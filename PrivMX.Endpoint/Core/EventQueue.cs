@@ -56,9 +56,9 @@ namespace PrivMX.Endpoint.Core
         /// Gets a new event from the queue.
         /// </summary>
         /// <returns>A new event, or <see langword="null"/> if no events in the queue.</returns>
-        public Event GetEvent()
+        public Models.Event GetEvent()
         {
-            return executor.Execute<Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object>{});
+            return executor.Execute<Models.Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object>{});
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace PrivMX.Endpoint.Core
         /// Waiting can be canceled by <see cref="EmitBreakEvent()"/>.
         /// </summary>
         /// <returns>A new event.</returns>
-        public Event WaitEvent()
+        public Models.Event WaitEvent()
         {
-            return executor.Execute<Event>(ptr, (int)EventQueueNative.Method.WaitEvent, new List<object>{});
+            return executor.Execute<Models.Event>(ptr, (int)EventQueueNative.Method.WaitEvent, new List<object>{});
         }
     }
 }

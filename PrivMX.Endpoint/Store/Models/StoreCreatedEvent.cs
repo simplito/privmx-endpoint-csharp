@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Store.Models
     /// 
     /// This event is emitting when Store events are subscribed and a Store is created.
     /// </summary>
-    public class StoreCreatedEvent : Event
+    public class StoreCreatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Created Store.
