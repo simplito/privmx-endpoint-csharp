@@ -88,7 +88,7 @@ namespace PrivMX.Endpoint.Stream
             return 0;
         }
 
-        public void StreamTrackRecvData(long streamId)
+        public void StreamTrackRecvData(long streamId, IObserver<StreamData> observer)
         {
 
         }

@@ -9,6 +9,7 @@
 // limitations under the License.
 //
 
+using System;
 using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Stream.Models;
@@ -27,7 +28,7 @@ namespace PrivMX.Endpoint.Stream
         void PublishStream(long streamId);
         void StreamTrackSendData(long streamId, byte[] data);
         long JoinStream(string streamRoomId, string? settings = null);
-        void StreamTrackRecvData(long streamId);
+        void StreamTrackRecvData(long streamId, IObserver<StreamData> observer);
         void UnpublishStream(long streamId);
         void LeaveStream(long streamId);
     }
