@@ -5,7 +5,7 @@
     <RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>
     <PackageName>PrivMX.Endpoint</PackageName>
     <PackageId>PrivMX.Endpoint</PackageId>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <Authors>Simplito sp. z o.o.</Authors>
     <Product>PrivMX Endpoint C#</Product>
     <Title>PrivMX Endpoint C#</Title>
