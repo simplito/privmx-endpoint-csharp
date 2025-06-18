@@ -11,18 +11,18 @@
 
 using PrivMX.Endpoint.Core.Models;
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
     /// Represents the event of type "storeFileDeleted".
     /// 
-    /// This event is emitting when file events are subscribed and a file is deleted.
+    /// This event is emitted when file events are subscribed and a file is deleted.
     /// </summary>
     public class StoreFileDeletedEvent : Core.Models.Event
     {
         /// <summary>
         /// Metadata of the deleted file.
         /// </summary>
-        public StoreFileDeletedEventData Data { get; set; }
+        public StoreFileDeletedEventData Data { get; set; } = null!;
     }
 }

@@ -19,12 +19,12 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the Thread.
         /// </summary>
-        public string ThreadId { get; set; }
+        public string ThreadId { get; set; } = null!;
 
         /// <summary>
         /// ID of the message.
         /// </summary>
-        public string MessageId { get; set; }
+        public string MessageId { get; set; } = null!;
 
         /// <summary>
         /// Server creation timestamp.
@@ -34,6 +34,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the creator user.
         /// </summary>
-        public string Author { get; set; }
+        public string Author { get; set; } = null!;
     }
 }

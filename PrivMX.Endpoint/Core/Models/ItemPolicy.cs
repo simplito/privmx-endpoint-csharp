@@ -19,31 +19,31 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// (optional) Determines who can get an item.
         /// </summary>
-        public string Get { get; set; }
+        public string? Get { get; set; }
 
         /// <summary>
         /// (optional) Determines who can list items created by me.
         /// </summary>
-        public string ListMy { get; set; }
+        public string? ListMy { get; set; }
 
         /// <summary>
         /// (optional) Determines who can list all items.
         /// </summary>
-        public string ListAll { get; set; }
+        public string? ListAll { get; set; }
 
         /// <summary>
         /// (optional) Determines who can create an item.
         /// </summary>
-        public string Create { get; set; }
+        public string? Create { get; set; }
 
         /// <summary>
         /// (optional) Determines who can update an item.
         /// </summary>
-        public string Update { get; set; }
+        public string? Update { get; set; }
 
         /// <summary>
         /// (optional) Determines who can delete an item.
         /// </summary>
-        public string Delete_ { get; set; }
+        public string? Delete_ { get; set; }
     }
 }

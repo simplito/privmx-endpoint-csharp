@@ -19,27 +19,27 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Server metadata.
         /// </summary>
-        public ServerMessageInfo Info { get; set; }
+        public ServerMessageInfo Info { get; set; } = null!;
 
         /// <summary>
         /// Public metadata.
         /// </summary>
-        public byte[] PublicMeta { get; set; }
+        public byte[] PublicMeta { get; set; } = null!;
 
         /// <summary>
         /// Private metadata.
         /// </summary>
-        public byte[] PrivateMeta { get; set; }
+        public byte[] PrivateMeta { get; set; } = null!;
 
         /// <summary>
         /// Payload of the message.
         /// </summary>
-        public byte[] Data { get; set; }
+        public byte[] Data { get; set; } = null!;
 
         /// <summary>
         /// Verified public key of the PublicMeta, PrivateMeta and Data author.
         /// </summary>
-        public string AuthorPubKey { get; set; }
+        public string AuthorPubKey { get; set; } = null!;
 
         /// <summary>
         /// Status code of decryption and verification of the message.

@@ -19,31 +19,31 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// (optional) Determines who can get the container.
         /// </summary>
-        public string Get { get; set; }
+        public string? Get { get; set; }
 
         /// <summary>
         /// (optional) Determines who can update the container.
         /// </summary>
-        public string Update { get; set; }
+        public string? Update { get; set; }
 
         /// <summary>
         /// (optional) Determines who can delete the container.
         /// </summary>
-        public string Delete_ { get; set; }
+        public string? Delete_ { get; set; }
 
         /// <summary>
         /// (optional) Determines who can update this policy.
         /// </summary>
-        public string UpdatePolicy { get; set; }
+        public string? UpdatePolicy { get; set; }
 
         /// <summary>
         /// (optional) Determines whether the updater can be removed from the list of managers.
         /// </summary>
-        public string UpdaterCanBeRemovedFromManagers { get; set; }
+        public string? UpdaterCanBeRemovedFromManagers { get; set; }
 
         /// <summary>
         /// (optional) Determines whether the owner can be removed from the list of managers.
         /// </summary>
-        public string OwnerCanBeRemovedFromManagers { get; set; }
+        public string? OwnerCanBeRemovedFromManagers { get; set; }
     }
 }

@@ -19,12 +19,12 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// ID of the Store.
         /// </summary>
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } = null!;
 
         /// <summary>
         /// ID of the file.
         /// </summary>
-        public string FileId { get; set; }
+        public string FileId { get; set; } = null!;
 
         /// <summary>
         /// Server creation timestamp.
@@ -34,6 +34,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// <summary>
         /// ID of the creator user.
         /// </summary>
-        public string Author { get; set; }
+        public string Author { get; set; } = null!;
     }
 }

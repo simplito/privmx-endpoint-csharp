@@ -16,13 +16,13 @@ namespace PrivMX.Endpoint.Thread.Models
     /// <summary>
     /// Represents the event of type "threadDeleted".
     /// 
-    /// This event is emitting when Thread events are subscribed and a Thread is deleted.
+    /// This event is emitted when Thread events are subscribed and a Thread is deleted.
     /// </summary>
     public class ThreadDeletedEvent : Core.Models.Event
     {
         /// <summary>
         /// Deleted Thread metadata.
         /// </summary>
-        public ThreadDeletedEventData Data { get; set; }
+        public ThreadDeletedEventData Data { get; set; } = null!;
     }
 }

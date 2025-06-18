@@ -32,7 +32,7 @@ namespace PrivMX.Endpoint.Store
         static public StoreApi Create(Connection connection)
         {
             StoreApi storeApi = new StoreApi(connection);
-            storeApi.executor.ExecuteVoid(storeApi.ptr, (int)StoreApiNative.Method.Create, new List<object>{});
+            storeApi.executor.ExecuteVoid(storeApi.ptr, (int)StoreApiNative.Method.Create, new List<object?>{});
             return storeApi;
         }
 
@@ -52,13 +52,13 @@ namespace PrivMX.Endpoint.Store
         /// <param name="contextId">ID of the Context to create the Store in.</param>
         /// <param name="users">Array of UserWithPubKey structs which indicates who will have access to the created Store.</param>
         /// <param name="managers">Array of UserWithPubKey structs which indicates who will have access (and management rights) to the created Store.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="policies">(optional) Store policy.</param>
         /// <returns>Created Store ID.</returns>
-        public string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
+        public string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null)
         {
-            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CreateStore, new List<object>{contextId, users, managers, publicMeta, privateMeta, policies});
+            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CreateStore, new List<object?>{contextId, users, managers, publicMeta, privateMeta, policies});
         }
 
         /// <summary>
@@ -67,15 +67,15 @@ namespace PrivMX.Endpoint.Store
         /// <param name="storeId">ID of the Store to update.</param>
         /// <param name="users">Array of UserWithPubKey structs which indicates who will have access to the created Store.</param>
         /// <param name="managers">Array of UserWithPubKey structs which indicates who will have access (and management rights) to the created Store.</param>
-        /// <param name="publicMeta">Public (unencrypted) metadata.</param>
-        /// <param name="privateMeta">Private (encrypted) metadata.</param>
+        /// <param name="publicMeta">Public metadata that will remain unencrypted on the Bridge.</param>
+        /// <param name="privateMeta">Private metadata that will be encrypted before being sent to the Bridge.</param>
         /// <param name="version">Current version of the updated Store.</param>
         /// <param name="force">Force update (without checking version).</param>
         /// <param name="forceGenerateNewKey">Force to renenerate a key for the Store.</param>
         /// <param name="policies">(optional) Store policy.</param>
-        public void UpdateStore(string storeId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null)
+        public void UpdateStore(string storeId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateStore, new List<object>{storeId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateStore, new List<object?>{storeId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="storeId">ID of the Store to delete.</param>
         public void DeleteStore(string storeId)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.DeleteStore, new List<object>{storeId});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.DeleteStore, new List<object?>{storeId});
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Information about about the Store.</returns>
         public Models.Store GetStore(string storeId)
         {
-            return executor.Execute<Models.Store>(ptr, (int)StoreApiNative.Method.GetStore, new List<object>{storeId});
+            return executor.Execute<Models.Store>(ptr, (int)StoreApiNative.Method.GetStore, new List<object?>{storeId});
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>List of Stores.</returns>
         public PagingList<Models.Store> ListStores(string contextId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Models.Store>>(ptr, (int)StoreApiNative.Method.ListStores, new List<object>{contextId, pagingQuery});
+            return executor.Execute<PagingList<Models.Store>>(ptr, (int)StoreApiNative.Method.ListStores, new List<object?>{contextId, pagingQuery});
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Handle to write data.</returns>
         public long CreateFile(string storeId, byte[] publicMeta, byte[] privateMeta, long size)
         {
-            return executor.Execute<long>(ptr, (int)StoreApiNative.Method.CreateFile, new List<object>{storeId, publicMeta, privateMeta, size});
+            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.CreateFile, new List<object?>{storeId, publicMeta, privateMeta, size});
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Handle to write file data.</returns>
         public long UpdateFile(string fileId, byte[] publicMeta, byte[] privateMeta, long size)
         {
-            return executor.Execute<long>(ptr, (int)StoreApiNative.Method.UpdateFile, new List<object>{fileId, publicMeta, privateMeta, size});
+            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.UpdateFile, new List<object?>{fileId, publicMeta, privateMeta, size});
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="privateMeta">Private file meta_data.</param>
         public void UpdateFileMeta(string fileId, byte[] publicMeta, byte[] privateMeta)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateFileMeta, new List<object>{fileId, publicMeta, privateMeta});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UpdateFileMeta, new List<object?>{fileId, publicMeta, privateMeta});
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="dataChunk">File data chunk.</param>
         public void WriteToFile(long fileHandle, byte[] dataChunk)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.WriteToFile, new List<object>{fileHandle, dataChunk});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.WriteToFile, new List<object?>{fileHandle, dataChunk});
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="storeId">ID of the file to delete.</param>
         public void DeleteFile(string storeId)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.DeleteFile, new List<object>{storeId});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.DeleteFile, new List<object?>{storeId});
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Information about the file.</returns>
         public File GetFile(string fileId)
         {
-            return executor.Execute<File>(ptr, (int)StoreApiNative.Method.GetFile, new List<object>{fileId});
+            return executor.Execute<File>(ptr, (int)StoreApiNative.Method.GetFile, new List<object?>{fileId});
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>List of files.</returns>
         public PagingList<File> ListFiles(string storeId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<File>>(ptr, (int)StoreApiNative.Method.ListFiles, new List<object>{storeId, pagingQuery});
+            return executor.Execute<PagingList<File>>(ptr, (int)StoreApiNative.Method.ListFiles, new List<object?>{storeId, pagingQuery});
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Handle to read file data.</returns>
         public long OpenFile(string fileId)
         {
-            return executor.Execute<long>(ptr, (int)StoreApiNative.Method.OpenFile, new List<object>{fileId});
+            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.OpenFile, new List<object?>{fileId});
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>File data chunk.</returns>
         public byte[] ReadFromFile(long fileHandle, long length)
         {
-            return executor.Execute<byte[]>(ptr, (int)StoreApiNative.Method.ReadFromFile, new List<object>{fileHandle, length});
+            return executor.Execute<byte[]>(ptr, (int)StoreApiNative.Method.ReadFromFile, new List<object?>{fileHandle, length});
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace PrivMX.Endpoint.Store
         /// <param name="position">New cursor position.</param>
         public void SeekInFile(long fileHandle, long position)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SeekInFile, new List<object>{fileHandle, position});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SeekInFile, new List<object?>{fileHandle, position});
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace PrivMX.Endpoint.Store
         /// <returns>ID of closed file.</returns>
         public string CloseFile(long fileHandle)
         {
-            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CloseFile, new List<object>{fileHandle});
+            return executor.Execute<string>(ptr, (int)StoreApiNative.Method.CloseFile, new List<object?>{fileHandle});
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace PrivMX.Endpoint.Store
         /// </summary>
         public void SubscribeForStoreEvents()
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForStoreEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForStoreEvents, new List<object?>{});
         }
 
         /// <summary>
@@ -239,25 +239,25 @@ namespace PrivMX.Endpoint.Store
         /// </summary>
         public void UnsubscribeFromStoreEvents()
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromStoreEvents, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromStoreEvents, new List<object?>{});
         }
 
         /// <summary>
         /// Subscribes for the events in given Store.
         /// </summary>
-        /// <param name="storeId">ID of the store to subscribe to.</param>
+        /// <param name="storeId">ID of the Store to subscribe for.</param>
         public void SubscribeForFileEvents(string storeId)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForFileEvents, new List<object>{storeId});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForFileEvents, new List<object?>{storeId});
         }
 
         /// <summary>
         /// Unsubscribes from the events in given Store.
         /// </summary>
-        /// <param name="storeId">ID of the store to unsubscribe from.</param>
+        /// <param name="storeId">ID of the Store to unsubscribe from.</param>
         public void UnsubscribeFromFileEvents(string storeId)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromFileEvents, new List<object>{storeId});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromFileEvents, new List<object?>{storeId});
         }
     }
 }

@@ -19,11 +19,11 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// ID of the current user in the Context.
         /// </summary>
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         /// <summary>
         /// ID of the Context.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
     }
 }

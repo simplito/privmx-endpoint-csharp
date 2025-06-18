@@ -19,6 +19,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the deleted Thread.
         /// </summary>
-        public string ThreadId { get; set; }
+        public string ThreadId { get; set; } = null!;
     }
 }

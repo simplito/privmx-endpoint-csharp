@@ -16,13 +16,13 @@ namespace PrivMX.Endpoint.Store.Models
     /// <summary>
     /// Represents the event of type "storeFileCreated".
     /// 
-    /// This event is emitting when file events are subscribed and a new file is created.
+    /// This event is emitted when file events are subscribed and a new file is created.
     /// </summary>
     public class StoreFileCreatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Created file.
         /// </summary>
-        public File Data { get; set; }
+        public File Data { get; set; } = null!;
     }
 }

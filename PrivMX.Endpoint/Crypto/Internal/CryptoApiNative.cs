@@ -9,9 +9,9 @@
 // limitations under the License.
 //
 
+using PrivMX.Endpoint.Core.Internal;
 using System;
 using System.Runtime.InteropServices;
-using PrivMX.Endpoint.Core.Internal;
 
 namespace PrivMX.Endpoint.Crypto.Internal
 {

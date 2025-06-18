@@ -27,6 +27,6 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// Resulting items listed according to the paging parameters passed to a method.
         /// </summary>
-        public List<T> ReadItems { get; set; }
+        public List<T> ReadItems { get; set; } = null!;
     }
 }

@@ -50,7 +50,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>JSON string representing raw server response.</returns>
         public string BackendRequest(string serverUrl, string accessToken, string method, string paramsAsJson)
         {
-            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object> { serverUrl, accessToken, method, paramsAsJson });
+            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object?> { serverUrl, accessToken, method, paramsAsJson });
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>JSON string representing raw server response.</returns>
         public string BackendRequest(string serverUrl, string method, string paramsAsJson)
         {
-            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object> { serverUrl, method, paramsAsJson });
+            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object?> { serverUrl, method, paramsAsJson });
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>JSON string representing raw server response.</returns>
         public string BackendRequest(string serverUrl, string apiKeyId, string apiKeySecret, long mode, string method, string paramsAsJson)
         {
-            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object> { serverUrl, apiKeyId, apiKeySecret, mode, method, paramsAsJson });
+            return executor.Execute<string>(ptr, (int)BackendRequesterNative.Method.BackendRequest, new List<object?> { serverUrl, apiKeyId, apiKeySecret, mode, method, paramsAsJson });
         }
     }
 }

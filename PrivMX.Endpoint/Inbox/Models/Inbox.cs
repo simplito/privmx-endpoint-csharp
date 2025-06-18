@@ -9,8 +9,8 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
+using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Inbox.Models
 {
@@ -22,12 +22,12 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// ID of the Inbox.
         /// </summary>
-        public string InboxId { get; set; }
+        public string InboxId { get; set; } = null!;
 
         /// <summary>
         /// ID og the Context.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
 
         /// <summary>
         /// Server creation timestamp.
@@ -37,7 +37,7 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// ID of the creator user.
         /// </summary>
-        public string Creator { get; set; }
+        public string Creator { get; set; } = null!;
 
         /// <summary>
         /// Last modification timestamp.
@@ -47,17 +47,17 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// ID of the user who was last a modifier.
         /// </summary>
-        public string LastModifier { get; set; }
+        public string LastModifier { get; set; } = null!;
 
         /// <summary>
         /// List of user IDs that have access to the Inbox.
         /// </summary>
-        public List<string> Users { get; set; }
+        public List<string> Users { get; set; } = null!;
 
         /// <summary>
         /// List of user IDs that have management rights to the Inbox.
         /// </summary>
-        public List<string> Managers { get; set; }
+        public List<string> Managers { get; set; } = null!;
 
         /// <summary>
         /// Number of the Inbox updates.
@@ -67,22 +67,22 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// Public metadata.
         /// </summary>
-        public byte[] PublicMeta { get; set; }
+        public byte[] PublicMeta { get; set; } = null!;
 
         /// <summary>
         /// Private metadata.
         /// </summary>
-        public byte[] PrivateMeta { get; set; }
+        public byte[] PrivateMeta { get; set; } = null!;
 
         /// <summary>
-        /// Files configuration for the Inbox. 
+        /// (optional) Files configuration for the Inbox. 
         /// </summary>
-        public FilesConfig FilesConfig { get; set; }
+        public FilesConfig? FilesConfig { get; set; }
 
         /// <summary>
         /// Inbox policy.
         /// </summary>
-        public ContainerPolicyWithoutItem Policy { get; set; }
+        public ContainerPolicyWithoutItem Policy { get; set; } = null!;
 
         /// <summary>
         /// Status code of decryption and verification of the Thread.
