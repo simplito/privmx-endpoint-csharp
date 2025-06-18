@@ -17,13 +17,13 @@ namespace PrivMX.Endpoint.Stream
 {
     public interface IStreamApi
     {
-        string CreateStreamRoom(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null);
-        void UpdateStreamRoom(string streamRoomId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null);
+        string CreateStreamRoom(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null);
+        void UpdateStreamRoom(string streamRoomId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null);
         void DeleteStreamRoom(string streamRoomId);
         StreamRoom GetStreamRoom(string streamRoomId);
         PagingList<StreamRoom> ListStreamRooms(string contextId, PagingQuery pagingQuery);
         long CreateStream(string streamRoomId);
-        void AddTrack(long streamId, TrackType type, string params = null);
+        void AddTrack(long streamId, TrackType type, string? parameters = null);
         void PublishStream(long streamId);
         void StreamTrackSendData(long streamId, byte[] data);
         long JoinStream(string streamRoomId, string? settings = null);

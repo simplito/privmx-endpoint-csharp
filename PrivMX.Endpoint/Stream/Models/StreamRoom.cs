@@ -9,6 +9,9 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models;
+
 namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
@@ -64,7 +67,7 @@ namespace PrivMX.Endpoint.Stream.Models
         /// <summary>
         /// Stream room's policy.
         /// </summary>
-        public ContainerPolicy Policy { get; set; }
+        public ContainerPolicy Policy { get; set; } = null!;
 
         /// <summary>
         /// Public metadata.

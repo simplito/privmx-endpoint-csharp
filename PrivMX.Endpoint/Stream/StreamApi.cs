@@ -36,12 +36,12 @@ namespace PrivMX.Endpoint.Stream
             this.eventApi = eventApi;
         }
 
-        public string CreateStreamRoom(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null)
+        public string CreateStreamRoom(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null)
         {
-            return storeApi.CreateStore(contextId, users, managers, publicMeta, privateMeta, policy);
+            return storeApi.CreateStore(contextId, users, managers, publicMeta, privateMeta, policies);
         }
 
-        public void UpdateStreamRoom(string streamRoomId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null)
+        public void UpdateStreamRoom(string streamRoomId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null)
         {
             storeApi.UpdateStore(streamRoomId, users, managers, publicMeta, privateMeta, version, force, forceGenerateNewKey, policies);
         }
@@ -68,37 +68,37 @@ namespace PrivMX.Endpoint.Stream
             
         }
 
-        void AddTrack(long streamId, TrackType type, string params = null)
+        public void AddTrack(long streamId, TrackType type, string? parameters = null)
         {
 
         }
 
-        void PublishStream(long streamId)
+        public void PublishStream(long streamId)
         {
 
         }
 
-        void StreamTrackSendData(long streamId, byte[] data)
+        public void StreamTrackSendData(long streamId, byte[] data)
         {
 
         }
 
-        long JoinStream(string streamRoomId, string? settings = null)
+        public long JoinStream(string streamRoomId, string? settings = null)
         {
 
         }
 
-        void StreamTrackRecvData(long streamId)
+        public void StreamTrackRecvData(long streamId)
         {
 
         }
 
-        void UnpublishStream(long streamId)
+        public void UnpublishStream(long streamId)
         {
 
         }
 
-        void LeaveStream(long streamId)
+        public void LeaveStream(long streamId)
         {
 
         }
@@ -121,9 +121,9 @@ namespace PrivMX.Endpoint.Stream
         // {
         // }
 
-        private PagingList<StreamRoom> MapStores(PagingList<Model.Store> stores)
+        private PagingList<StreamRoom> MapStores(PagingList<Store.Models.Store> stores)
         {
-            PagingList<StreamRoom> result = new PagingList<StreamRoom>() { TotalAvailable = stores.TotalAvailable, ReadItems = [] };
+            PagingList<StreamRoom> result = new PagingList<StreamRoom>() { TotalAvailable = stores.TotalAvailable, ReadItems = new List<StreamRoom>() };
             foreach (var store in stores.ReadItems)
             {
                 result.ReadItems.Add(MapStore(store));
@@ -131,7 +131,7 @@ namespace PrivMX.Endpoint.Stream
             return result;
         }
 
-        private StreamRoom MapStore(Models.Store store)
+        private StreamRoom MapStore(Store.Models.Store store)
         {
             return new StreamRoom() {
                 ContextId = store.ContextId,
