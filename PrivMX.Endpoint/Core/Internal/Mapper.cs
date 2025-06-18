@@ -25,7 +25,7 @@ namespace PrivMX.Endpoint.Core.Internal
             this.registeredTypes = registeredTypes;
         }
 
-        public IntPtr MapToDynamicValue(object obj)
+        public IntPtr MapToDynamicValue(object? obj)
         {
             if (obj is null)
             {
@@ -85,18 +85,18 @@ namespace PrivMX.Endpoint.Core.Internal
             return psonObj;
         }
 
-        public T ParseFromDynamicValue<T>(IntPtr value)
+        public T? ParseFromDynamicValue<T>(IntPtr value) where T : class
         {
-            return (T)ParseFromDynamicValue(value, typeof(T));
+            return (T?)ParseFromDynamicValue(value, typeof(T));
         }
 
-        private object ParseFromDynamicValue(IntPtr value, Type type)
+        private object? ParseFromDynamicValue(IntPtr value, Type type)
         {
             PsonNative.Type psonType = PsonNative.pson_value_type(value);
             switch (psonType)
             {
                 case PsonNative.Type.PSON_NULL:
-                    return GetDefaultValue(type);
+                    return null;
                 case PsonNative.Type.PSON_BOOL:
                     {
                         PsonNative.pson_get_bool(value, out bool val);
@@ -137,25 +137,25 @@ namespace PrivMX.Endpoint.Core.Internal
                 case PsonNative.Type.PSON_ARRAY:
                     {
                         PsonNative.pson_get_array_size(value, out int size);
-                        object list = Activator.CreateInstance(type);
+                        object? list = Activator.CreateInstance(type);
                         var method = type.GetMethod("Add");
                         for (int i = 0; i < size; ++i) {
                             IntPtr element = PsonNative.pson_get_array_value(value, i);
-                            method?.Invoke(list, new object[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
+                            method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
                         }
                         return list;
                     }
                 case PsonNative.Type.PSON_OBJECT:
                     {
                         Type objType = TryResolveRegisteredType(value) ?? type;
-                        object obj = Activator.CreateInstance(objType);
+                        object? obj = Activator.CreateInstance(objType);
                         if (obj is null)
                         {
                             return null;
                         }
                         if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) {
                             while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) {
-                                string keyStr = Marshal.PtrToStringUTF8(key);
+                                string? keyStr = Marshal.PtrToStringUTF8(key);
                                 if (keyStr is null)
                                 {
                                     continue;
@@ -173,17 +173,8 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_INVALID:
                 default:
-                    return GetDefaultValue(type);
+                    return null;
             }
-        }
-
-        private object GetDefaultValue(Type type)
-        {
-            if (type.IsValueType)
-            {
-                return Activator.CreateInstance(type);
-            }
-            return null;
         }
 
         public static void FreeDynamicValue(IntPtr value)
@@ -191,16 +182,16 @@ namespace PrivMX.Endpoint.Core.Internal
             PsonNative.pson_free_value(value);
         }
 
-        private Type TryResolveRegisteredType(IntPtr value)
+        private Type? TryResolveRegisteredType(IntPtr value)
         {
             if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0)
             {
                 while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr psonValue) != 0)
                 {
-                    string keyStr = Marshal.PtrToStringUTF8(key);
+                    string? keyStr = Marshal.PtrToStringUTF8(key);
                     if (string.Equals(keyStr, "__type")) {
-                        string typeStr = ParseFromDynamicValue<string>(psonValue);
-                        if (!(typeStr is null) && registeredTypes.TryGetValue(typeStr, out Type type))
+                        string? typeStr = ParseFromDynamicValue<string>(psonValue);
+                        if (!(typeStr is null) && registeredTypes.TryGetValue(typeStr, out Type? type))
                         {
                             PsonNative.pson_close_object_iterator(it);
                             return type;

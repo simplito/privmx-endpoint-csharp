@@ -19,7 +19,7 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// ID of the Inbox.
         /// </summary>
-        public string InboxId { get; set; }
+        public string InboxId { get; set; } = null!;
 
         /// <summary>
         /// Number of the Inbox updates.
@@ -29,6 +29,6 @@ namespace PrivMX.Endpoint.Inbox.Models
         /// <summary>
         /// Public metadata.
         /// </summary>
-        public byte[] PublicMeta { get; set; }
+        public byte[] PublicMeta { get; set; } = null!;
     }
 }

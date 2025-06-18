@@ -25,21 +25,21 @@ namespace PrivMX.Endpoint.Core.Internal
             this.nativeExecutor = nativeExecutor;
         }
 
-        public void ExecuteVoid(IntPtr ptr, int method, List<object> args)
+        public void ExecuteVoid(IntPtr ptr, int method, List<object?> args)
         {
             ExecuteOpt<object>(ptr, method, args);
         }
 
-        public T Execute<T>(IntPtr ptr, int method, List<object> args)
+        public T Execute<T>(IntPtr ptr, int method, List<object?> args) where T : class
         {
             return ExecuteOpt<T>(ptr, method, args) ?? throw new EndpointException("Unexpected error: Result is null");
         }
 
-        public T ExecuteOpt<T>(IntPtr ptr, int method, List<object> args)
+        public T? ExecuteOpt<T>(IntPtr ptr, int method, List<object?> args) where T : class
         {
             var dynamicValueArgs = mapper.MapToDynamicValue(args);
-            nativeExecutor.Exec(ptr, (int)method, dynamicValueArgs, out var dynamicValueResult);
-            ExecResult<T> nullableResult = mapper.ParseFromDynamicValue<ExecResult<T>>(dynamicValueResult);
+            nativeExecutor.Exec(ptr, method, dynamicValueArgs, out var dynamicValueResult);
+            ExecResult<T>? nullableResult = mapper.ParseFromDynamicValue<ExecResult<T>>(dynamicValueResult);
             PsonNative.pson_free_value(dynamicValueArgs);
             PsonNative.pson_free_value(dynamicValueResult);
             if (nullableResult is null)
@@ -47,6 +47,30 @@ namespace PrivMX.Endpoint.Core.Internal
                 throw new EndpointException("Unexpected error: ExecResult<T> is null");
             }
             ExecResult<T> result = nullableResult;
+            if (!(result.Error is null))
+            {
+                throw new EndpointNativeException(result.Error);
+            }
+            return result.Result;
+        }
+
+        public T ExecuteValue<T>(IntPtr ptr, int method, List<object?> args) where T : struct
+        {
+            return ExecuteValueOpt<T>(ptr, method, args) ?? throw new EndpointException("Unexpected error: Result is null");
+        }
+
+        public T? ExecuteValueOpt<T>(IntPtr ptr, int method, List<object?> args) where T : struct
+        {
+            var dynamicValueArgs = mapper.MapToDynamicValue(args);
+            nativeExecutor.Exec(ptr, method, dynamicValueArgs, out var dynamicValueResult);
+            ExecValueResult<T>? nullableResult = mapper.ParseFromDynamicValue<ExecValueResult<T>>(dynamicValueResult);
+            PsonNative.pson_free_value(dynamicValueArgs);
+            PsonNative.pson_free_value(dynamicValueResult);
+            if (nullableResult is null)
+            {
+                throw new EndpointException("Unexpected error: ExecValueResult<T> is null");
+            }
+            ExecValueResult<T> result = nullableResult;
             if (!(result.Error is null))
             {
                 throw new EndpointNativeException(result.Error);

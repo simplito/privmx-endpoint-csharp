@@ -9,21 +9,21 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Inbox.Models;
+using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Inbox
 {
     public interface IInboxApi
     {
-        string CreateInbox(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig filesConfig, ContainerPolicyWithoutItem policies = null);
-        void UpdateInbox(string inboxId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig filesConfig, long version, bool force, bool forceGenerateNewKey, ContainerPolicyWithoutItem policies = null);
+        string CreateInbox(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig? filesConfig, ContainerPolicyWithoutItem? policies = null);
+        void UpdateInbox(string inboxId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig? filesConfig, long version, bool force, bool forceGenerateNewKey, ContainerPolicyWithoutItem? policies = null);
         Models.Inbox GetInbox(string inboxId);
         PagingList<Models.Inbox> ListInboxes(string contextId, PagingQuery pagingQuery);
         InboxPublicView GetInboxPublicView(string inboxId);
         void DeleteInbox(string inboxId);
-        long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string userPrivKey);
+        long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string? userPrivKey);
         void SendEntry(long inboxHandle);
         InboxEntry ReadEntry(string inboxEntryId);
         PagingList<InboxEntry> ListEntries(string inboxId, PagingQuery pagingQuery);

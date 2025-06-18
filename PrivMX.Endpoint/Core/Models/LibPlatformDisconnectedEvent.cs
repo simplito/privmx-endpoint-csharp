@@ -14,7 +14,7 @@ namespace PrivMX.Endpoint.Core.Models
     /// <summary>
     /// Represents the event of type "libPlatformDisconnected".
     /// 
-    /// This event is emitting only by calling <see cref="Connection.Disconnect()"/>.
+    /// This event is emitted when <see cref="Connection.Disconnect()"/> method is called.
     /// </summary>
     public class LibPlatformDisconnectedEvent : Event {}
 }

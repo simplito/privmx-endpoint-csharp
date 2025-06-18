@@ -18,7 +18,7 @@ namespace PrivMX.Endpoint.Core
 {
     public class EventQueue : IEventQueue
     {
-        static private EventQueue instance = null;
+        static private EventQueue? instance = null;
         private readonly IntPtr ptr;
         private readonly Executor executor = new Executor(new EventQueueNative());
         
@@ -49,16 +49,16 @@ namespace PrivMX.Endpoint.Core
         /// </summary>
         public void EmitBreakEvent()
         {
-            executor.ExecuteVoid(ptr, (int)EventQueueNative.Method.EmitBreakEvent, new List<object>{});
+            executor.ExecuteVoid(ptr, (int)EventQueueNative.Method.EmitBreakEvent, new List<object?>{});
         }
 
         /// <summary>
         /// Gets a new event from the queue.
         /// </summary>
         /// <returns>A new event, or <see langword="null"/> if no events in the queue.</returns>
-        public Models.Event GetEvent()
+        public Models.Event? GetEvent()
         {
-            return executor.Execute<Models.Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object>{});
+            return executor.ExecuteOpt<Models.Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object?>{});
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>A new event.</returns>
         public Models.Event WaitEvent()
         {
-            return executor.Execute<Models.Event>(ptr, (int)EventQueueNative.Method.WaitEvent, new List<object>{});
+            return executor.Execute<Models.Event>(ptr, (int)EventQueueNative.Method.WaitEvent, new List<object?>{});
         }
     }
 }

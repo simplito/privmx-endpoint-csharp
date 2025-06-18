@@ -9,8 +9,8 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
+using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Thread.Models
 {
@@ -22,12 +22,12 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the Context.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
         
         /// <summary>
         /// ID of the Thread.
         /// </summary>
-        public string ThreadId { get; set; }
+        public string ThreadId { get; set; } = null!;
 
         /// <summary>
         /// Server creation timestamp.
@@ -37,7 +37,7 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the creator user.
         /// </summary>
-        public string Creator { get; set; }
+        public string Creator { get; set; } = null!;
 
         /// <summary>
         /// Last modification timestamp.
@@ -47,17 +47,17 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the user who was last a modifier.
         /// </summary>
-        public string LastModifier { get; set; }
+        public string LastModifier { get; set; } = null!;
 
         /// <summary>
         /// List of user IDs that have access to the Thread.
         /// </summary>
-        public List<string> Users { get; set; }
+        public List<string> Users { get; set; } = null!;
 
         /// <summary>
         /// List of user IDs that have management rights to the Thread.
         /// </summary>
-        public List<string> Managers { get; set; }
+        public List<string> Managers { get; set; } = null!;
 
         /// <summary>
         /// Number of the Thread updates.
@@ -72,17 +72,17 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// Public metadata.
         /// </summary>
-        public byte[] PublicMeta { get; set; }
+        public byte[] PublicMeta { get; set; } = null!;
 
         /// <summary>
         /// Private metadata.
         /// </summary>
-        public byte[] PrivateMeta { get; set; }
+        public byte[] PrivateMeta { get; set; } = null!;
 
         /// <summary>
         /// Thread's policy.
         /// </summary>
-        public ContainerPolicy Policy { get; set; }
+        public ContainerPolicy Policy { get; set; } = null!;
 
         /// <summary>
         /// Total number of messages in the Thread.

@@ -11,18 +11,18 @@
 
 using PrivMX.Endpoint.Core.Models;
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
     /// Represents the event of type "storeStatsChanged".
     /// 
-    /// This event is emitting when Store events are subscribed and statistics of a Store is changed.
+    /// This event is emitted when Store events are subscribed and statistics of a Store is changed.
     /// </summary>
     public class StoreStatsChangedEvent : Core.Models.Event
     {
         /// <summary>
         /// Store statistics.
         /// </summary>
-        public StoreStatsChangedEventData Data { get; set; }
+        public StoreStatsChangedEventData Data { get; set; } = null!;
     }
 }

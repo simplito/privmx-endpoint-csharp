@@ -9,7 +9,7 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
     /// Represents payload of the StoreDeletedEvent.
@@ -19,6 +19,6 @@ namespace PrivMX.Endpoint.Thread.Models
         /// <summary>
         /// ID of the deleted Store.
         /// </summary>
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } = null!;
     }
 }

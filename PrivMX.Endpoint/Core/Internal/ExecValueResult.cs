@@ -9,16 +9,14 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Core.Models
+using PrivMX.Endpoint.Core.Models;
+
+namespace PrivMX.Endpoint.Core.Internal
 {
-    /// <summary>
-    /// Represents a container and item policy.
-    /// </summary>
-    public class ContainerPolicy : ContainerPolicyWithoutItem
+    internal class ExecValueResult<T> where T : struct
     {
-        /// <summary>
-        /// (optional) Item policy.
-        /// </summary>
-        public ItemPolicy? Item { get; set; }
+        public bool Status { get; set; }
+        public T? Result { get; set; }
+        public Error? Error { get; set; }
     }
 }

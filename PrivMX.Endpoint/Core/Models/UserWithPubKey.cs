@@ -19,11 +19,11 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// ID of the user in the Context.
         /// </summary>
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         /// <summary>
         /// Public key associated with the user.
         /// </summary>
-        public string PubKey { get; set; }
+        public string PubKey { get; set; } = null!;
     }
 }

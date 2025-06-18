@@ -9,16 +9,16 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Store.Models;
+using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Store
 {
     public interface IStoreApi
     {
-        string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy policies = null);
-        void UpdateStore(string storeId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy policies = null);
+        string CreateStore(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null);
+        void UpdateStore(string storeId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null);
         void DeleteStore(string storeId);
         Models.Store GetStore(string storeId);
         PagingList<Models.Store> ListStores(string contextId, PagingQuery pagingQuery);

@@ -16,13 +16,13 @@ namespace PrivMX.Endpoint.Store.Models
     /// <summary>
     /// Represents the event of type "storeUpdated".
     /// 
-    /// This event is emitting when Store events are subscribed and a Store is updated.
+    /// This event is emitted when Store events are subscribed and a Store is updated.
     /// </summary>
     public class StoreUpdatedEvent : Core.Models.Event
     {
         /// <summary>
         /// Updated Store.
         /// </summary>
-        public Store Data { get; set; }
+        public Store Data { get; set; } = null!;
     }
 }

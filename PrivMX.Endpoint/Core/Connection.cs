@@ -31,7 +31,7 @@ namespace PrivMX.Endpoint.Core
         static public Connection Connect(string userPrivKey, string solutionId, string bridgeUrl)
         {
             Connection connection = new Connection();
-            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.Connect, new List<object> { userPrivKey, solutionId, bridgeUrl });
+            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.Connect, new List<object?> { userPrivKey, solutionId, bridgeUrl });
             return connection;
         }
 
@@ -44,7 +44,7 @@ namespace PrivMX.Endpoint.Core
         static public Connection ConnectPublic(string solutionId, string bridgeUrl)
         {
             Connection connection = new Connection();
-            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.ConnectPublic, new List<object> { solutionId, bridgeUrl });
+            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.ConnectPublic, new List<object?> { solutionId, bridgeUrl });
             return connection;
         }
 
@@ -64,7 +64,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>ID of the connection.</returns>
         public long GetConnectionId()
         {
-            return executor.Execute<long>(ptr, (int)ConnectionNative.Method.GetConnectionId, new List<object> { });
+            return executor.ExecuteValue<long>(ptr, (int)ConnectionNative.Method.GetConnectionId, new List<object?> { });
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>List of contexts.</returns>
         public PagingList<Context> ListContexts(PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Context>>(ptr, (int)ConnectionNative.Method.ListContexts, new List<object> { pagingQuery });
+            return executor.Execute<PagingList<Context>>(ptr, (int)ConnectionNative.Method.ListContexts, new List<object?> { pagingQuery });
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace PrivMX.Endpoint.Core
         /// </summary>
         public void Disconnect()
         {
-            executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.Disconnect, new List<object> { });
+            executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.Disconnect, new List<object?> { });
         }
     }
 }
