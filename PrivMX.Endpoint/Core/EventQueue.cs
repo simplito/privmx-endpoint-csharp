@@ -58,7 +58,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>A new event, or <see langword="null"/> if no events in the queue.</returns>
         public Models.Event? GetEvent()
         {
-            return executor.ExecuteOpt<Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object?>{});
+            return executor.ExecuteOpt<Models.Event>(ptr, (int)EventQueueNative.Method.GetEvent, new List<object?>{});
         }
 
         /// <summary>
