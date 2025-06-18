@@ -31,7 +31,7 @@ namespace PrivMX.Endpoint.Event
         public static EventApi Create(Connection connection)
         {
             EventApi eventApi = new EventApi(connection);
-            eventApi.executor.ExecuteVoid(eventApi.ptr, (int)EventApiNative.Method.Create, new List<object>{});
+            eventApi.executor.ExecuteVoid(eventApi.ptr, (int)EventApiNative.Method.Create, new List<object?>{});
             return eventApi;
         }
 
@@ -54,7 +54,7 @@ namespace PrivMX.Endpoint.Event
         /// <param name="eventData">Event's data.</param>
         public void EmitEvent(string contextId, List<UserWithPubKey> users, string channelName, byte[] eventData)
         {
-            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.EmitEvent, new List<object>{contextId, users, channelName, eventData});
+            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.EmitEvent, new List<object?>{contextId, users, channelName, eventData});
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace PrivMX.Endpoint.Event
         /// <param name="threadId">ID of the Thread to subscribe to.</param>
         public void SubscribeForCustomEvents(string contextId, string channelName)
         {
-            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.SubscribeForCustomEvents, new List<object>{contextId, channelName});
+            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.SubscribeForCustomEvents, new List<object?>{contextId, channelName});
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace PrivMX.Endpoint.Event
         /// <param name="threadId">ID of the Thread to unsubscribe from.</param>
         public void UnsubscribeFromCustomEvents(string contextId, string channelName)
         {
-            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.UnsubscribeFromCustomEvents, new List<object>{contextId, channelName});
+            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.UnsubscribeFromCustomEvents, new List<object?>{contextId, channelName});
         }
     }
 }

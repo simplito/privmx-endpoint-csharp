@@ -19,16 +19,16 @@ namespace PrivMX.Endpoint.Event.Models
         /// <summary>
         /// Context ID.
         /// </summary>
-        public string ContextId { get; set; }
+        public string ContextId { get; set; } = null!;
 
         /// <summary>
         /// User ID (event's sender).
         /// </summary>
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         /// <summary>
         /// Event's actual payload.
         /// </summary>
-        public byte[] Payload { get; set; }
+        public byte[] Payload { get; set; } = null!;
     }
 }

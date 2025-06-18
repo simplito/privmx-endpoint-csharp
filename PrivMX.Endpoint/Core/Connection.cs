@@ -84,7 +84,7 @@ namespace PrivMX.Endpoint.Core
         /// <returns>List of users Info.</returns>
         public List<UserInfo> GetContextUsers(string contextId)
         {
-            return executor.Execute<List<UserInfo>>(ptr, (int)ConnectionNative.Method.GetContextUsers, new List<object> { contextId });
+            return executor.Execute<List<UserInfo>>(ptr, (int)ConnectionNative.Method.GetContextUsers, new List<object?> { contextId });
         }
 
         /// <summary>
