@@ -19,7 +19,7 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// User ID and and its associated public key in the Context.
         /// </summary>
-        public UserWithPubKey User { get; set; }
+        public UserWithPubKey User { get; set; } = null!;
 
         /// <summary>
         /// Status that idicates whether the user is connected to Bridge.

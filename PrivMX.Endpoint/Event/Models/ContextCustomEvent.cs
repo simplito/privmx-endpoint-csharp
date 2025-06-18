@@ -21,6 +21,6 @@ namespace PrivMX.Endpoint.Event.Models
         /// <summary>
         /// Event's data
         /// </summary>
-        public ContextCustomEventData Data { get; set; }
+        public ContextCustomEventData Data { get; set; } = null!;
     }
 }

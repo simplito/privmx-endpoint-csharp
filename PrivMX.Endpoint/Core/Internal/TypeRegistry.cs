@@ -13,7 +13,6 @@ using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Inbox.Models;
 using PrivMX.Endpoint.Store.Models;
 using PrivMX.Endpoint.Thread.Models;
-using PrivMX.Endpoint.Inbox.Models;
 using PrivMX.Endpoint.Event.Models;
 using System;
 using System.Collections.Generic;
