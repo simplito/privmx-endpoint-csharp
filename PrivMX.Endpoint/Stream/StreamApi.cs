@@ -65,7 +65,7 @@ namespace PrivMX.Endpoint.Stream
 
         public long CreateStream(string streamRoomId)
         {
-            
+            return 0;
         }
 
         public void AddTrack(long streamId, TrackType type, string? parameters = null)
@@ -85,7 +85,7 @@ namespace PrivMX.Endpoint.Stream
 
         public long JoinStream(string streamRoomId, string? settings = null)
         {
-
+            return 0;
         }
 
         public void StreamTrackRecvData(long streamId)
