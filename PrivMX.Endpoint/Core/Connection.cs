@@ -28,7 +28,7 @@ namespace PrivMX.Endpoint.Core
         /// <param name="solutionId">ID of the Solution.</param>
         /// <param name="bridgeUrl">PrivMX Bridge URL.</param>
         /// <returns>Created and connected instance of the <see cref="Connection"/>.</returns>
-        static public Connection Connect(string userPrivKey, string solutionId, string bridgeUrl)
+        static public Connection Connect(byte[] userPrivKey, string solutionId, string bridgeUrl)
         {
             Connection connection = new Connection();
             connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.Connect, new List<object?> { userPrivKey, solutionId, bridgeUrl });
