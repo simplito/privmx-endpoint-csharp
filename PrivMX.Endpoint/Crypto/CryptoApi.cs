@@ -48,7 +48,7 @@ namespace PrivMX.Endpoint.Crypto
         /// <param name="data">Data to sign.</param>
         /// <param name="privateKey">The private key used to sign data.</param>
         /// <returns>Signature of data.</returns>
-        public byte[] SignData(byte[] data, string privateKey)
+        public byte[] SignData(byte[] data, byte[] privateKey)
         {
             return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.SignData, new List<object?>{data, privateKey});
         }
@@ -72,9 +72,9 @@ namespace PrivMX.Endpoint.Crypto
         /// </summary>
         /// <param name="randomSeed">(optional) String used as the seed of random generator.</param>
         /// <returns>Generated private key in WIF format.</returns>
-        public string GeneratePrivateKey(string? randomSeed = null)
+        public byte[] GeneratePrivateKey(byte[]? randomSeed = null)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.GeneratePrivateKey, new List<object?>{randomSeed});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.GeneratePrivateKey, new List<object?>{randomSeed});
         }
 
         /// <summary>
@@ -88,9 +88,9 @@ namespace PrivMX.Endpoint.Crypto
         /// <param name="salt">The random additional data used to derive.</param>
         /// <returns>Derived private key in WIF format.</returns>
         [Obsolete("Use CryptoApi.DerivePrivateKey2() instead")]
-        public string DerivePrivateKey(string password, string salt)
+        public byte[] DerivePrivateKey(byte[] password, byte[] salt)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey, new List<object?>{password, salt});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey, new List<object?>{password, salt});
         }
 
         /// <summary>
@@ -104,9 +104,9 @@ namespace PrivMX.Endpoint.Crypto
         /// <param name="password">The password used to derive from.</param>
         /// <param name="salt">The random additional data used to derive.</param>
         /// <returns>Derived private key in WIF format.</returns>
-        public string DerivePrivateKey2(string password, string salt)
+        public byte[] DerivePrivateKey2(byte[] password, byte[] salt)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey2, new List<object?>{password, salt});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.DerivePrivateKey2, new List<object?>{password, salt});
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace PrivMX.Endpoint.Crypto
         /// </summary>
         /// <param name="privateKey">The private key in WIF format.</param>
         /// <returns>Public key in Base58 format.</returns>
-        public string DerivePublicKey(string privateKey)
+        public string DerivePublicKey(byte[] privateKey)
         {
             return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.DerivePublicKey, new List<object?>{privateKey});
         }
@@ -159,9 +159,9 @@ namespace PrivMX.Endpoint.Crypto
         /// </summary>
         /// <param name="pemKey">The private key in PEM format.</param>
         /// <returns>Converted private key to WIF format.</returns>
-        public string ConvertPEMKeytoWIFKey(string pemKey)
+        public byte[] ConvertPEMKeytoWIFKey(byte[] pemKey)
         {
-            return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.ConvertPEMKeytoWIFKey, new List<object?>{pemKey});
+            return executor.Execute<byte[]>(ptr, (int)CryptoApiNative.Method.ConvertPEMKeytoWIFKey, new List<object?>{pemKey});
         }
     }
 }

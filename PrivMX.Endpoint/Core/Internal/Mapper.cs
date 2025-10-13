@@ -124,15 +124,15 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_STRING:
                     {
+                        if (type == typeof(byte[])) {
+                            return MapToBinary(value);
+                        }
                         IntPtr val = PsonNative.pson_get_cstring(value);
                         return Marshal.PtrToStringUTF8(val);
                     }
                 case PsonNative.Type.PSON_BINARY:
                     {
-                        PsonNative.pson_inspect_binary(value, out IntPtr val, out int size);
-                        byte[] res = new byte[size];
-                        Marshal.Copy(val, res, 0, size);
-                        return res;
+                        return MapToBinary(value);
                     }
                 case PsonNative.Type.PSON_ARRAY:
                     {
@@ -175,6 +175,14 @@ namespace PrivMX.Endpoint.Core.Internal
                 default:
                     return null;
             }
+        }
+
+        private static byte[] MapToBinary(IntPtr value)
+        {
+            PsonNative.pson_inspect_binary(value, out IntPtr val, out int size);
+            byte[] res = new byte[size];
+            Marshal.Copy(val, res, 0, size);
+            return res;
         }
 
         public static void FreeDynamicValue(IntPtr value)
