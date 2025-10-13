@@ -15,16 +15,16 @@ namespace PrivMX.Endpoint.Crypto
 {
     public interface ICryptoApi
     {
-        byte[] SignData(byte[] data, string privateKey);
+        byte[] SignData(byte[] data, byte[] privateKey);
         bool VerifySignature(byte[] data, byte[] signature, string publicKey);
-        string GeneratePrivateKey(string? randomSeed = null);
+        byte[] GeneratePrivateKey(byte[]? randomSeed = null);
         [Obsolete("Use ICryptoApi.DerivePrivateKey2() instead")]
-        string DerivePrivateKey(string password, string salt);
-        string DerivePrivateKey2(string password, string salt);
-        string DerivePublicKey(string privateKey);
+        byte[] DerivePrivateKey(byte[] password, byte[] salt);
+        byte[] DerivePrivateKey2(byte[] password, byte[] salt);
+        string DerivePublicKey(byte[] privateKey);
         byte[] GenerateKeySymmetric();
         byte[] EncryptDataSymmetric(byte[] data, byte[] symmetricKey);
         byte[] DecryptDataSymmetric(byte[] data, byte[] symmetricKey);
-        string ConvertPEMKeytoWIFKey(string pemKey);
+        byte[] ConvertPEMKeytoWIFKey(byte[] pemKey);
     }
 }

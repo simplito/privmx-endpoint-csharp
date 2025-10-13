@@ -23,7 +23,7 @@ namespace PrivMX.Endpoint.Inbox
         PagingList<Models.Inbox> ListInboxes(string contextId, PagingQuery pagingQuery);
         InboxPublicView GetInboxPublicView(string inboxId);
         void DeleteInbox(string inboxId);
-        long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string? userPrivKey);
+        long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, byte[]? userPrivKey);
         void SendEntry(long inboxHandle);
         InboxEntry ReadEntry(string inboxEntryId);
         PagingList<InboxEntry> ListEntries(string inboxId, PagingQuery pagingQuery);
