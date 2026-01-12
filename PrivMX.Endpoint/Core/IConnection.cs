@@ -18,7 +18,12 @@ namespace PrivMX.Endpoint.Core
     {
         long GetConnectionId();
         PagingList<Context> ListContexts(PagingQuery pagingQuery);
-        List<UserInfo> GetContextUsers(string contextId);
+        PagingList<UserInfo> ListContextUsers(string contextId, PagingQuery pagingQuery);
+        List<string> SubscribeFor(List<string> subscriptionQueries);
+        void UnsubscribeFrom(List<string> subscriptionIds);
+        string BuildSubscriptionQuery(EventType eventType, EventSelectorType selectorType, string selectorId);
         void Disconnect();
+        void SetUserVerifier(UserVerifierInterface verifier);
+        
     }
 }

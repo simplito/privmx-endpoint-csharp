@@ -78,13 +78,45 @@ namespace PrivMX.Endpoint.Core
         }
 
         /// <summary>
-        /// Gets a list of users of the Context.
+        /// Gets a list of users with their status and the last status change.
         /// </summary>
-        /// <param name="contextId">ID of the Context to get users from.</param>
-        /// <returns>List of users Info.</returns>
-        public List<UserInfo> GetContextUsers(string contextId)
+        /// <param name="contextId">ID of the Context</param>
+        /// <param name="pagingQuery">pagingQuery struct with list query parameters</param>
+        /// <returns>List of users with their status and the last status change</returns>
+        public PagingList<UserInfo> ListContextUsers(string contextId, PagingQuery pagingQuery)
         {
-            return executor.Execute<List<UserInfo>>(ptr, (int)ConnectionNative.Method.GetContextUsers, new List<object?> { contextId });
+            return executor.Execute<PagingList<UserInfo>>(ptr, (int)ConnectionNative.Method.ListContextUsers, new List<object?> { contextId, pagingQuery });
+        }
+
+        /// <summary>
+        /// Subscribe for the Context events on the given subscription query.
+        /// </summary>
+        /// <param name="subscriptionQueries">subscriptionQueries List of queries</param>
+        /// <returns>List of subscriptionIds in matching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
+        {
+            return executor.Execute<List<string>>(ptr, (int)ConnectionNative.Method.SubscribeFor, new List<object?> { subscriptionQueries });
+        }
+
+        /// <summary>
+        /// Unsubscribe from events for the given subscriptionId.
+        /// </summary>
+        /// <param name="subscriptionIds">subscriptionIds List of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
+        {
+            executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.UnsubscribeFrom, new List<object?> { subscriptionIds });
+        }
+
+        /// <summary>
+        /// Generate subscription Query for the Context events.
+        /// </summary>
+        /// <param name="eventType">type of event which you listen for</param>
+        /// <param name="selectorType">scope on which you listen for events</param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>Subscription query string</returns>
+        public string BuildSubscriptionQuery(EventType eventType, EventSelectorType selectorType, string selectorId)
+        {
+            return executor.Execute<string>(ptr, (int)ConnectionNative.Method.BuildSubscriptionQuery, new List<object?> { eventType, selectorType, selectorId });
         }
 
         /// <summary>
@@ -93,6 +125,16 @@ namespace PrivMX.Endpoint.Core
         public void Disconnect()
         {
             executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.Disconnect, new List<object?> { });
+        }
+
+        /// <summary>
+        /// !!Not implemented Yet - Sets user's custom verification callback.
+        /// </summary>
+        /// <param name="verifier"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void SetUserVerifier(UserVerifierInterface verifier)
+        {
+            throw new NotImplementedException();
         }
     }
 }

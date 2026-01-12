@@ -19,7 +19,6 @@ namespace PrivMX.Endpoint.Core.Internal
         public enum Method
         {
             BackendRequest = 0
-
         }
 
         [DllImport("libprivmxendpointinterface")]

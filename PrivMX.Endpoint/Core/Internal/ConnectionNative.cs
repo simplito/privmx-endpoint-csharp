@@ -23,7 +23,12 @@ namespace PrivMX.Endpoint.Core.Internal
             GetConnectionId = 2,
             ListContexts = 3,
             Disconnect = 4,
-            GetContextUsers = 5,
+            Deleted_Function_0 = 5,
+            SetUserVerifier = 6,
+            SubscribeFor = 7,
+            UnsubscribeFrom = 8,
+            BuildSubscriptionQuery = 9,
+            ListContextUsers = 10
         }
 
         [DllImport("libprivmxendpointinterface")]
