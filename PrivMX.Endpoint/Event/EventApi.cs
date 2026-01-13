@@ -56,23 +56,5 @@ namespace PrivMX.Endpoint.Event
         {
             executor.ExecuteVoid(ptr, (int)EventApiNative.Method.EmitEvent, new List<object?>{contextId, users, channelName, eventData});
         }
-
-        /// <summary>
-        /// Subscribes for the custom events on the given channel.
-        /// </summary>
-        /// <param name="threadId">ID of the Thread to subscribe to.</param>
-        public void SubscribeForCustomEvents(string contextId, string channelName)
-        {
-            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.SubscribeForCustomEvents, new List<object?>{contextId, channelName});
-        }
-
-        /// <summary>
-        /// Unsubscribes from the custom events on the given channel.
-        /// </summary>
-        /// <param name="threadId">ID of the Thread to unsubscribe from.</param>
-        public void UnsubscribeFromCustomEvents(string contextId, string channelName)
-        {
-            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.UnsubscribeFromCustomEvents, new List<object?>{contextId, channelName});
-        }
     }
 }

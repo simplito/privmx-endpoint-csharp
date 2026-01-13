@@ -16,6 +16,7 @@ using PrivMX.Endpoint.Thread.Models;
 using PrivMX.Endpoint.Event.Models;
 using System;
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models.Events;
 
 namespace PrivMX.Endpoint.Core.Internal
 {
@@ -27,6 +28,10 @@ namespace PrivMX.Endpoint.Core.Internal
             {"core$LibConnectedEvent", typeof(LibConnectedEvent)},
             {"core$LibDisconnectedEvent", typeof(LibDisconnectedEvent)},
             {"core$LibPlatformDisconnectedEvent", typeof(LibPlatformDisconnectedEvent)},
+            {"core$CollectionChangedEvent", typeof(CollectionChangedEvent)},
+            {"core$ContextUserAddedEvent", typeof(ContextUserAddedEvent)},
+            {"core$ContextUserRemovedEvent", typeof(ContextUserRemovedEvent)},
+            {"core$ContextUsersStatusChangedEvent", typeof(ContextUsersStatusChangedEvent)},
 
             {"thread$ThreadCreatedEvent", typeof(ThreadCreatedEvent)},
             {"thread$ThreadUpdatedEvent", typeof(ThreadUpdatedEvent)},

@@ -9,12 +9,20 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Core.Models
+namespace PrivMX.Endpoint.Core.Models.Events
 {
     /// <summary>
     /// Represents the event of type "libDisconnected".
     /// 
     /// This event is emitted when connection with the Platform backend is broken or closed.
     /// </summary>
-    public class LibDisconnectedEvent : Event {}
+    public class LibDisconnectedEvent : Event
+    {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public LibDisconnectedEvent() : base("libDisconnected")
+        {
+        }
+    }
 }

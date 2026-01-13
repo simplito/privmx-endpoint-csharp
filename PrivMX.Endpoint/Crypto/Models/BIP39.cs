@@ -9,12 +9,18 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Core.Models
+namespace PrivMX.Endpoint.Crypto.Models
 {
     /// <summary>
-    /// Represents the event of type "libConnected".
-    /// 
-    /// This event is emitted when connection is established with the Platform backend.
+    /// Represents ECC generated key using BIP-39.
     /// </summary>
-    public class LibConnectedEvent : Event {}
+    public class BIP39
+    {
+        /// <summary>
+        /// BIP-39 mnemonic.
+        /// </summary>
+        public string Mnemonic { get; set; }
+        
+        
+    }
 }

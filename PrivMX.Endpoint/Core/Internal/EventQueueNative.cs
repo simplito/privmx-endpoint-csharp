@@ -21,7 +21,6 @@ namespace PrivMX.Endpoint.Core.Internal
             WaitEvent = 0,
             GetEvent = 1,
             EmitBreakEvent = 2
-
         }
 
         [DllImport("libprivmxendpointinterface")]

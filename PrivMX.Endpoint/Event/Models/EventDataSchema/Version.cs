@@ -9,13 +9,15 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Core.Models
+namespace PrivMX.Endpoint.Event.Models.EventDataSchema
 {
     /// <summary>
-    /// Represents the event of type "libBreak".
-    /// 
-    /// This event is emitted when <see cref="EventQueue.EmitBreakEvent()"/> method is called.
-    /// It is useful for breaking an event processing loop.
+    /// Versions of event data schema
     /// </summary>
-    public class LibBreakEvent : Event {}
+    public enum Version : long
+    {
+        UNKNOWN = 0,
+        VERSION_1 = 1,
+        VERSION_5 = 5
+    }
 }

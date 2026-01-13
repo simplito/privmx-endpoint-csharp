@@ -30,6 +30,13 @@ namespace PrivMX.Endpoint.Crypto.Internal
             DecryptDataSymmetric = 8,
             ConvertPEMKeytoWIFKey = 9,
             VerifySignature = 10,
+            GenerateBip39 = 11,
+            FromMnemonic = 12,
+            FromEntropy = 13,
+            EntropyToMnemonic = 14,
+            MnemonicToEntropy = 15,
+            MnemonicToSeed = 16,
+            ConvertPGPAsn1KeyToBase58DERKey = 17
         }
 
         [DllImport("libprivmxendpointinterface")]

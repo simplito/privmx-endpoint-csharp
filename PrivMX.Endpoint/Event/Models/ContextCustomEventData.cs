@@ -30,5 +30,15 @@ namespace PrivMX.Endpoint.Event.Models
         /// Event's actual payload.
         /// </summary>
         public byte[] Payload { get; set; } = null!;
+        
+        /// <summary>
+        /// Payload decryption status
+        /// </summary>
+        public long StatusCode { get; set; }
+        
+        /// <summary>
+        /// Version of the event data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
     }
 }

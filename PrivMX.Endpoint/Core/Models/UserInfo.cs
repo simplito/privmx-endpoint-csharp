@@ -25,5 +25,10 @@ namespace PrivMX.Endpoint.Core.Models
         /// Status that idicates whether the user is connected to Bridge.
         /// </summary>
         public bool IsActive { get; set; }
+        
+        /// <summary>
+        /// User last status change or no value if they have never logged in
+        /// </summary>
+        UserStatusChange? LastStatusChange { get; set; }
     }
 }

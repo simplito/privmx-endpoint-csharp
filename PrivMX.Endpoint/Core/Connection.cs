@@ -134,7 +134,7 @@ namespace PrivMX.Endpoint.Core
         /// <exception cref="NotImplementedException"></exception>
         public void SetUserVerifier(UserVerifierInterface verifier)
         {
-            throw new NotImplementedException();
+            executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.SetUserVerifier, new List<object?> { verifier });
         }
     }
 }

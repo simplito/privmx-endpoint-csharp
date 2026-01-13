@@ -10,6 +10,7 @@
 //
 
 using System;
+using PrivMX.Endpoint.Crypto.Models;
 
 namespace PrivMX.Endpoint.Crypto
 {
@@ -26,5 +27,12 @@ namespace PrivMX.Endpoint.Crypto
         byte[] EncryptDataSymmetric(byte[] data, byte[] symmetricKey);
         byte[] DecryptDataSymmetric(byte[] data, byte[] symmetricKey);
         string ConvertPEMKeytoWIFKey(string pemKey);
+        string ConvertPGPAsn1KeyToBase58DERKey(string pgpKey);
+        BIP39 GenerateBip39(UIntPtr strength, string password = "");
+        BIP39 FromMnemonic(string mnemonic, string password = "");
+        BIP39 FromEntropy(byte[] entropy, string password = "");
+        string EntropyToMnemonic(byte[] entropy);
+        byte[] MnemonicToEntropy(string mnemonic);
+        byte[] MnemonicToSeed(string mnemonic, string password = "");
     }
 }

@@ -12,7 +12,7 @@
 namespace PrivMX.Endpoint.Core.Models
 {
     /// <summary>
-    /// Scope on which you listen for events in Connection
+    /// Scope on which you listen for events in ConnectionApi
     /// </summary>
     public enum EventSelectorType : long
     {

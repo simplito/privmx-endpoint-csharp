@@ -21,8 +21,11 @@ namespace PrivMX.Endpoint.Event.Internal
         {
             Create = 0,
             EmitEvent = 1,
-            SubscribeForCustomEvents = 2,
-            UnsubscribeFromCustomEvents = 3
+            Deleted_Function_0 = 2,
+            Deleted_Function_1 = 3,
+            SubscribeFor = 4,
+            UnsubscribeFrom = 5,
+            BuildSubscriptionQuery = 6,
         }
 
         [DllImport("libprivmxendpointinterface")]

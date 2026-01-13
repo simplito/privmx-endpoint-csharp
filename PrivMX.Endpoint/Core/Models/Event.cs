@@ -9,6 +9,9 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
 namespace PrivMX.Endpoint.Core.Models
 {
     /// <summary>
@@ -17,9 +20,18 @@ namespace PrivMX.Endpoint.Core.Models
     public class Event
     {
         /// <summary>
+        /// Create an event object
+        /// </summary>
+        /// <param name="type">Event type</param>
+        public Event(string type)
+        {
+            Type = type;
+        }
+        
+        /// <summary>
         /// Type of event.
         /// </summary>
-        public string Type { get; set; } = null!;
+        public string Type { get; set; }
 
         /// <summary>
         /// Additional identifier of the subscribed source module and resource.
@@ -29,6 +41,27 @@ namespace PrivMX.Endpoint.Core.Models
         /// <summary>
         /// ID of the connection emitting the event.
         /// </summary>
-        public long ConnectionId { get; set; }
+        public long ConnectionId { get; set; } = -1;
+        
+        /// <summary>
+        /// List of subscriptions ID for which it is
+        /// </summary>
+        public List<string> Subscriptions { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Timestamp of the event Represents the point in time when event occurred.
+        /// - For events received from Bridge, this value comes from Bridge.
+        /// - For events generated in the library, this is a local timestamp.
+        /// </summary>
+        public long Timestamp  { get; set; }
+
+        /// <summary>
+        /// Converts Event's data to JSON string
+        /// </summary>
+        /// <returns>JSON string</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
