@@ -17,6 +17,8 @@ namespace PrivMX.Endpoint.Event
     public interface IEventApi
     {
         void EmitEvent(string contextId, List<UserWithPubKey> users, string channelName, byte[] eventData);
-        
+        List<string> SubscribeFor(List<string> subscriptionQueries);
+        void UnsubscribeFrom(List<string> subscriptionIds);
+        string BuildSubscriptionQuery(string channelName, Models.EventSelectorType selectorType, string selectorId);
     }
 }

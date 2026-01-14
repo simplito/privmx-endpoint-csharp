@@ -9,15 +9,20 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Event.Models
+namespace PrivMX.Endpoint.Event.Models 
 {
     /// <summary>
     /// Holds data of event that arrives when custom context event is emitted.
     /// </summary>
     public class ContextCustomEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public ContextCustomEvent() : base("contextCustom")
+        {
+        }
+
         /// <summary>
         /// Event's data
         /// </summary>

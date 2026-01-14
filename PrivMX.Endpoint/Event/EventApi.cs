@@ -15,6 +15,7 @@ using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Event.Internal;
 using System;
 using System.Collections.Generic;
+using EventSelectorType = PrivMX.Endpoint.Event.Models.EventSelectorType;
 
 namespace PrivMX.Endpoint.Event
 {
@@ -55,6 +56,37 @@ namespace PrivMX.Endpoint.Event
         public void EmitEvent(string contextId, List<UserWithPubKey> users, string channelName, byte[] eventData)
         {
             executor.ExecuteVoid(ptr, (int)EventApiNative.Method.EmitEvent, new List<object?>{contextId, users, channelName, eventData});
+        }
+
+        /// <summary>
+        /// Subscribe for the custom events on the given subscription query.
+        /// </summary>
+        /// <param name="subscriptionQueries">list of queries</param>
+        /// <returns>List of subscriptionIds in matching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
+        {
+            return executor.Execute<List<string>>(ptr, (int)EventApiNative.Method.SubscribeFor, new List<object?>{subscriptionQueries});
+        }
+
+        /// <summary>
+        /// Unsubscribe from events for the given subscriptionId.
+        /// </summary>
+        /// <param name="subscriptionIds">List of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
+        {
+            executor.ExecuteVoid(ptr, (int)EventApiNative.Method.UnsubscribeFrom, new List<object?>{subscriptionIds});
+        }
+
+        /// <summary>
+        /// Generate subscription Query for the custom events.
+        /// </summary>
+        /// <param name="channelName">Name of the Channel</param>
+        /// <param name="selectorType">Selector of scope on which you listen for events </param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>A subscription query as string</returns>
+        public string BuildSubscriptionQuery(string channelName, EventSelectorType selectorType, string selectorId)
+        {
+            return executor.Execute<string>(ptr, (int)EventApiNative.Method.BuildSubscriptionQuery, new List<object?>{channelName, selectorType, selectorId});
         }
     }
 }
