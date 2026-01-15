@@ -30,10 +30,13 @@ namespace PrivMX.Endpoint.Thread.Internal
             SendMessage = 8,
             DeleteMessage = 9,
             UpdateMessage = 10,
-            SubscribeForThreadEvents = 11,
-            UnsubscribeFromThreadEvents = 12,
-            SubscribeForMessageEvents = 13,
-            UnsubscribeFromMessageEvents = 14
+            Deleted_Function_0 = 11,
+            Deleted_Function_1 = 12,
+            Deleted_Function_2 = 13,
+            Deleted_Function_3 = 14,
+            SubscribeFor = 15,
+            UnsubscribeFrom = 16,
+            BuildSubscriptionQuery = 17,
         }
 
         [DllImport("libprivmxendpointinterface")]

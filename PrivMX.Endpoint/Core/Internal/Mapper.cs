@@ -153,19 +153,40 @@ namespace PrivMX.Endpoint.Core.Internal
                         {
                             return null;
                         }
-                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) {
-                            while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) {
-                                string? keyStr = Marshal.PtrToStringUTF8(key);
-                                if (keyStr is null)
+                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) 
+                        {
+                            if (objType != typeof(Dictionary<string, bool>))
+                            {
+                                while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) 
                                 {
-                                    continue;
+                                    string? keyStr = Marshal.PtrToStringUTF8(key);
+                                    if (keyStr is null)
+                                    {
+                                        continue;
+                                    }
+                                    var property = objType.GetProperty(Name2PascalCase(keyStr));
+                                    if (property is null)
+                                    {
+                                        continue;
+                                    }
+                                    property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
                                 }
-                                var property = objType.GetProperty(Name2PascalCase(keyStr));
-                                if (property is null)
+                            }
+                            //workaround for checking std::map<std::string, bool>
+                            else
+                            {
+                                Dictionary<string, bool> map = new Dictionary<string, bool>();
+                                while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0)
                                 {
-                                    continue;
+                                    string? keyStr = Marshal.PtrToStringUTF8(key);
+                                    bool valBool = Convert.ToBoolean(val);
+                                    
+                                    if (!string.IsNullOrEmpty(keyStr) && valBool)
+                                    {
+                                        map.Add(keyStr, valBool);
+                                    }
                                 }
-                                property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
+                                obj = map;
                             }
                         }
                         PsonNative.pson_close_object_iterator(it);
@@ -189,7 +210,8 @@ namespace PrivMX.Endpoint.Core.Internal
                 while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr psonValue) != 0)
                 {
                     string? keyStr = Marshal.PtrToStringUTF8(key);
-                    if (string.Equals(keyStr, "__type")) {
+                    if (string.Equals(keyStr, "__type")) 
+                    {
                         string? typeStr = ParseFromDynamicValue<string>(psonValue);
                         if (!(typeStr is null) && registeredTypes.TryGetValue(typeStr, out Type? type))
                         {
@@ -197,6 +219,15 @@ namespace PrivMX.Endpoint.Core.Internal
                             return type;
                         }
                         break;
+                    }
+                    //extended for std::map<std::string, bool>
+                    else
+                    {
+                        PsonNative.pson_get_bool(value, out bool valBoolCheck);
+                        if (keyStr != null && valBoolCheck)
+                        {
+                            return typeof(Dictionary<string, bool>);
+                        }
                     }
                 }
             }

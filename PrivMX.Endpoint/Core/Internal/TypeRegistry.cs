@@ -9,7 +9,6 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Inbox.Models;
 using PrivMX.Endpoint.Store.Models;
 using PrivMX.Endpoint.Thread.Models;
@@ -17,6 +16,7 @@ using PrivMX.Endpoint.Event.Models;
 using System;
 using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models.Events;
+using PrivMX.Endpoint.Kvdb.Models.Events;
 
 namespace PrivMX.Endpoint.Core.Internal
 {
@@ -55,7 +55,15 @@ namespace PrivMX.Endpoint.Core.Internal
             {"inbox$InboxEntryCreatedEvent", typeof(InboxEntryCreatedEvent)},
             {"inbox$InboxEntryDeletedEvent", typeof(InboxEntryDeletedEvent)},
 
-            {"event$ContextCustomEvent", typeof(ContextCustomEvent)}
+            {"event$ContextCustomEvent", typeof(ContextCustomEvent)},
+            
+            {"kvdb$KvdbCreatedEvent", typeof(KvdbCreatedEvent)},
+            {"kvdb$KvdbDeletedEvent", typeof(KvdbDeletedEvent)},
+            {"kvdb$KvdbEntryDeletedEvent", typeof(KvdbEntryDeletedEvent)},
+            {"kvdb$KvdbEntryUpdatedEvent", typeof(KvdbEntryUpdatedEvent)},
+            {"kvdb$KvdbNewEntryEvent", typeof(KvdbNewEntryEvent)},
+            {"kvdb$KvdbStatsChangedEvent", typeof(KvdbStatsChangedEvent)},
+            {"kvdb$KvdbUpdatedEvent", typeof(KvdbUpdatedEvent)}
         };
     }
 }

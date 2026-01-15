@@ -95,5 +95,10 @@ namespace PrivMX.Endpoint.Thread.Models
         /// If value is equal 0, then the Thread is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
         /// </summary>
         public long StatusCode { get; set; }
+        
+        /// <summary>
+        /// Version of the Thread data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
     }
 }

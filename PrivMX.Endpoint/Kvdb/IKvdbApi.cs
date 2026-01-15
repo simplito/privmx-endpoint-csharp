@@ -9,10 +9,32 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models;
+using PrivMX.Endpoint.Kvdb.Models;
+using EventType = PrivMX.Endpoint.Kvdb.Models.EventType;
+
 namespace PrivMX.Endpoint.Kvdb
 {
     public interface IKvdbApi
     {
-        
+        string CreateKvdb(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers,
+            byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policy = null);
+        void UpdateKvdb(string kvdbId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, 
+            byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policy = null);
+        void DeleteKvdb(string kvdbId);
+        Models.Kvdb GetKvdb(string kvdbId);
+        PagingList<Models.Kvdb> ListKvdbs(string contextId, PagingQuery pagingQuery);
+        KvdbEntry GetEntry(string kvdbId, string key);
+        bool hasEntry(string kvdbId, string key);
+        PagingList<string> ListEntriesKeys(string kvdbId, PagingQuery pagingQuery);
+        PagingList<KvdbEntry> ListEntries(string kvdbId, PagingQuery pagingQuery);
+        void SetEntry(string kvdbId, string key, byte[] publibMeta, byte[] privateMeta, byte[] data, long version = 0);
+        void DeleteEntry(string kvdbId, string key);
+        Dictionary<string, bool> DeleteEntries(string kvdbId, List<string> keys);
+        List<string> SubscribeFor(List<string> subscriptionQueries);
+        void UnsubscribeFrom(List<string> subscriptionIds);
+        string BuildSubscriptionQuery(string channelName, Models.EventSelectorType selectorType, string selectorId);
+        string BuildSubscriptionQueryForSelectedEntry(EventType eventType, string kvdbIds, string kvdbEntryKey);
     }
 }
