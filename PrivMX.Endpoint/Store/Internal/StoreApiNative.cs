@@ -36,10 +36,14 @@ namespace PrivMX.Endpoint.Store.Internal
             ReadFromFile = 14,
             SeekInFile = 15,
             CloseFile = 16,
-            SubscribeForStoreEvents = 17,
-            UnsubscribeFromStoreEvents = 18,
-            SubscribeForFileEvents = 19,
-            UnsubscribeFromFileEvents = 20
+            Deleted_Function_0 = 17,
+            Deleted_Function_1 = 18,
+            Deleted_Function_2 = 19,
+            Deleted_Function_3 = 20,
+            SyncFile = 21,
+            SubscribeFor = 22,
+            UnsubscribeFrom = 23,
+            BuildSubscriptionQuery = 24,
         }
 
         [DllImport("libprivmxendpointinterface")]

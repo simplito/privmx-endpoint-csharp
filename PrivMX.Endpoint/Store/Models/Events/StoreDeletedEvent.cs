@@ -9,18 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-using PrivMX.Endpoint.Thread.Models;
-
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "storeDeleted".
-    /// 
-    /// This event is emitted when Store events are subscribed and a Store is deleted.
+    /// Holds data of event that arrives when Store is deleted.
     /// </summary>
     public class StoreDeletedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public StoreDeletedEvent() : base("storeDeleted")
+        {
+            
+        }
+        
         /// <summary>
         /// Metadata of the deleted Store.
         /// </summary>

@@ -9,26 +9,21 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represent statistics of a Thread.
+    /// Represents payload of the InboxEntryDeletedEvent.
     /// </summary>
-    public class ThreadStatsEventData
+    public class InboxEntryDeletedEventData
     {
         /// <summary>
-        /// ID of the Thread.
+        /// ID of the Inbox that the entry is deleted from.
         /// </summary>
-        public string ThreadId { get; set; } = null!;
+        public string InboxId { get; set; } = null!;
 
         /// <summary>
-        /// Last message timestamp.
+        /// ID of the deleted Inbox entry.
         /// </summary>
-        public long LastMsgDate { get; set; }
-
-        /// <summary>
-        /// Total number of messages in the Thread.
-        /// </summary>
-        public long MessagesCount { get; set; }
+        public string EntryId { get; set; } = null!;
     }
 }

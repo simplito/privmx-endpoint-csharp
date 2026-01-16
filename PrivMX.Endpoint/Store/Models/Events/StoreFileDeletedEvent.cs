@@ -9,17 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "storeFileDeleted".
-    /// 
-    /// This event is emitted when file events are subscribed and a file is deleted.
+    /// Holds data of event that arrives when Store file is deleted.
     /// </summary>
     public class StoreFileDeletedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public StoreFileDeletedEvent() : base("storeFileDeleted")
+        {
+            
+        }
+        
         /// <summary>
         /// Metadata of the deleted file.
         /// </summary>

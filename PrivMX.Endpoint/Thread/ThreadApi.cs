@@ -16,9 +16,14 @@ using PrivMX.Endpoint.Thread.Internal;
 using PrivMX.Endpoint.Thread.Models;
 using System;
 using System.Collections.Generic;
+using EventSelectorType = PrivMX.Endpoint.Thread.Models.EventSelectorType;
+using EventType = PrivMX.Endpoint.Thread.Models.EventType;
 
 namespace PrivMX.Endpoint.Thread
 {
+    /// <summary>
+    /// 'ThreadApi' is a class representing Endpoint's API for Threads and their messages.
+    /// </summary>
     public class ThreadApi : IThreadApi
     {
         public readonly IntPtr ptr;
@@ -105,14 +110,15 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>List of Threads.</returns>
         public PagingList<Models.Thread> ListThreads(string contextId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Models.Thread>>(ptr, (int)ThreadApiNative.Method.ListThreads, new List<object?>{contextId, pagingQuery});
+            return executor.Execute<PagingList<Models.Thread>>(ptr, (int)ThreadApiNative.Method.ListThreads, 
+                new List<object?>{contextId, pagingQuery});
         }
 
         /// <summary>
         /// Gets a message by given message ID.
         /// </summary>
         /// <param name="messageId">ID of the message to get.</param>
-        /// <returns>Message.</returns>
+        /// <returns>A message object.</returns>
         public Message GetMessage(string messageId)
         {
             return executor.Execute<Message>(ptr, (int)ThreadApiNative.Method.GetMessage, new List<object?>{messageId});
@@ -126,7 +132,8 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>List of messages.</returns>
         public PagingList<Message> ListMessages(string threadId, PagingQuery pagingQuery)
         {
-            return executor.Execute<PagingList<Message>>(ptr, (int)ThreadApiNative.Method.ListMessages, new List<object?>{threadId, pagingQuery});
+            return executor.Execute<PagingList<Message>>(ptr, (int)ThreadApiNative.Method.ListMessages, 
+                new List<object?>{threadId, pagingQuery});
         }
 
         /// <summary>
@@ -139,7 +146,8 @@ namespace PrivMX.Endpoint.Thread
         /// <returns>ID of the new message.</returns>
         public string SendMessage(string threadId, byte[] publicMeta, byte[] privateMeta, byte[] data)
         {
-            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.SendMessage, new List<object?>{threadId, publicMeta, privateMeta, data});
+            return executor.Execute<string>(ptr, (int)ThreadApiNative.Method.SendMessage, 
+                new List<object?>{threadId, publicMeta, privateMeta, data});
         }
 
         /// <summary>
@@ -164,37 +172,37 @@ namespace PrivMX.Endpoint.Thread
         }
 
         /// <summary>
-        /// Subscribes for the Thread module main events.
+        /// Subscribe for the Thread events on the given subscription query.
         /// </summary>
-        public void SubscribeForThreadEvents()
+        /// <param name="subscriptionQueries">list of queries</param>
+        /// <returns>list of subscriptionIds in maching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForThreadEvents, new List<object?>{});
+            return executor.Execute<List<string>>(ptr, (int)ThreadApiNative.Method.SubscribeFor, 
+                new List<object?>{subscriptionQueries});
         }
 
         /// <summary>
-        /// Unsubscribes from the Thread module main events.
+        /// Unsubscribe from events for the given subscriptionId.
         /// </summary>
-        public void UnsubscribeFromThreadEvents()
+        /// <param name="subscriptionIds">list of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromThreadEvents, new List<object?>{});
+            executor.ExecuteVoid(ptr,  (int)ThreadApiNative.Method.UnsubscribeFrom, 
+                new List<object?>{subscriptionIds});
         }
 
         /// <summary>
-        /// Subscribes for the events in given Thread.
+        /// Generate subscription Query for the Thread events.
         /// </summary>
-        /// <param name="threadId">ID of the Thread to subscribe for.</param>
-        public void SubscribeForMessageEvents(string threadId)
+        /// <param name="eventtype">type of event which you listen for</param>
+        /// <param name="selectorType">scope on which you listen for events</param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>A subscription query as string</returns>
+        public string BuildSubscriptionQuery(EventType eventtype, EventSelectorType selectorType, string selectorId)
         {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.SubscribeForMessageEvents, new List<object?>{threadId});
-        }
-
-        /// <summary>
-        /// Unsubscribes from events in given Thread.
-        /// </summary>
-        /// <param name="threadId">ID of the Thread to unsubscribe from.</param>
-        public void UnsubscribeFromMessageEvents(string threadId)
-        {
-            executor.ExecuteVoid(ptr, (int)ThreadApiNative.Method.UnsubscribeFromMessageEvents, new List<object?>{threadId});
+            return executor.Execute<string>(ptr,  (int)ThreadApiNative.Method.BuildSubscriptionQuery,
+                new List<object?>{eventtype, selectorType, selectorId});
         }
     }
 }

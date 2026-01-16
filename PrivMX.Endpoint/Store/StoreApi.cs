@@ -16,9 +16,14 @@ using PrivMX.Endpoint.Store.Internal;
 using PrivMX.Endpoint.Store.Models;
 using System;
 using System.Collections.Generic;
+using EventSelectorType = PrivMX.Endpoint.Store.Models.EventSelectorType;
+using EventType = PrivMX.Endpoint.Store.Models.EventType;
 
 namespace PrivMX.Endpoint.Store
 {
+    /// <summary>
+    /// 'StoreApi' is a class representing Endpoint's API for Stores and their files.
+    /// </summary>
     public class StoreApi : IStoreApi
     {
         public readonly IntPtr ptr;
@@ -115,10 +120,12 @@ namespace PrivMX.Endpoint.Store
         /// <param name="publicMeta">Public file meta_data.</param>
         /// <param name="privateMeta">Private file meta_data.</param>
         /// <param name="size">Size of the file.</param>
+        /// <param name="randomWrite">Enable random write support for file</param>
         /// <returns>Handle to write data.</returns>
-        public long CreateFile(string storeId, byte[] publicMeta, byte[] privateMeta, long size)
+        public long CreateFile(string storeId, byte[] publicMeta, byte[] privateMeta, long size, bool randomWrite = false)
         {
-            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.CreateFile, new List<object?>{storeId, publicMeta, privateMeta, size});
+            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.CreateFile, 
+                new List<object?>{storeId, publicMeta, privateMeta, size, randomWrite});
         }
 
         /// <summary>
@@ -131,7 +138,8 @@ namespace PrivMX.Endpoint.Store
         /// <returns>Handle to write file data.</returns>
         public long UpdateFile(string fileId, byte[] publicMeta, byte[] privateMeta, long size)
         {
-            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.UpdateFile, new List<object?>{fileId, publicMeta, privateMeta, size});
+            return executor.ExecuteValue<long>(ptr, (int)StoreApiNative.Method.UpdateFile, 
+                new List<object?>{fileId, publicMeta, privateMeta, size});
         }
 
         /// <summary>
@@ -150,9 +158,11 @@ namespace PrivMX.Endpoint.Store
         /// </summary>
         /// <param name="fileHandle">Handle to write file data.</param>
         /// <param name="dataChunk">File data chunk.</param>
-        public void WriteToFile(long fileHandle, byte[] dataChunk)
+        /// <param name="truncate">Truncate the file from: current pos + dataChunk size</param>
+        public void WriteToFile(long fileHandle, byte[] dataChunk, bool truncate = false)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.WriteToFile, new List<object?>{fileHandle, dataChunk});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.WriteToFile, 
+                new List<object?>{fileHandle, dataChunk, truncate});
         }
 
         /// <summary>
@@ -227,37 +237,45 @@ namespace PrivMX.Endpoint.Store
         }
 
         /// <summary>
-        /// Subscribes for the Store module main events.
+        /// Subscribe for the Store events on the given subscription query.
         /// </summary>
-        public void SubscribeForStoreEvents()
+        /// <param name="subscriptionQueries">list of queries</param>
+        /// <returns>list of subscriptionIds in matching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForStoreEvents, new List<object?>{});
+            return executor.Execute<List<string>>(ptr, (int)StoreApiNative.Method.SubscribeFor, 
+                new List<object?>{subscriptionQueries});
         }
 
         /// <summary>
-        /// Unsubscribes from the Store module main events.
+        /// Unsubscribe from events for the given subscriptionId.
         /// </summary>
-        public void UnsubscribeFromStoreEvents()
+        /// <param name="subscriptionIds">list of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromStoreEvents, new List<object?>{});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFrom, new List<object?>(subscriptionIds));
         }
 
         /// <summary>
-        /// Subscribes for the events in given Store.
+        /// Generate subscription Query for the Store events.
         /// </summary>
-        /// <param name="storeId">ID of the Store to subscribe for.</param>
-        public void SubscribeForFileEvents(string storeId)
+        /// <param name="eventType">type of event which you listen for</param>
+        /// <param name="selectorType">scope on which you listen for events </param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>A subscription query as string</returns>
+        public string BuildSubscriptionQuery(EventType eventType, EventSelectorType selectorType, string selectorId)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SubscribeForFileEvents, new List<object?>{storeId});
+            return executor.Execute<string>(ptr,  (int)StoreApiNative.Method.BuildSubscriptionQuery, 
+                new List<object?>{eventType, selectorType, selectorId});
         }
 
         /// <summary>
-        /// Unsubscribes from the events in given Store.
+        /// Synchronize file handle data with newest data on server
         /// </summary>
-        /// <param name="storeId">ID of the Store to unsubscribe from.</param>
-        public void UnsubscribeFromFileEvents(string storeId)
+        /// <param name="fileHandle">Handle to read/write file data</param>
+        public void SyncFile(long fileHandle)
         {
-            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.UnsubscribeFromFileEvents, new List<object?>{storeId});
+            executor.ExecuteVoid(ptr, (int)StoreApiNative.Method.SyncFile, new List<object?>{fileHandle});
         }
     }
 }

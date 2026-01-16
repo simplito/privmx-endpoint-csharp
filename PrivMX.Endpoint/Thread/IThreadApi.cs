@@ -12,13 +12,17 @@
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Thread.Models;
 using System.Collections.Generic;
+using EventSelectorType = PrivMX.Endpoint.Thread.Models.EventSelectorType;
+using EventType = PrivMX.Endpoint.Thread.Models.EventType;
 
 namespace PrivMX.Endpoint.Thread
 {
     public interface IThreadApi
     {
-        string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, ContainerPolicy? policies = null);
-        void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null);
+        string CreateThread(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, 
+            byte[] privateMeta, ContainerPolicy? policies = null);
+        void UpdateThread(string threadId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, 
+            byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, ContainerPolicy? policies = null);
         void DeleteThread(string threadId);
         Models.Thread GetThread(string threadId);
         PagingList<Models.Thread> ListThreads(string contextId, PagingQuery pagingQuery);
@@ -27,9 +31,9 @@ namespace PrivMX.Endpoint.Thread
         string SendMessage(string threadId, byte[] publicMeta, byte[] privateMeta, byte[] data);
         void UpdateMessage(string messageId, byte[] publicMeta, byte[] privateMeta, byte[] data);
         void DeleteMessage(string messageId);
-        void SubscribeForThreadEvents();
-        void UnsubscribeFromThreadEvents();
-        void SubscribeForMessageEvents(string threadId);
-        void UnsubscribeFromMessageEvents(string threadId);
+        List<string> SubscribeFor(List<string> subscriptionQueries);
+        void UnsubscribeFrom(List<string> subscriptionIds);
+        string BuildSubscriptionQuery(EventType eventtype, EventSelectorType selectorType,
+            string selectorId);
     }
 }

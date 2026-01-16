@@ -10,13 +10,14 @@
 //
 
 using PrivMX.Endpoint.Inbox.Models;
-using PrivMX.Endpoint.Store.Models;
-using PrivMX.Endpoint.Thread.Models;
 using PrivMX.Endpoint.Event.Models;
 using System;
 using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models.Events;
+using PrivMX.Endpoint.Inbox.Models.Events;
 using PrivMX.Endpoint.Kvdb.Models.Events;
+using PrivMX.Endpoint.Store.Models.Events;
+using PrivMX.Endpoint.Thread.Models.Events;
 
 namespace PrivMX.Endpoint.Core.Internal
 {

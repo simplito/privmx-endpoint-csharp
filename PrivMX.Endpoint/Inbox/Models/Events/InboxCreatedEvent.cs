@@ -9,19 +9,17 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "inboxUpdated".
+    /// Represents the event of type "inboxCreated".
     /// 
-    /// This event is emitted when Inbox events are subscribed and a Inbox is updated.
+    /// This event is emitted when Inbox events are subscribed and a new Inbox is created.
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class InboxCreatedEvent : Core.Models.Event
     {
         /// <summary>
-        /// Updated Inbox.
+        /// Created Inbox.
         /// </summary>
         public Inbox Data { get; set; } = null!;
     }

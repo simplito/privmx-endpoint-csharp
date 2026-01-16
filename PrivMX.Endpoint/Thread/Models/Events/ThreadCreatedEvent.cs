@@ -9,17 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Thread.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "threadCreated".
-    /// 
-    /// This event is emitted when Thread events are subscribed and a new Thread is created.
+    /// Holds data of event that arrives when Thread is created.
     /// </summary>
     public class ThreadCreatedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public ThreadCreatedEvent() : base("threadCreated")
+        {
+            
+        }
+        
         /// <summary>
         /// Created Thread.
         /// </summary>

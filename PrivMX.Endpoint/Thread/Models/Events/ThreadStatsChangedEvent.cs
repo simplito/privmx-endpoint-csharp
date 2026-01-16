@@ -9,17 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Thread.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "threadStatsChanged".
-    /// 
-    /// This event is emitted when Thread events are subscribed and statistics of a Thread is changed.
+    /// Holds data of event that arrives when Thread stats change.
     /// </summary>
     public class ThreadStatsChangedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public ThreadStatsChangedEvent() : base("threadStatsChanged")
+        {
+            
+        }
+        
         /// <summary>
         /// Thread statistics.
         /// </summary>

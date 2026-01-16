@@ -9,20 +9,15 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
 namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
-    /// Represents the event of type "storeFileCreated".
-    /// 
-    /// This event is emitted when file events are subscribed and a new file is created.
+    /// Scope on which you listen for events in KvdbApi
     /// </summary>
-    public class StoreFileCreatedEvent : Core.Models.Event
+    public enum EventSelectorType : long
     {
-        /// <summary>
-        /// Created file.
-        /// </summary>
-        public File Data { get; set; } = null!;
+        CONTEXT_ID = 0,
+        STORE_ID = 1,
+        FILE_ID = 2,
     }
 }

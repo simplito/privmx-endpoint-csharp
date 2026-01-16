@@ -9,21 +9,24 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Thread.Models.Events
 {
     /// <summary>
-    /// Represents payload of the ThreadDeletedMessageEvent.
+    /// Holds data of event that arrives when Thread message is updated.
     /// </summary>
-    public class ThreadDeletedMessageEventData
+    public class ThreadMessageUpdatedEvent : Core.Models.Event
     {
         /// <summary>
-        /// ID of the Thread that the message is deleted from.
+        /// Event constructor
         /// </summary>
-        public string ThreadId { get; set; } = null!;
-
+        public ThreadMessageUpdatedEvent() : base("threadUpdatedMessage")
+        {
+            
+        }
+        
         /// <summary>
-        /// ID of the deleted message.
+        /// detailed information about Message
         /// </summary>
-        public string MessageId { get; set; } = null!;
+        public Message Data { get; set; } = null!;
     }
 }

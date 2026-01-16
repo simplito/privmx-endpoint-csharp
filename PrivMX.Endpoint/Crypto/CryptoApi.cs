@@ -29,7 +29,7 @@ namespace PrivMX.Endpoint.Crypto
         /// Creates an instance of the <see cref="CryptoApi"/>.
         /// </summary>
         /// <returns>Created instance of the <see cref="CryptoApi"/>.</returns>
-        static public CryptoApi Create()
+        public static CryptoApi Create()
         {
             CryptoApi cryptoApi = new CryptoApi();
             cryptoApi.executor.ExecuteVoid(cryptoApi.ptr, (int)CryptoApiNative.Method.Create, new List<object?> { });
@@ -72,12 +72,10 @@ namespace PrivMX.Endpoint.Crypto
         }
 
         /// <summary>
-        /// Generates a new random private key.
-        /// 
-        /// The returned key is private key of elliptic curve cryptography.
+        /// Generates a new private ECC key.
         /// </summary>
-        /// <param name="randomSeed">(optional) String used as the seed of random generator.</param>
-        /// <returns>Generated private key in WIF format.</returns>
+        /// <param name="randomSeed">(optional) string used as the base to generate the new key</param>
+        /// <returns>generated ECC key in WIF format</returns>
         public string GeneratePrivateKey(string? randomSeed = null)
         {
             return executor.Execute<string>(ptr, (int)CryptoApiNative.Method.GeneratePrivateKey, 
@@ -85,9 +83,7 @@ namespace PrivMX.Endpoint.Crypto
         }
 
         /// <summary>
-        /// Derives a private key from a password and salt.
-        /// 
-        /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
+        /// Generates a new private ECC key from a password using pbkdf2.
         /// 
         /// This method is deprecated. Use <see cref="CryptoApi.DerivePrivateKey2"/> method instead.
         /// </summary>
@@ -102,12 +98,9 @@ namespace PrivMX.Endpoint.Crypto
         }
 
         /// <summary>
-        /// Derives a private key from a password and salt.
-        /// 
-        /// The returned key is private key of elliptic curve cryptography. PBKDF2 algorithm is used to derive the key.
-        /// 
-        /// Compared to <see cref="CryptoApi.DerivePrivateKey"/> method, this version of the derive function has an increased number of rounds.
-        /// This makes using this function a safer choice, but it makes the derived key different than in the previous version.
+        /// Generates a new private ECC key from a password using pbkdf2. 
+        /// This version of the derive function has a rounds count increased to 200k. This makes using this function
+        /// a safer choice, but it makes the received key different than in the original version.
         /// </summary>
         /// <param name="password">The password used to derive from.</param>
         /// <param name="salt">The random additional data used to derive.</param>

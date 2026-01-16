@@ -37,7 +37,7 @@ namespace PrivMX.Endpoint.Kvdb
         public static KvdbApi Create(Connection connection)
         {
             KvdbApi kvdbApi = new KvdbApi(connection);
-            kvdbApi.executor.ExecuteVoid(kvdbApi.ptr, (int)KvdbApiNative.Method.Create, new List<object?>{connection});
+            kvdbApi.executor.ExecuteVoid(kvdbApi.ptr, (int)KvdbApiNative.Method.Create, new List<object?>{});
             return kvdbApi;
         }
 

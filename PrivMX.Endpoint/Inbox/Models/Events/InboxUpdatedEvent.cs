@@ -9,20 +9,18 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Thread.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "threadDeleted".
+    /// Represents the event of type "inboxUpdated".
     /// 
-    /// This event is emitted when Thread events are subscribed and a Thread is deleted.
+    /// This event is emitted when Inbox events are subscribed and a Inbox is updated.
     /// </summary>
-    public class ThreadDeletedEvent : Core.Models.Event
+    public class InboxUpdatedEvent : Core.Models.Event
     {
         /// <summary>
-        /// Deleted Thread metadata.
+        /// Updated Inbox.
         /// </summary>
-        public ThreadDeletedEventData Data { get; set; } = null!;
+        public Inbox Data { get; set; } = null!;
     }
 }

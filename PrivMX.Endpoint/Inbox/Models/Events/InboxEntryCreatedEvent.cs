@@ -9,20 +9,18 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "inboxEntryDeleted".
+    /// Represents the event of type "inboxEntryCreated".
     /// 
-    /// This event is emitted when Inbox entry events are subscribed and an entry is deleted.
+    /// This event is emitted when Inbox entry events are subscribed and a new entry is created.
     /// </summary>
-    public class InboxEntryDeletedEvent : Core.Models.Event
+    public class InboxEntryCreatedEvent : Core.Models.Event
     {
         /// <summary>
-        /// Metadata of the deleted entry.
+        /// Created Inbox entry.
         /// </summary>
-        public InboxEntryDeletedEventData Data { get; set; } = null!;
+        public InboxEntry Data { get; set; } = null!;
     }
 }

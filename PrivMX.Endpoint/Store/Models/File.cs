@@ -47,5 +47,15 @@ namespace PrivMX.Endpoint.Store.Models
         /// If value is equal 0, then the message is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
         /// </summary>
         public long StatusCode { get; set; }
+        
+        /// <summary>
+        /// Version of the file data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
+        
+        /// <summary>
+        /// randomWrite is enabled 
+        /// </summary>
+        public bool RandomWrite { get; set; }
     }
 }

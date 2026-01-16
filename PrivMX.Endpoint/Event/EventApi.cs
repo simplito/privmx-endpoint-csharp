@@ -19,6 +19,9 @@ using EventSelectorType = PrivMX.Endpoint.Event.Models.EventSelectorType;
 
 namespace PrivMX.Endpoint.Event
 {
+    /// <summary>
+    /// 'EventApi' is a class representing Endpoint's API for context custom events.
+    /// </summary>
     public class EventApi : IEventApi
     {
         public readonly IntPtr ptr;

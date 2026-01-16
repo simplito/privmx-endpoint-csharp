@@ -9,20 +9,16 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "storeFileUpdated".
-    /// 
-    /// This event is emitted when file events are subscribed and a file is updated.
+    /// Represents payload of the StoreDeletedEvent.
     /// </summary>
-    public class StoreFileUpdatedEvent : Core.Models.Event
+    public class StoreDeletedEventData
     {
         /// <summary>
-        /// Updated file.
+        /// ID of the deleted Store.
         /// </summary>
-        public File Data { get; set; } = null!;
+        public string StoreId { get; set; } = null!;
     }
 }

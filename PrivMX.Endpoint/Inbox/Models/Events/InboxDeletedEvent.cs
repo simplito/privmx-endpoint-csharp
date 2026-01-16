@@ -9,21 +9,18 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents payload of the InboxEntryDeletedEvent.
+    /// Represents the event of type "inboxDeleted".
+    /// 
+    /// This event is emitted when Inbox events are subscribed and a Inbox is deleted.
     /// </summary>
-    public class InboxEntryDeletedEventData
+    public class InboxDeletedEvent : Core.Models.Event
     {
         /// <summary>
-        /// ID of the Inbox that the entry is deleted from.
+        /// Metadata of the deleted Inbox.
         /// </summary>
-        public string InboxId { get; set; } = null!;
-
-        /// <summary>
-        /// ID of the deleted Inbox entry.
-        /// </summary>
-        public string EntryId { get; set; } = null!;
+        public InboxDeletedEventData Data { get; set; } = null!;
     }
 }

@@ -9,17 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "storeStatsChanged".
-    /// 
-    /// This event is emitted when Store events are subscribed and statistics of a Store is changed.
+    /// Holds data of event that arrives when Store statistical data changes.
     /// </summary>
     public class StoreStatsChangedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public StoreStatsChangedEvent() : base("storeStatsChanged")
+        {
+            
+        }
+        
         /// <summary>
         /// Store statistics.
         /// </summary>

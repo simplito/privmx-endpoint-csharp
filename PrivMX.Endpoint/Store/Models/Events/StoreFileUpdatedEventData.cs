@@ -9,20 +9,23 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
+using System.Collections.Generic;
 
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "inboxEntryCreated".
-    /// 
-    /// This event is emitted when Inbox entry events are subscribed and a new entry is created.
+    /// Holds information of `StoreFileUpdatedEvent`.
     /// </summary>
-    public class InboxEntryCreatedEvent : Core.Models.Event
+    public class StoreFileUpdatedEventData
     {
         /// <summary>
-        /// Created Inbox entry.
+        /// File meta
         /// </summary>
-        public InboxEntry Data { get; set; } = null!;
+        public File File { get; set; }
+
+        /// <summary>
+        /// List of file changes
+        /// </summary>
+        private List<FileChange> Changes { get; set; }
     }
 }

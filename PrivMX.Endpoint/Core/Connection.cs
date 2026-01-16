@@ -16,6 +16,9 @@ using System.Collections.Generic;
 
 namespace PrivMX.Endpoint.Core
 {
+    /// <summary>
+    /// 'Connection' represents and manages the current connection between the Endpoint and the Bridge server.
+    /// </summary>
     public class Connection : IConnection
     {
         public readonly IntPtr ptr;
@@ -27,11 +30,15 @@ namespace PrivMX.Endpoint.Core
         /// <param name="userPrivKey">User's private key.</param>
         /// <param name="solutionId">ID of the Solution.</param>
         /// <param name="bridgeUrl">PrivMX Bridge URL.</param>
+        /// <param name="verificationOptions">PrivMX Bridge server instance verification options using a PKI server</param>
         /// <returns>Created and connected instance of the <see cref="Connection"/>.</returns>
-        static public Connection Connect(string userPrivKey, string solutionId, string bridgeUrl)
+        static public Connection Connect(string userPrivKey, string solutionId, string bridgeUrl, PKIVerificationOptions? verificationOptions = null)
         {
+            verificationOptions ??= new PKIVerificationOptions();
+            
             Connection connection = new Connection();
-            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.Connect, new List<object?> { userPrivKey, solutionId, bridgeUrl });
+            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.Connect, 
+                new List<object?> { userPrivKey, solutionId, bridgeUrl, verificationOptions });
             return connection;
         }
 
@@ -41,10 +48,13 @@ namespace PrivMX.Endpoint.Core
         /// <param name="solutionId">ID of the Solution.</param>
         /// <param name="bridgeUrl">PrivMX Bridge URL.</param>
         /// <returns>Created and connected instance of the <see cref="Connection"/>.</returns>
-        static public Connection ConnectPublic(string solutionId, string bridgeUrl)
+        static public Connection ConnectPublic(string solutionId, string bridgeUrl, PKIVerificationOptions? verificationOptions = null)
         {
+            verificationOptions ??= new PKIVerificationOptions();
+            
             Connection connection = new Connection();
-            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.ConnectPublic, new List<object?> { solutionId, bridgeUrl });
+            connection.executor.ExecuteVoid(connection.ptr, (int)ConnectionNative.Method.ConnectPublic, 
+                new List<object?> { solutionId, bridgeUrl, verificationOptions });
             return connection;
         }
 

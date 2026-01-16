@@ -12,13 +12,23 @@
 namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
-    /// Represents payload of the StoreDeletedEvent.
+    /// Holds information about the file change.
     /// </summary>
-    public class StoreDeletedEventData
+    public class FileChange
     {
         /// <summary>
-        /// ID of the deleted Store.
+        /// position of the first changed chunk
         /// </summary>
-        public string StoreId { get; set; } = null!;
+        public long Pos { get; set; }
+        
+        /// <summary>
+        /// length aligned to full chunks
+        /// </summary>
+        public long Length { get; set; }
+        
+        /// <summary>
+        /// remove all data 
+        /// </summary>
+        public bool Truncate { get; set; }
     }
 }

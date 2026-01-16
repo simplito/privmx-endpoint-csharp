@@ -43,6 +43,11 @@ namespace PrivMX.Endpoint.Store.Models
         /// Last modification timestamp.
         /// </summary>
         public long LastModificationDate {get; set; }
+        
+        /// <summary>
+        /// Timestamp of the last file in the Store, or the Store creation timestamp if no files in.
+        /// </summary>
+        public long LastFileDate {get; set; }
 
         /// <summary>
         /// ID of the user who was last a modifier.
@@ -63,11 +68,6 @@ namespace PrivMX.Endpoint.Store.Models
         /// Number of the Store updates.
         /// </summary>
         public long Version { get; set; }
-
-        /// <summary>
-        /// Timestamp of the last file in the Store, or the Store creation timestamp if no files in.
-        /// </summary>
-        public long LastFileDate {get; set; }
 
         /// <summary>
         /// Public metadata.
@@ -95,5 +95,10 @@ namespace PrivMX.Endpoint.Store.Models
         /// If value is equal 0, then the Thread is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
         /// </summary>
         public long StatusCode { get; set; }
+        
+        /// <summary>
+        /// Version of the file data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
     }
 }

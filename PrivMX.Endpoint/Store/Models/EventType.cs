@@ -9,16 +9,20 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models
+namespace PrivMX.Endpoint.Store.Models
 {
     /// <summary>
-    /// Represents payload of the InboxDeletedEvent.
+    /// KvdbApi subscription event types to listen for 
     /// </summary>
-    public class InboxDeletedEventData
+    public enum EventType : long
     {
-        /// <summary>
-        /// ID of the deleted Inbox.
-        /// </summary>
-        public string InboxId { get; set; } = null!;
+        STORE_CREATE = 0,
+        STORE_UPDATE = 1,
+        STORE_DELETE = 2,
+        STORE_STATS = 3,
+        FILE_CREATE = 4,
+        FILE_UPDATE = 5,
+        FILE_DELETE = 6,
+        COLLECTION_CHANGE = 7,
     }
 }

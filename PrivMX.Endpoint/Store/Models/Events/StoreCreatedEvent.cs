@@ -9,17 +9,21 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Core.Models;
-
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "storeCreated".
-    /// 
-    /// This event is emitted when Store events are subscribed and a Store is created.
+    /// Holds data of event that arrives when Store is created.
     /// </summary>
     public class StoreCreatedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public StoreCreatedEvent() : base("storeCreated")
+        {
+            
+        }
+        
         /// <summary>
         /// Created Store.
         /// </summary>

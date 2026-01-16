@@ -9,12 +9,12 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Represents payload of the StoreFileDeletedEvent.
+    /// Represents payload of the StoreStatsChangedEvent.
     /// </summary>
-    public class StoreFileDeletedEventData
+    public class StoreStatsChangedEventData
     {
         /// <summary>
         /// ID of the Context to which the Store belongs.
@@ -22,13 +22,18 @@ namespace PrivMX.Endpoint.Store.Models
         public string ContextId { get; set; } = null!;
 
         /// <summary>
-        /// ID of the Store that the file is deleted from.
+        /// ID of the Store.
         /// </summary>
         public string StoreId { get; set; } = null!;
 
         /// <summary>
-        /// ID of the deleted file.
+        /// List file timestamp.
         /// </summary>
-        public string FileId { get; set; } = null!;
+        public long LastFileDate { get; set; }
+
+        /// <summary>
+        /// Total number of files in the Store.
+        /// </summary>
+        public long FilesCount { get; set; }
     }
 }
