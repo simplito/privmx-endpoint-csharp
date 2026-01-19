@@ -85,11 +85,13 @@ namespace PrivMX.Endpoint.Inbox.Models
         public ContainerPolicyWithoutItem Policy { get; set; } = null!;
 
         /// <summary>
-        /// Status code of decryption and verification of the Thread.
-        /// 
-        /// If value is equal 0, then the Thread is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
+        /// Status code of retrieval and decryption of the Inbox
         /// </summary>
         public long StatusCode { get; set; }
         
+        /// <summary>
+        /// Version of the Inbox data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
     }
 }

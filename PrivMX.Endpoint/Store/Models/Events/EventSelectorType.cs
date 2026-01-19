@@ -9,16 +9,15 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Store.Models.Events
 {
     /// <summary>
-    /// Holds information of `InboxDeleted` event data.
+    /// Scope on which you listen for events in KvdbApi
     /// </summary>
-    public class InboxDeletedEventData
+    public enum EventSelectorType : long
     {
-        /// <summary>
-        /// ID of the deleted Inbox.
-        /// </summary>
-        public string InboxId { get; set; } = null!;
+        CONTEXT_ID = 0,
+        STORE_ID = 1,
+        FILE_ID = 2,
     }
 }

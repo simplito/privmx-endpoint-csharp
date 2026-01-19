@@ -12,7 +12,8 @@
 using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Kvdb.Models;
-using EventType = PrivMX.Endpoint.Kvdb.Models.EventType;
+using PrivMX.Endpoint.Kvdb.Models.Events;
+using EventType = PrivMX.Endpoint.Kvdb.Models.Events.EventType;
 
 namespace PrivMX.Endpoint.Kvdb
 {
@@ -34,7 +35,7 @@ namespace PrivMX.Endpoint.Kvdb
         Dictionary<string, bool> DeleteEntries(string kvdbId, List<string> keys);
         List<string> SubscribeFor(List<string> subscriptionQueries);
         void UnsubscribeFrom(List<string> subscriptionIds);
-        string BuildSubscriptionQuery(string channelName, Models.EventSelectorType selectorType, string selectorId);
+        string BuildSubscriptionQuery(string channelName, EventSelectorType selectorType, string selectorId);
         string BuildSubscriptionQueryForSelectedEntry(EventType eventType, string kvdbIds, string kvdbEntryKey);
     }
 }

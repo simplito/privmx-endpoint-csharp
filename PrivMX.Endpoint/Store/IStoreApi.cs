@@ -12,8 +12,8 @@
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Store.Models;
 using System.Collections.Generic;
-using EventSelectorType = PrivMX.Endpoint.Store.Models.EventSelectorType;
-using EventType = PrivMX.Endpoint.Store.Models.EventType;
+using EventSelectorType = PrivMX.Endpoint.Store.Models.Events.EventSelectorType;
+using EventType = PrivMX.Endpoint.Store.Models.Events.EventType;
 
 namespace PrivMX.Endpoint.Store
 {

@@ -12,12 +12,18 @@
 namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents the event of type "inboxEntryDeleted".
-    /// 
-    /// This event is emitted when Inbox entry events are subscribed and an entry is deleted.
+    /// Holds data of event that arrives when Thread message is deleted.
     /// </summary>
     public class InboxEntryDeletedEvent : Core.Models.Event
     {
+        /// <summary>
+        /// Event constructor
+        /// </summary>
+        public InboxEntryDeletedEvent() : base("inboxEntryDeleted")
+        {
+            
+        }
+        
         /// <summary>
         /// Metadata of the deleted entry.
         /// </summary>

@@ -9,13 +9,18 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Core.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Scope on which you listen for events in ConnectionApi
+    /// InboxApi subscription event types to listen for 
     /// </summary>
-    public enum EventSelectorType : long
+    public enum EventType : long
     {
-        CONTEXT_ID = 0
+        INBOX_CREATE = 0,
+        INBOX_UPDATE = 1,
+        INBOX_DELETE = 2,
+        ENTRY_CREATE = 3,
+        ENTRY_DELETE = 4,
+        COLLECTION_CHANGE = 5,
     }
 }

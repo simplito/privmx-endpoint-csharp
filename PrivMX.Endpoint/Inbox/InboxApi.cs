@@ -18,9 +18,14 @@ using PrivMX.Endpoint.Store;
 using PrivMX.Endpoint.Thread;
 using System;
 using System.Collections.Generic;
+using EventSelectorType = PrivMX.Endpoint.Inbox.Models.Events.EventSelectorType;
+using EventType = PrivMX.Endpoint.Inbox.Models.Events.EventType;
 
 namespace PrivMX.Endpoint.Inbox
 {
+    /// <summary>
+    /// 'InboxApi' is a class representing Endpoint's API for Inboxes and their entries.
+    /// </summary>
     public class InboxApi : IInboxApi
     {
         private readonly IntPtr ptr;
@@ -33,7 +38,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="threadApi">Instance of <see cref="ThreadApi"/></param>
         /// <param name="storeApi">Instance of <see cref="StoreApi"/></param>
         /// <returns>Created instance of the <see cref="InboxApi"/>.</returns>
-        static public InboxApi Create(Connection connection, ThreadApi threadApi, StoreApi storeApi)
+        public static InboxApi Create(Connection connection, ThreadApi threadApi, StoreApi storeApi)
         {
             InboxApi inboxApi = new InboxApi(connection, threadApi, storeApi);
             inboxApi.executor.ExecuteVoid(inboxApi.ptr, (int)InboxApiNative.Method.Create, new List<object?>{});
@@ -78,24 +83,24 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="version">Current version of the updated Inbox.</param>
         /// <param name="force">Force update without checking version.</param>
         /// <param name="forceGenerateNewKey">Force to regenerate a key for the Inbox.</param>
-        /// <param name="policies">(optional) Inbox policy.</param>
+        /// <param name="policies">(optional) Inbox policies.</param>
         public void UpdateInbox(string inboxId, List<UserWithPubKey> users, List<UserWithPubKey> managers, byte[] publicMeta, byte[] privateMeta, FilesConfig? filesConfig, long version, bool force, bool forceGenerateNewKey, ContainerPolicyWithoutItem? policies = null)
         {
             executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UpdateInbox, new List<object?>{inboxId, users, managers, publicMeta, privateMeta, filesConfig, version, force, forceGenerateNewKey, policies});
         }
 
         /// <summary>
-        /// Gets a Inbox by given Inbox ID.
+        /// Gets Inbox by given Inbox ID.
         /// </summary>
         /// <param name="inboxId">ID of the Inbox to get.</param>
-        /// <returns>Information about about the Inbox.</returns>
+        /// <returns>Information about the Inbox.</returns>
         public Models.Inbox GetInbox(string inboxId)
         {
             return executor.Execute<Models.Inbox>(ptr, (int)InboxApiNative.Method.GetInbox, new List<object?>{inboxId});
         }
 
         /// <summary>
-        /// Gets s list of Inboxes in given Context.
+        /// Gets a list of Inboxes in given Context.
         /// </summary>
         /// <param name="contextId">ID of the Context to get Inboxes from.</param>
         /// <param name="pagingQuery">List query parameters.</param>
@@ -250,37 +255,35 @@ namespace PrivMX.Endpoint.Inbox
         }
 
         /// <summary>
-        /// Subscribes for the Inbox module main events.
+        /// Subscribe for the Inbox events on the given subscription query.
         /// </summary>
-        public void SubscribeForInboxEvents()
+        /// <param name="subscriptionQueries">list of queries</param>
+        /// <returns>list of subscriptionIds in maching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForInboxEvents, new List<object?>{});
+            return executor.Execute<List<string>>(ptr, (int)InboxApiNative.Method.SubscribeFor, new List<object?>{subscriptionQueries});
         }
 
         /// <summary>
-        /// Unsubscribes from the Inbox module main events.
+        /// Unsubscribe from events for the given subscriptionId.
         /// </summary>
-        public void UnsubscribeFromInboxEvents()
+        /// <param name="subscriptionIds">subscriptionIds list of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromInboxEvents, new List<object?>{});
+            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFrom, new List<object?>{subscriptionIds});
         }
 
         /// <summary>
-        /// Subscribes for events in given Inbox.
+        /// Generate subscription Query for the Inbox events.
         /// </summary>
-        /// <param name="inboxId">ID of the Inbox.</param>
-        public void SubscribeForEntryEvents(string inboxId)
+        /// <param name="eventType">type of event which you listen for</param>
+        /// <param name="selectorType">scope on which you listen for events  </param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>A subscription query as string</returns>
+        public string BuildSubscriptionQuery(EventType eventType, EventSelectorType selectorType, string selectorId)
         {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.SubscribeForEntryEvents, new List<object?>{inboxId});
-        }
-
-        /// <summary>
-        /// Unsubscribes from events in given Inbox.
-        /// </summary>
-        /// <param name="inboxId">ID of the Inbox.</param>
-        public void UnsubscribeFromEntryEvents(string inboxId)
-        {
-            executor.ExecuteVoid(ptr, (int)InboxApiNative.Method.UnsubscribeFromEntryEvents, new List<object?>{inboxId});
+            return executor.Execute<string>(ptr, (int)InboxApiNative.Method.BuildSubscriptionQuery, 
+                new List<object?>{selectorType, selectorId});
         }
     }
 }

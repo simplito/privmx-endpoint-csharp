@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace PrivMX.Endpoint.Inbox.Models
 {
     /// <summary>
-    /// Reprezents an entry in the Inbox.
+    /// Holds information about Inbox entry
     /// </summary>
     public class InboxEntry
     {
@@ -50,10 +50,13 @@ namespace PrivMX.Endpoint.Inbox.Models
         public long CreateDate { get; set; }
 
         /// <summary>
-        /// Status code of decryption and verification of the message.
-        /// 
-        /// If value is equal 0, then the message is successfully decrypted and verified. Otherwise, status code is compatible with codes of exceptions.
+        /// Status code of retrieval and decryption of the Inbox entry
         /// </summary>
         public long StatusCode { get; set; }
+        
+        /// <summary>
+        /// Version of the Entry data structure and how it is encoded/encrypted
+        /// </summary>
+        public long SchemaVersion { get; set; }
     }
 }

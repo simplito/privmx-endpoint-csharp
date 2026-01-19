@@ -12,7 +12,7 @@
 namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// Represents payload of the InboxEntryDeletedEvent.
+    /// Holds information of `InboxEntryDeleted` event data.
     /// </summary>
     public class InboxEntryDeletedEventData
     {

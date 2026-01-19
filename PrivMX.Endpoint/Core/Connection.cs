@@ -13,6 +13,7 @@ using PrivMX.Endpoint.Core.Internal;
 using PrivMX.Endpoint.Core.Models;
 using System;
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models.Events;
 
 namespace PrivMX.Endpoint.Core
 {

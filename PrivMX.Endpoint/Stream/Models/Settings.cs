@@ -9,16 +9,14 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
-    /// Holds information of `InboxDeleted` event data.
+    /// Additional stream settings.
+    /// Reserved for future use.
     /// </summary>
-    public class InboxDeletedEventData
+    public class Settings
     {
-        /// <summary>
-        /// ID of the deleted Inbox.
-        /// </summary>
-        public string InboxId { get; set; } = null!;
+        
     }
 }

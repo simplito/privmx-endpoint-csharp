@@ -9,15 +9,19 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Stream.Models.Events
 {
     /// <summary>
-    /// Scope on which you listen for events in KvdbApi
+    /// StreamApi subscription event types to listen for 
     /// </summary>
-    public enum EventSelectorType : long
+    public enum EventType : long
     {
-        CONTEXT_ID = 0,
-        STORE_ID = 1,
-        FILE_ID = 2,
+        STREAMROOM_CREATE = 0,
+        STREAMROOM_UPDATE = 1,
+        STREAMROOM_DELETE = 2,
+        STREAM_JOIN = 4,
+        STREAM_LEAVE = 5,
+        STREAM_PUBLISH = 6,
+        STREAM_UNPUBLISH = 7,
     }
 }

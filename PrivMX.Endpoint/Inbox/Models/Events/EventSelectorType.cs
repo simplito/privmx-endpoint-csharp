@@ -9,20 +9,15 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Store.Models
+namespace PrivMX.Endpoint.Inbox.Models.Events
 {
     /// <summary>
-    /// KvdbApi subscription event types to listen for 
+    /// Scope on which you listen for events in InboxApi
     /// </summary>
-    public enum EventType : long
+    public enum EventSelectorType : long
     {
-        STORE_CREATE = 0,
-        STORE_UPDATE = 1,
-        STORE_DELETE = 2,
-        STORE_STATS = 3,
-        FILE_CREATE = 4,
-        FILE_UPDATE = 5,
-        FILE_DELETE = 6,
-        COLLECTION_CHANGE = 7,
+        CONTEXT_ID = 0,
+        INBOX_ID = 1,
+        ENTRY_ID = 2,
     }
 }

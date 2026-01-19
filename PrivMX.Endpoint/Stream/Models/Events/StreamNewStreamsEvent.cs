@@ -9,24 +9,25 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Stream.Models.Events
 {
     /// <summary>
-    /// Holds data of event that arrives when inbox is updated
+    /// Holds data of event that arrives on StreamPublish - contains information about available publishers/streams
+    /// one can subscribe to.
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class StreamNewStreamsEvent : Core.Models.Event
     {
         /// <summary>
         /// Event constructor
         /// </summary>
-        public InboxUpdatedEvent() : base("inboxUpdated")
+        public StreamNewStreamsEvent() : base("StreamNewStreams")
         {
             
         }
         
         /// <summary>
-        /// Updated Inbox.
+        /// Event data
         /// </summary>
-        public Inbox Data { get; set; } = null!;
+        public NewStreams Data { get; set; }
     }
 }

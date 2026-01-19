@@ -9,16 +9,15 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Core.Models.Events
 {
     /// <summary>
-    /// Holds information of `InboxDeleted` event data.
+    /// Connection subscription event types to listen for 
     /// </summary>
-    public class InboxDeletedEventData
+    public enum EventType : long
     {
-        /// <summary>
-        /// ID of the deleted Inbox.
-        /// </summary>
-        public string InboxId { get; set; } = null!;
+        USER_ADD = 0,
+        USER_REMOVE = 1,
+        USER_STATUS = 2
     }
 }

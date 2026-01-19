@@ -16,8 +16,8 @@ using PrivMX.Endpoint.Core.Internal;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Kvdb.Internal;
 using PrivMX.Endpoint.Kvdb.Models;
-using EventSelectorType = PrivMX.Endpoint.Kvdb.Models.EventSelectorType;
-using EventType = PrivMX.Endpoint.Kvdb.Models.EventType;
+using EventSelectorType = PrivMX.Endpoint.Kvdb.Models.Events.EventSelectorType;
+using EventType = PrivMX.Endpoint.Kvdb.Models.Events.EventType;
 
 namespace PrivMX.Endpoint.Kvdb
 {

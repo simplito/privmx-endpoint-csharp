@@ -9,24 +9,24 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Stream.Models.Events
 {
     /// <summary>
-    /// Holds data of event that arrives when inbox is updated
+    /// Holds data of event that arrives when StreamRoom is deleted.
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class StreamRoomDeletedEvent : Core.Models.Event
     {
         /// <summary>
         /// Event constructor
         /// </summary>
-        public InboxUpdatedEvent() : base("inboxUpdated")
+        public StreamRoomDeletedEvent() : base("streamRoomDeleted")
         {
             
         }
         
         /// <summary>
-        /// Updated Inbox.
+        /// Event data
         /// </summary>
-        public Inbox Data { get; set; } = null!;
+        public StreamRoomDeletedEventData Data { get; set; }
     }
 }

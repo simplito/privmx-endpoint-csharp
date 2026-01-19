@@ -9,20 +9,13 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Kvdb.Models
+namespace PrivMX.Endpoint.Core.Models.Events
 {
     /// <summary>
-    /// KvdbApi subscription event types to listen for 
+    /// Scope on which you listen for events in ConnectionApi
     /// </summary>
-    public enum EventType : long
+    public enum EventSelectorType : long
     {
-        KVDB_CREATE = 0,
-        KVDB_UPDATE = 1,
-        KVDB_DELETE = 2,
-        KVDB_STATS = 3,
-        ENTRY_CREATE = 4,
-        ENTRY_UPDATE = 5,
-        ENTRY_DELETE = 6,
-        COLLECTION_CHANGE = 7,
+        CONTEXT_ID = 0
     }
 }

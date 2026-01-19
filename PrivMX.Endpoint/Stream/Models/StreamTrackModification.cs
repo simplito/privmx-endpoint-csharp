@@ -9,24 +9,23 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+using System.Collections.Generic;
+
+namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
-    /// Holds data of event that arrives when inbox is updated
+    /// Holds streamTrack modification data
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class StreamTrackModification
     {
         /// <summary>
-        /// Event constructor
+        /// ID of the stream to modify
         /// </summary>
-        public InboxUpdatedEvent() : base("inboxUpdated")
-        {
-            
-        }
+        public long StreamId { get; set; }
         
         /// <summary>
-        /// Updated Inbox.
+        /// List od streamTrackModificationPairs 
         /// </summary>
-        public Inbox Data { get; set; } = null!;
+        public List<StreamTrackModificationPair> Tracks { get; set; }
     }
 }

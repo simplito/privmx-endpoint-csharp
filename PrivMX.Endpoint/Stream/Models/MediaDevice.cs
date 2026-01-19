@@ -9,24 +9,26 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
-    /// Holds data of event that arrives when inbox is updated
+    /// Holds information about media device
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class MediaDevice
     {
         /// <summary>
-        /// Event constructor
+        /// Name of the device
         /// </summary>
-        public InboxUpdatedEvent() : base("inboxUpdated")
-        {
-            
-        }
+        public string Name { get; set; }
         
         /// <summary>
-        /// Updated Inbox.
+        /// ID of the device
         /// </summary>
-        public Inbox Data { get; set; } = null!;
+        public string Id { get; set; }
+        
+        /// <summary>
+        /// Type of the device
+        /// </summary>
+        public DeviceType Type { get; set; }
     }
 }

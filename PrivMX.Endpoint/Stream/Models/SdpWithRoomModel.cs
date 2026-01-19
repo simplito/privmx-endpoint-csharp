@@ -9,24 +9,26 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Inbox.Models.Events
+namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
-    /// Holds data of event that arrives when inbox is updated
+    /// Holds information about sdp model with Room
     /// </summary>
-    public class InboxUpdatedEvent : Core.Models.Event
+    public class SdpWithRoomModel
     {
         /// <summary>
-        /// Event constructor
+        /// ID of the Room
         /// </summary>
-        public InboxUpdatedEvent() : base("inboxUpdated")
-        {
-            
-        }
+        public string RoomId { get; set; }
         
         /// <summary>
-        /// Updated Inbox.
+        /// Session description protocol
         /// </summary>
-        public Inbox Data { get; set; } = null!;
+        public string Sdp { get; set; }
+        
+        /// <summary>
+        /// Sdp type
+        /// </summary>
+        public string Type { get; set; }
     }
 }

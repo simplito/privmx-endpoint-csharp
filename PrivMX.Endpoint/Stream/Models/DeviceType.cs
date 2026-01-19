@@ -9,14 +9,15 @@
 // limitations under the License.
 //
 
-namespace PrivMX.Endpoint.Kvdb.Models
+namespace PrivMX.Endpoint.Stream.Models
 {
     /// <summary>
-    /// Scope on which you listen for events in KvdbApi
+    /// Represents device types in Streams.
     /// </summary>
-    public enum EventSelectorType : long
+    public enum DeviceType
     {
-        CONTEXT_ID = 0,
-        KVDB_ID = 1
+        Audio = 0,
+        Video = 1,
+        Desktop = 2
     }
 }
