@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net9.0-android</TargetFrameworks>
     <RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>
     <PackageName>PrivMX.Endpoint</PackageName>
     <PackageId>PrivMX.Endpoint</PackageId>
-    <Version>2.3.0</Version>
+    <Version>2.7.0</Version>
     <Authors>Simplito sp. z o.o.</Authors>
     <Product>PrivMX Endpoint C#</Product>
     <Title>PrivMX Endpoint C#</Title>
@@ -26,7 +26,15 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>XAOBS001</NoWarn>
   </PropertyGroup>
+    <!-- Android-specific properties -->
+    <PropertyGroup Condition="'$(TargetFramework)'=='net9.0-android'">
+        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <TargetPlatformVersion>35</TargetPlatformVersion>
+        <RuntimeIdentifiers>android-arm64;android-x86</RuntimeIdentifiers>
+        <Version>9.0.310</Version>
+    </PropertyGroup>
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\LICENSE"/>
     <None Include="../README.md" Pack="true" PackagePath="\README.md"/>
@@ -61,5 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net9.0-android'">
+      <Reference Include="Org.WebRTC">
+        <HintPath>native/webRTC/privmx-csharp-android-addon.Android.dll</HintPath>
+        <Private>true</Private>
+      </Reference>
   </ItemGroup>
 </Project>

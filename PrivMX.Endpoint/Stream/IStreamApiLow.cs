@@ -16,7 +16,7 @@ using PrivMX.Endpoint.Stream.Models.Events;
 
 namespace PrivMX.Endpoint.Stream
 {
-    public interface IStreamApi
+    public interface IStreamApiLow
     {
         List<TurnCredentials> GetTurnCredentials();
         string CreateStreamRoom(string contextId, List<UserWithPubKey> users, List<UserWithPubKey> managers, 
@@ -28,7 +28,7 @@ namespace PrivMX.Endpoint.Stream
         StreamRoom GetStreamRoom(string streamRoomId);
         void DeleteStreamRoom(string streamRoomId);
         List<StreamInfo> ListStreams(string streamRoomId);
-        void JoinStreamRoom(string streamRoomId, WebRTCInterface webRtc);
+        void JoinStreamRoom(string streamRoomId, IWebRTC webRtc);
         void LeaveStreamRoom(string streamRoomId);
         long CreateStream(string streamRoomId);
         StreamPublishResult PublishStream(long streamHandle);
