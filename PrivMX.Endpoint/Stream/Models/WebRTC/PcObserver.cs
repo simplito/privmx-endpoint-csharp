@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using Java.Interop;
 using Java.Util;
+using Java.Util.Functions;
 using Org.Webrtc;
 using PrivMX.Endpoint.Stream.Models.WebRTC.Adapters;
 
@@ -28,9 +29,14 @@ namespace PrivMX.Endpoint.Stream.Models.WebRTC
         private string streamRoomId;
         private PmxFrameCryptor.PmxFrameCryptorOptions options;
         
+        private IBiConsumer onAddTrack;
+        
         public PcObserver()
         {
             FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();
+            onAddTrack = new BiConsumerAdapter<Java.Lang.Object, RtpReceiver>(
+                new BiConsumerAdapter_MediaStreamList_Receiver()
+            );
         }
         
         public void Dispose()

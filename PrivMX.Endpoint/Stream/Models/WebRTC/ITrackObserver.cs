@@ -9,9 +9,9 @@
 // limitations under the License.
 //
 
-using Org.Webrtc;
-
 #if ANDROID
+
+using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.WebRTC
 {

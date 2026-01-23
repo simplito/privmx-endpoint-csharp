@@ -43,10 +43,12 @@ namespace PrivMX.Endpoint.Stream.Models.WebRTC.Adapters
     }
     
     internal sealed class BiConsumerAdapter_MediaStreamList_Receiver 
-        : IBiConsumerAdapter<Java.Util.IList, RtpReceiver>
+        : IBiConsumerAdapter<Java.Lang.Object, RtpReceiver>
     {
-        public void Accept(Java.Util.IList list, RtpReceiver receiver)
+        public void Accept(Java.Lang.Object mediaList, RtpReceiver receiver)
         {
+            var list = mediaList.JavaCast<Java.Util.IList>();
+            
             for (int i = 0; i < list.Size(); i++)
             {
                 if (list.Get(i) is not MediaStream)
