@@ -13,30 +13,41 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Java.Interop;
-using Java.Util;
-using Java.Util.Functions;
 using Org.Webrtc;
-using PrivMX.Endpoint.Stream.Models.WebRTC.Adapters;
+using PrivMX.Endpoint.Stream.Models.StreamApi;
 
 namespace PrivMX.Endpoint.Stream.Models.WebRTC
 {
     public class PcObserver : PeerConnection.IObserver
     {
-        private Dictionary<string, PmxFrameCryptor> FrameCryptorMap;
+        private Dictionary<string, PmxFrameCryptor> FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();
         private PeerConnectionFactory peerConnectionFactory;
         public ITrackObserver TrackObserver;
         private string streamRoomId;
         private PmxFrameCryptor.PmxFrameCryptorOptions options;
         
-        private IBiConsumer onAddTrack;
+        private Action<List<MediaStream>, RtpReceiver> onAddTrack;
+        private Action<string> onVideoTrack;
+        private Action<string> onRemoveVideoTrack = null;
         
-        public PcObserver()
+        private Action<PeerConnection.SignalingState> onSignalingState;
+        private Action<PeerConnection.PeerConnectionState> onPeerConnectionState;
+        private Action<PeerConnection.IceGatheringState> onIceGatheringState;
+        private Action<PeerConnection.IceConnectionState> onIceConnectionState;
+        private Action<IceCandidate> onIceCandidate;
+        private Action<MediaStream> onAddStream;
+        private Action<MediaStream> onRemoveStream;
+        private Action<DataChannel> onDataChannel;
+        private Task onRenegotiationNeeded;
+        private Action<MediaStreamTrack> onTrack;
+        private Action<RtpReceiver> onRemoveTrack;
+        
+        public PcObserver(PeerConnectionFactory peerConnectionFactory, string streamRoomId, PmxKeyStore peerKeyStore, 
+            PmxFrameCryptor.PmxFrameCryptorOptions options, ITrackObserver trackObserver)
         {
-            FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();
-            onAddTrack = new BiConsumerAdapter<Java.Lang.Object, RtpReceiver>(
-                new BiConsumerAdapter_MediaStreamList_Receiver()
-            );
+            
         }
         
         public void Dispose()

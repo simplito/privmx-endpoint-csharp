@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Stream.Models;
 using PrivMX.Endpoint.Stream.Models.Events;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Stream
 {

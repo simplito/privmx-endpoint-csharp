@@ -11,7 +11,8 @@
 
 #if ANDROID
 using System.Collections.Generic;
-using PrivMX.Endpoint.Stream.Models;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+using PrivMX.Endpoint.Stream.Models.WebRTC;
 
 namespace PrivMX.Endpoint.Stream
 {
@@ -28,7 +29,7 @@ namespace PrivMX.Endpoint.Stream
 
 #else
 using System.Collections.Generic;
-using PrivMX.Endpoint.Stream.Models;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Stream
 {

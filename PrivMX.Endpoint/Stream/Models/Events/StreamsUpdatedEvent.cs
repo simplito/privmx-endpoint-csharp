@@ -9,6 +9,8 @@
 // limitations under the License.
 //
 
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+
 namespace PrivMX.Endpoint.Stream.Models.Events
 {
     /// <summary>

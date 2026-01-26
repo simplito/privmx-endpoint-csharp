@@ -10,23 +10,27 @@
 //
 
 #if ANDROID
+
+using System;
 using System.Collections.Generic;
 using Org.Webrtc;
-using Org.Webrtc.Audio;
-using PrivMX.Endpoint.Stream.Models;
+using PrivMX.Endpoint.Stream.Models.StreamApi;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 using PrivMX.Endpoint.Stream.Models.WebRTC;
 
 namespace PrivMX.Endpoint.Stream
 {
-    public class WebRTC : IWebRTC
+    internal class WebRTC : IWebRTC
     {
         private PmxKeyStore store;
         private PeerConnection2 peerConnection2;
+        private ITrackObserver trackObserver;
         
-        public WebRTC()
+        public WebRTC(ITrackObserver trackObserver)
         {
             store = PmxFrameCryptorFactory.CreatePmxKeyStore();
             peerConnection2 = new PeerConnection2();
+            this.trackObserver = trackObserver;
         }
         
         public string CreateOfferAndSetLocalDescription(string streamRoomId)
@@ -58,8 +62,25 @@ namespace PrivMX.Endpoint.Stream
         {
             throw new System.NotImplementedException();
         }
+
+        public PeerConnection2 CreatePeerConnection(string streamRoomId, PeerConnectionFactory? peerConnectionFactory)
+        {
+            PeerConnection2 peerConnection = new PeerConnection2();
+            
+            Console.WriteLine("createPeerConnection: ");
+            List<PeerConnection.IceServer> iceServers = new List<PeerConnection.IceServer>();
+            PeerConnection.RTCConfiguration rtcConfiguration = new PeerConnection.RTCConfiguration(iceServers);
+
+            if (peerConnectionFactory != null)
+            {
+                PcObserver observer = new PcObserver();
+            }
+
+            return peerConnection;
+        }
     }
 }
+
 #else
 
 namespace PrivMX.Endpoint.Stream

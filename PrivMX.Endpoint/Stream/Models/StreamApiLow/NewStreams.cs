@@ -9,26 +9,23 @@
 // limitations under the License.
 //
 
-using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+using System.Collections.Generic;
 
-namespace PrivMX.Endpoint.Stream.Models.Events
+namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
 {
     /// <summary>
-    /// Holds data of event that arrives when StreamRoom is created.
+    /// Holds information about new streams
     /// </summary>
-    public class StreamRoomCreatedEvent : Core.Models.Event
+    public class NewStreams
     {
         /// <summary>
-        /// Event constructor
+        /// Stream room
         /// </summary>
-        public StreamRoomCreatedEvent() : base("streamRoomCreated")
-        {
-            
-        }
+        public string Room { get; set; }
         
         /// <summary>
-        /// All available StreamRoom information
+        /// List of streamInfos
         /// </summary>
-        public StreamRoom Data { get; set; }
+        public List<StreamInfo> Streams { get; set; }
     }
 }

@@ -18,6 +18,7 @@ using PrivMX.Endpoint.Event;
 using PrivMX.Endpoint.Stream.Internal;
 using PrivMX.Endpoint.Stream.Models;
 using PrivMX.Endpoint.Stream.Models.Events;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Stream
 {

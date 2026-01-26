@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
+    <PackageReference Include="NUnitLite" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0-android'">
       <Reference Include="Org.WebRTC">
