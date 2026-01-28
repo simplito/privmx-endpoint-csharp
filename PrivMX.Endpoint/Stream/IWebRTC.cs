@@ -10,9 +10,11 @@
 //
 
 #if ANDROID
+
 using System.Collections.Generic;
+using Org.Webrtc;
+using PrivMX.Endpoint.Stream.Models.StreamApi;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
-using PrivMX.Endpoint.Stream.Models.WebRTC;
 
 namespace PrivMX.Endpoint.Stream
 {
@@ -24,6 +26,8 @@ namespace PrivMX.Endpoint.Stream
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);
         void UpdateKeys(string streamRoomId, List<Key> keys);
+        void CreatePeerConnections(string streamRoomId, PeerConnectionManager? peerConnectionFactory);
+        void AddVideoTrack(string streamRoomId, VideoTrack videoTrack, string id);
     }
 }
 

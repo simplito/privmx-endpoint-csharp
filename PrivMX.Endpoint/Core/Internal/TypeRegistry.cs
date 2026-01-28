@@ -65,6 +65,8 @@ namespace PrivMX.Endpoint.Core.Internal
             {"kvdb$KvdbNewEntryEvent", typeof(KvdbNewEntryEvent)},
             {"kvdb$KvdbStatsChangedEvent", typeof(KvdbStatsChangedEvent)},
             {"kvdb$KvdbUpdatedEvent", typeof(KvdbUpdatedEvent)}
+            
+            //TODO: Add stream event types too
         };
     }
 }

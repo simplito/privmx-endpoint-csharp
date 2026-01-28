@@ -11,18 +11,22 @@
 
 #if ANDROID
 
-using System.Collections.Generic;
 using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    internal class StreamData
+    public class VideoTrackInfo
     {
-        public long StreamHandle { get; set; }
-        public string StreamRoomId { get; set; }
-        public StreamStatus StreamStatus { get; set; }
-        public Dictionary<long, IVideoCapturer> streamCapturers { get; set; } = new Dictionary<long, IVideoCapturer>();
-        public IWebRTC WebRTC { get; set; }
+        public VideoTrack Track { get; }
+        public RtpSender Sender { get; }
+        public PmxFrameCryptor FrameCryptor { get; }
+
+        public VideoTrackInfo(VideoTrack track, RtpSender sender, PmxFrameCryptor frameCryptor)
+        {
+            Track = track;
+            Sender = sender;
+            FrameCryptor = frameCryptor;
+        }
     }
 }
 

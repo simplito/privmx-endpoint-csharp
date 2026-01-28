@@ -12,6 +12,7 @@
 #if ANDROID
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Android.App;
@@ -21,36 +22,18 @@ using Org.Webrtc.Audio;
 using PrivMX.Endpoint.Core;
 using PrivMX.Endpoint.Event;
 using PrivMX.Endpoint.Stream;
+using PrivMX.Endpoint.Stream.Models.StreamApi;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Tests
 {
+    [TestFixture]
     public class StreamApiTest
     {
         [Test]
         public void TestStreamApi()
         {
-            IEglBase rootEglBase = IEglBase.Create();
-            PeerConnectionFactory.Initialize(PeerConnectionFactory.InitializationOptions
-                .InvokeBuilder(Application.Context).CreateInitializationOptions());
-
-            IAudioDeviceModule adm = JavaAudioDeviceModule.InvokeBuilder(Application.Context).CreateAudioDeviceModule();
-
-            IVideoEncoderFactory encoderFactory = new DefaultVideoEncoderFactory(rootEglBase.EglBaseContext,
-                true, false);
-
-            IVideoDecoderFactory decoderFactory = new DefaultVideoDecoderFactory(rootEglBase.EglBaseContext);
-
-            PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
-
-            PeerConnectionFactory factory = PeerConnectionFactory.InvokeBuilder()
-                .SetVideoDecoderFactory(decoderFactory)
-                .SetVideoEncoderFactory(encoderFactory)
-                .SetOptions(options)
-                .SetAudioDeviceModule(adm)
-                .CreatePeerConnectionFactory();
-            
-            adm.Release();
+            PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
             
             string userPrivKey = "";
             string solutionId = "";
@@ -62,8 +45,7 @@ namespace PrivMX.Endpoint.Tests
 
             try
             {
-                StreamApi streamApi = new StreamApi(Application.Context, rootEglBase,
-                    StreamApiLow.Create(connection, eventApi), factory);
+                StreamApi streamApi = new StreamApi(peerConnectionManager, StreamApiLow.Create(connection, eventApi));
                 
                 Console.WriteLine("listStreamRooms-------");
 
@@ -76,7 +58,20 @@ namespace PrivMX.Endpoint.Tests
                 
                 string streamRoomId = streamRoom.StreamRoomId;
                 
-                
+                CustomVideoSink sink = new CustomVideoSink(new BasicVideoFrameConsumer());
+                var sinks = new List<CustomVideoSink> { sink };
+                streamApi.JoinStreamRoom(streamRoomId, new TrackObserverImpl(sinks));
+
+                StreamHandle localStreamId = streamApi.CreateStream(streamRoomId);
+                MediaDevice localMediaDevice = new MediaDevice
+                {
+                    Id = "video_track_0",
+                    Name = StreamApi.VIDEO_TRACK_ID,
+                    Type = DeviceType.Video
+                };
+
+                streamApi.AddTrack(peerConnectionManager.GetAppContext(), sink, localStreamId, localMediaDevice);
+                streamApi.PublishStream(localStreamId);
             }
             catch (Exception e)
             {

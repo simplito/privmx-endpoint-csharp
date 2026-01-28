@@ -14,19 +14,21 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Runtime;
 using Java.Interop;
 using Org.Webrtc;
-using PrivMX.Endpoint.Stream.Models.StreamApi;
 
-namespace PrivMX.Endpoint.Stream.Models.WebRTC
+namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    public class PcObserver : PeerConnection.IObserver
+    //[Register("org/webrtc/PcObserver")]
+    internal class PcObserver : Java.Lang.Object, PeerConnection.IObserver
     {
         private Dictionary<string, PmxFrameCryptor> FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();
-        private PeerConnectionFactory peerConnectionFactory;
         public ITrackObserver TrackObserver;
         private string streamRoomId;
         private PmxFrameCryptor.PmxFrameCryptorOptions options;
+        private PeerConnectionManager peerConnectionManager;
+        private PmxKeyStore keyStore;
         
         private Action<List<MediaStream>, RtpReceiver> onAddTrack;
         private Action<string> onVideoTrack;
@@ -44,10 +46,14 @@ namespace PrivMX.Endpoint.Stream.Models.WebRTC
         private Action<MediaStreamTrack> onTrack;
         private Action<RtpReceiver> onRemoveTrack;
         
-        public PcObserver(PeerConnectionFactory peerConnectionFactory, string streamRoomId, PmxKeyStore peerKeyStore, 
+        public PcObserver(PeerConnectionManager peerConnectionManager, string streamRoomId, PmxKeyStore peerKeyStore, 
             PmxFrameCryptor.PmxFrameCryptorOptions options, ITrackObserver trackObserver)
         {
-            
+            this.peerConnectionManager = peerConnectionManager;
+            this.streamRoomId = streamRoomId;
+            this.keyStore = peerKeyStore;
+            this.options = options;
+            this.TrackObserver = trackObserver;
         }
         
         public void Dispose()

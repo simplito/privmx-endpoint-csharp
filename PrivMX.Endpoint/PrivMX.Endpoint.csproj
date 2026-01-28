@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net9.0-android</TargetFrameworks>
-    <RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>
+    <!--<RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>-->
     <PackageName>PrivMX.Endpoint</PackageName>
     <PackageId>PrivMX.Endpoint</PackageId>
     <Version>2.7.0</Version>
@@ -32,8 +32,9 @@
     <PropertyGroup Condition="'$(TargetFramework)'=='net9.0-android'">
         <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
         <TargetPlatformVersion>35</TargetPlatformVersion>
-        <RuntimeIdentifiers>android-arm64;android-x86</RuntimeIdentifiers>
+        <!--<RuntimeIdentifiers>android-arm64;android-x86</RuntimeIdentifiers>-->
         <Version>9.0.310</Version>
+        <AndroidLinkMode>None</AndroidLinkMode>
     </PropertyGroup>
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\LICENSE"/>

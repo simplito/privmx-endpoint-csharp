@@ -13,24 +13,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Org.Webrtc;
 using PrivMX.Endpoint.Stream.Models.StreamApi;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
-using PrivMX.Endpoint.Stream.Models.WebRTC;
 
 namespace PrivMX.Endpoint.Stream
 {
-    internal class WebRTC : IWebRTC
+    internal class WebRTCImpl : IWebRTC
     {
-        private PmxKeyStore store;
-        private PeerConnection2 peerConnection2;
+        private PmxKeyStore keyStore;
         private ITrackObserver trackObserver;
+        private PeerConnectionManager peerConnectionManager;
         
-        public WebRTC(ITrackObserver trackObserver)
+        public WebRTCImpl(ITrackObserver trackObserver, PeerConnectionManager peerConnectionManager)
         {
-            store = PmxFrameCryptorFactory.CreatePmxKeyStore();
-            peerConnection2 = new PeerConnection2();
+            keyStore = PmxFrameCryptorFactory.CreatePmxKeyStore();
             this.trackObserver = trackObserver;
+            this.peerConnectionManager = peerConnectionManager;
         }
         
         public string CreateOfferAndSetLocalDescription(string streamRoomId)
@@ -63,20 +63,34 @@ namespace PrivMX.Endpoint.Stream
             throw new System.NotImplementedException();
         }
 
-        public PeerConnection2 CreatePeerConnection(string streamRoomId, PeerConnectionFactory? peerConnectionFactory)
+        public void CreatePeerConnections(string streamRoomId, PeerConnectionManager? peerConnectionFactory)
         {
-            PeerConnection2 peerConnection = new PeerConnection2();
-            
             Console.WriteLine("createPeerConnection: ");
             List<PeerConnection.IceServer> iceServers = new List<PeerConnection.IceServer>();
             PeerConnection.RTCConfiguration rtcConfiguration = new PeerConnection.RTCConfiguration(iceServers);
 
-            if (peerConnectionFactory != null)
+            if (peerConnectionManager != null)
             {
-                PcObserver observer = new PcObserver();
+                CreateRoomJanusSession(streamRoomId, rtcConfiguration);
             }
+        }
 
-            return peerConnection;
+        public void AddVideoTrack(string streamRoomId, VideoTrack videoTrack, string id)
+        {
+            PeerConnection2 pc2 = peerConnectionManager.GetJanusSessions().Values.First().Sender;
+            Console.WriteLine("Peerconnection: + " + pc2);
+            RtpSender rtpSender = pc2.GetPeerConnection().AddTrack(videoTrack);
+            PmxFrameCryptor frameCryptor = PmxFrameCryptorFactory.CreatePmxFrameCryptorFromRtpSender(
+                peerConnectionManager.GetPeerConnectionFactory(), rtpSender, keyStore);
+            pc2.AddVideoTrack(id, new VideoTrackInfo(videoTrack, rtpSender, frameCryptor));        
+        }
+
+        private void CreateRoomJanusSession(string streamRoomId, PeerConnection.RTCConfiguration rtcConfiguration)
+        {
+            RoomJanusSession janusSession = new RoomJanusSession(peerConnectionManager, streamRoomId, keyStore, 
+                trackObserver, rtcConfiguration);
+                
+            peerConnectionManager.GetJanusSessions().Add(streamRoomId, janusSession);
         }
     }
 }
@@ -88,7 +102,7 @@ namespace PrivMX.Endpoint.Stream
     /// <summary>
     /// This version of WebRTC is not implemented yet.
     /// </summary>
-    public class WebRTC
+    public class WebRTCImpl
     {
         
     }

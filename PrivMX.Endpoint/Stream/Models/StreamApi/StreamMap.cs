@@ -18,7 +18,7 @@ using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    public class StreamMap
+    internal class StreamMap
     {
         private Dictionary<long, StreamData> streamDataMap = new();
         private long currentId = 1;
@@ -52,14 +52,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
             return h;
         }
         
-        private StreamData Create(ITrackObserver trackObserver)
+        public StreamData CreateWithOutPeerConnections(ITrackObserver trackObserver, PeerConnectionManager peerConnectionManager)
         {
             lock (streamDataMap)
             {
                 long handle = GetRandomHandle();
                 StreamData streamData = new StreamData();
                 streamData.StreamHandle = handle;
-                streamData.WebRTC = new Stream.WebRTC(trackObserver);
+                streamData.WebRTC = new Stream.WebRTCImpl(trackObserver, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
                 streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();
                 streamDataMap.Add(handle, streamData);
@@ -68,15 +68,15 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
             }
         }
 
-        private StreamData Create(ITrackObserver trackObserver, string streamRoomId)
+        public StreamData Create(ITrackObserver trackObserver, string streamRoomId, PeerConnectionManager peerConnectionManager)
         {
             lock (streamDataMap)
             {
                 long handle = GetRandomHandle();
                 StreamData streamData = new StreamData();
                 streamData.StreamHandle = handle;
-                streamData.WebRTC = new Stream.WebRTC(trackObserver);
-                streamData.WebRTC.CreatePeerConnection(streamRoomId);
+                streamData.WebRTC = new Stream.WebRTCImpl(trackObserver, peerConnectionManager);
+                streamData.WebRTC.CreatePeerConnections(streamRoomId, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
                 streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();
                 streamDataMap.Add(handle, streamData);

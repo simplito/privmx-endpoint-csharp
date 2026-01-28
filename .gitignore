@@ -3,3 +3,5 @@
 **/obj/
 !**/.gitkeep
 .DS_Store
+/PrivMXCSharp.AndroidTests
+/privmx-csharp-android-addon

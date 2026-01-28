@@ -9,17 +9,17 @@
 // limitations under the License.
 //
 
+using System;
+
 #if ANDROID
-
-using Org.Webrtc;
-
-namespace PrivMX.Endpoint.Stream.Models.WebRTC
+namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    public class PeerConnection2
+    public class BasicVideoFrameConsumer : IVideoFrameConsumer
     {
-        public PeerConnection peerConnection;
-        public PmxKeyStore keys;
+        public void OnFrame(byte[] rgba, int width, int height, int rotation, long timestampNs)
+        {
+            Console.WriteLine("BasicVideoFrameConsumer: OnFrame");
+        }
     }
 }
-
 #endif
