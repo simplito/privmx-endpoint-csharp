@@ -33,13 +33,25 @@ namespace PrivMX.Endpoint.Core.Internal
             Rtrim = 13,
         }
         
+#if ANDROID
+        [DllImport("libprivmxendpointcore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_newUtils(out IntPtr outPtr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointcore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_freeUtils(IntPtr ptr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointcore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_execUtils(IntPtr ptr, int method, IntPtr value, out IntPtr result);
         
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

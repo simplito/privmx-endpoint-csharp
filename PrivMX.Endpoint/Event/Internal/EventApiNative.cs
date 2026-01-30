@@ -28,13 +28,25 @@ namespace PrivMX.Endpoint.Event.Internal
             BuildSubscriptionQuery = 6,
         }
 
+#if ANDROID
+        [DllImport("libprivmxendpointevent")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_newEventApi(IntPtr connectionPtr, out IntPtr outPtr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointevent")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_freeEventApi(IntPtr ptr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointevent")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_execEventApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

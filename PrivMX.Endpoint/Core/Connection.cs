@@ -13,6 +13,7 @@ using PrivMX.Endpoint.Core.Internal;
 using PrivMX.Endpoint.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PrivMX.Endpoint.Core.Models.Events;
 
 namespace PrivMX.Endpoint.Core
@@ -48,6 +49,7 @@ namespace PrivMX.Endpoint.Core
         /// </summary>
         /// <param name="solutionId">ID of the Solution.</param>
         /// <param name="bridgeUrl">PrivMX Bridge URL.</param>
+        /// <param name="verificationOptions">PrivMX Bridge server instance verification options using a PKI server</param>
         /// <returns>Created and connected instance of the <see cref="Connection"/>.</returns>
         static public Connection ConnectPublic(string solutionId, string bridgeUrl, PKIVerificationOptions? verificationOptions = null)
         {
@@ -67,6 +69,13 @@ namespace PrivMX.Endpoint.Core
         ~Connection()
         {
             ConnectionNative.privmx_endpoint_freeConnection(ptr);
+        }
+
+        public static void SetCertsPath(string path)
+        {
+            IntPtr ptr = Marshal.StringToHGlobalAnsi(path);
+            ConnectionNative.privmx_endpoint_setCertsPath(ptr);
+            Marshal.FreeHGlobal(ptr);
         }
 
         /// <summary>

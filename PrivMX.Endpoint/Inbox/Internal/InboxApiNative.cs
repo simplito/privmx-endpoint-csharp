@@ -46,13 +46,25 @@ namespace PrivMX.Endpoint.Inbox.Internal
             BuildSubscriptionQuery = 24,
         }
 
+#if ANDROID
+        [DllImport("libprivmxendpointinbox")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_newInboxApi(IntPtr connectionPtr, IntPtr threadApiPtr, IntPtr storeApiPtr, out IntPtr outPtr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointevent")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_freeInboxApi(IntPtr ptr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointevent")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_execInboxApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

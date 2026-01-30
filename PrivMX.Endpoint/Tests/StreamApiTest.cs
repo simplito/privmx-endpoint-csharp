@@ -27,19 +27,31 @@ using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Tests
 {
-    [TestFixture]
     public class StreamApiTest
     {
-        [Test]
-        public void TestStreamApi()
+        public void TestExecTest()
+        {
+            Console.WriteLine("!TestExecTest!");
+        }
+        
+        public void TestStreamApiPart(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
+        {
+            Console.WriteLine("!TestStreamApiPart!");
+            
+            PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
+
+            Connection.SetCertsPath(certPath);
+            Connection connection = Connection.Connect(userPrivKey, solutionId, bridgeUrl);
+            EventApi eventApi = EventApi.Create(connection);
+            
+            connection.Disconnect();
+        }
+        
+        public void TestStreamApi(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
         {
             PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
             
-            string userPrivKey = "";
-            string solutionId = "";
-            string bridgeUrl = "";
-            string contextId = "";
-            
+            Connection.SetCertsPath(certPath);
             Connection connection = Connection.Connect(userPrivKey, solutionId, bridgeUrl);
             EventApi eventApi = EventApi.Create(connection);
 

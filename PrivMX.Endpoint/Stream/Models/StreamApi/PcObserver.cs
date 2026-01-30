@@ -20,7 +20,7 @@ using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    //[Register("org/webrtc/PcObserver")]
+    [Register("org/webrtc/PcObserver", DoNotGenerateAcw=true)]
     internal class PcObserver : Java.Lang.Object, PeerConnection.IObserver
     {
         private Dictionary<string, PmxFrameCryptor> FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();

@@ -46,13 +46,25 @@ namespace PrivMX.Endpoint.Store.Internal
             BuildSubscriptionQuery = 24,
         }
 
+#if ANDROID
+        [DllImport("libprivmxendpointstore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_newStoreApi(IntPtr connectionPtr, out IntPtr outPtr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointstore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_freeStoreApi(IntPtr ptr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointstore")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_execStoreApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

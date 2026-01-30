@@ -16,7 +16,7 @@ using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    //[Register("org/webrtc/CustomVideoSink")]
+    [Register("org/webrtc/CustomVideoSink", DoNotGenerateAcw=true)]
     public class CustomVideoSink : Java.Lang.Object, IVideoSink
     {
         private readonly IVideoFrameConsumer consumer;

@@ -35,7 +35,7 @@ namespace PrivMX.Endpoint.Event
         public static EventApi Create(Connection connection)
         {
             EventApi eventApi = new EventApi(connection);
-            eventApi.executor.ExecuteVoid(eventApi.ptr, (int)EventApiNative.Method.Create, new List<object?>{connection});
+            eventApi.executor.ExecuteVoid(eventApi.ptr, (int)EventApiNative.Method.Create, new List<object?>{});
             return eventApi;
         }
 

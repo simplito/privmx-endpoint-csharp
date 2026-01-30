@@ -47,13 +47,25 @@ namespace PrivMX.Endpoint.Stream.Internal
             UpdateStream = 22,
         }
 
+#if ANDROID
+        [DllImport("libprivmxendpointstream")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_newStreamApi(IntPtr connectionPtr, IntPtr eventApiPtr, out IntPtr outPtr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointstream")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_freeStreamApi(IntPtr ptr);
 
+#if ANDROID
+        [DllImport("libprivmxendpointstream")]
+#else
         [DllImport("libprivmxendpointinterface")]
+#endif
         public static extern int privmx_endpoint_execStreamApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)
