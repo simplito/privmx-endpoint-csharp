@@ -22,7 +22,7 @@ namespace PrivMX.Endpoint.Crypto
     /// </summary>
     public class CryptoApi : ICryptoApi
     {
-        private readonly IntPtr ptr;
+        public readonly IntPtr ptr;
         private readonly Executor executor = new Executor(new CryptoApiNative());
 
         /// <summary>

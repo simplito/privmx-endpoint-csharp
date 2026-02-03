@@ -26,8 +26,6 @@ namespace PrivMX.Endpoint.Stream
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);
         void UpdateKeys(string streamRoomId, List<Key> keys);
-        void CreatePeerConnections(string streamRoomId, PeerConnectionManager? peerConnectionFactory);
-        void AddVideoTrack(string streamRoomId, VideoTrack videoTrack, string id);
     }
 }
 

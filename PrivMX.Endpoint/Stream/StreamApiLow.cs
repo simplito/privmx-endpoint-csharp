@@ -36,12 +36,12 @@ namespace PrivMX.Endpoint.Stream
 
         private StreamApiLow(Connection connection, EventApi eventApi)
         {
-            StreamApiNative.privmx_endpoint_newStreamApi(connection.ptr, eventApi.ptr, out ptr);
+            StreamApiNative.privmx_endpoint_newStreamApiLow(connection.ptr, eventApi.ptr, out ptr);
         }
 
         ~StreamApiLow()
         {
-            StreamApiNative.privmx_endpoint_freeStreamApi(ptr);
+            StreamApiNative.privmx_endpoint_freeStreamApiLow(ptr);
         }
         
         public List<TurnCredentials> GetTurnCredentials()

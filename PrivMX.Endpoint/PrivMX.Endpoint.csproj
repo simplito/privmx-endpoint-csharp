@@ -5,7 +5,7 @@
     <!--<RuntimeIdentifiers>win-x64;linux-x64;osx-arm64</RuntimeIdentifiers>-->
     <PackageName>PrivMX.Endpoint</PackageName>
     <PackageId>PrivMX.Endpoint</PackageId>
-    <Version>2.7.0.7</Version>
+    <Version>2.7.0.39</Version>
     <Authors>Simplito sp. z o.o.</Authors>
     <Product>PrivMX Endpoint C#</Product>
     <Title>PrivMX Endpoint C#</Title>
@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
-    <PackageReference Include="NUnitLite" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
     <PackageReference Include="Simplito-webrtc.Android" Version="1.0.0" />

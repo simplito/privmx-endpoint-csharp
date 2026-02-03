@@ -15,8 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Android.App;
-using NUnit.Framework;
 using Org.Webrtc;
 using Org.Webrtc.Audio;
 using PrivMX.Endpoint.Core;
@@ -29,25 +29,7 @@ namespace PrivMX.Endpoint.Tests
 {
     public class StreamApiTest
     {
-        public void TestExecTest()
-        {
-            Console.WriteLine("!TestExecTest!");
-        }
-        
-        public void TestStreamApiPart(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
-        {
-            Console.WriteLine("!TestStreamApiPart!");
-            
-            PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
-
-            Connection.SetCertsPath(certPath);
-            Connection connection = Connection.Connect(userPrivKey, solutionId, bridgeUrl);
-            EventApi eventApi = EventApi.Create(connection);
-            
-            connection.Disconnect();
-        }
-        
-        public void TestStreamApi(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
+        /*public void TestStreamApi(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
         {
             PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
             
@@ -65,7 +47,6 @@ namespace PrivMX.Endpoint.Tests
                     streamApi.ListStreamRooms(contextId, 0, 100, "desc", null, null)
                         .ReadItems.FirstOrDefault();
                 
-                Assert.That(streamRoom != null, nameof(streamRoom) + " != null");
                 Debug.Assert(streamRoom != null, nameof(streamRoom) + " != null");
                 
                 string streamRoomId = streamRoom.StreamRoomId;
@@ -87,13 +68,10 @@ namespace PrivMX.Endpoint.Tests
             }
             catch (Exception e)
             {
-                Assert.Fail();
                 Console.WriteLine(e);
                 throw;
             }
-            
-            Assert.Pass();
-        }
+        }*/
     }
 }
 

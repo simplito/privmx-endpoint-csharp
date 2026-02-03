@@ -18,6 +18,9 @@ public static class VideoFrameConverter
 {
     public static byte[] ToRGBA(VideoFrame frame)
     {
+        //frame.Buffer.BufferType
+        //var buffer3 = frame.Buffer as VideoFrame.IBuffer;
+        //var buffer2 = frame.Buffer as VideoFrame.ITextureBuffer;
         var buffer = frame.Buffer as VideoFrame.II420Buffer;
         int width = frame.RotatedWidth;
         int height = frame.RotatedHeight;

@@ -129,22 +129,22 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_BINARY:
                     {
-                        PsonNative.pson_inspect_binary(value, out IntPtr val, out int size);
+                        PsonNative.pson_inspect_binary(value, out IntPtr val, out long size);
                         byte[] res = new byte[size];
-                        Marshal.Copy(val, res, 0, size);
+                        Marshal.Copy(val, res, 0, (int)size);
                         return res;
                     }
                 case PsonNative.Type.PSON_ARRAY:
-                    {
-                        PsonNative.pson_get_array_size(value, out int size);
-                        object? list = Activator.CreateInstance(type);
-                        var method = type.GetMethod("Add");
-                        for (int i = 0; i < size; ++i) {
-                            IntPtr element = PsonNative.pson_get_array_value(value, i);
-                            method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
-                        }
-                        return list;
+                {
+                    PsonNative.pson_get_array_size(value, out long size);
+                    object? list = Activator.CreateInstance(type);
+                    var method = type.GetMethod("Add");
+                    for (int i = 0; i < size; ++i) {
+                        IntPtr element = PsonNative.pson_get_array_value(value, i);
+                        method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
                     }
+                    return list;
+                }
                 case PsonNative.Type.PSON_OBJECT:
                     {
                         Type objType = TryResolveRegisteredType(value) ?? type;
@@ -173,7 +173,7 @@ namespace PrivMX.Endpoint.Core.Internal
                                 }
                             }
                             //workaround for checking std::map<std::string, bool>
-                            else
+                            /*else
                             {
                                 Dictionary<string, bool> map = new Dictionary<string, bool>();
                                 while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0)
@@ -187,7 +187,7 @@ namespace PrivMX.Endpoint.Core.Internal
                                     }
                                 }
                                 obj = map;
-                            }
+                            }*/
                         }
                         PsonNative.pson_close_object_iterator(it);
                         return obj;
@@ -221,14 +221,14 @@ namespace PrivMX.Endpoint.Core.Internal
                         break;
                     }
                     //extended for std::map<std::string, bool>
-                    else
+                    /*else
                     {
                         PsonNative.pson_get_bool(value, out bool valBoolCheck);
                         if (keyStr != null && valBoolCheck)
                         {
                             return typeof(Dictionary<string, bool>);
                         }
-                    }
+                    }*/
                 }
             }
             PsonNative.pson_close_object_iterator(it);

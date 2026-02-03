@@ -55,13 +55,13 @@ namespace PrivMX.Endpoint.Core.Internal
         public static extern IntPtr pson_get_cstring(IntPtr value);
 
         [DllImport("libPson")]
-        public static extern int pson_inspect_binary(IntPtr value, out IntPtr data, out int size);
+        public static extern int pson_inspect_binary(IntPtr value, out IntPtr data, out long size);
 
         [DllImport("libPson")]
-        public static extern int pson_get_array_size(IntPtr array, out int size);
+        public static extern int pson_get_array_size(IntPtr array, out long size);
 
         [DllImport("libPson")]
-        public static extern IntPtr pson_get_array_value(IntPtr array, int offset);
+        public static extern IntPtr pson_get_array_value(IntPtr array, long offset);
 
         [DllImport("libPson")]
         public static extern int pson_open_object_iterator(IntPtr value, out IntPtr iterator);
@@ -94,7 +94,7 @@ namespace PrivMX.Endpoint.Core.Internal
         public static extern IntPtr pson_new_string(string val);
 
         [DllImport("libPson")]
-        public static extern IntPtr pson_new_binary(IntPtr data, int size);
+        public static extern IntPtr pson_new_binary(IntPtr data, long size);
 
         [DllImport("libPson")]
         public static extern IntPtr pson_new_array();

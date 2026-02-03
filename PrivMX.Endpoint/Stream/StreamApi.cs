@@ -43,15 +43,8 @@ namespace PrivMX.Endpoint.Stream
             streamMap = new StreamMap();
         }
 
-        public PagingList<StreamRoom> ListStreamRooms(string contextId, long skip, int limit, string sortOrder,
-            string lastId, string sortBy)
+        public PagingList<StreamRoom> ListStreamRooms(string contextId, PagingQuery pagingQuery)
         {
-            PagingQuery pagingQuery = new PagingQuery();
-            pagingQuery.Skip = skip;
-            pagingQuery.Limit = limit;
-            pagingQuery.SortOrder = sortOrder;
-            pagingQuery.LastId = lastId;
-            
             return streamApiLow.ListStreamRooms(contextId, pagingQuery);
         }
 

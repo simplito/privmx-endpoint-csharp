@@ -22,7 +22,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
         public string StreamRoomId { get; set; }
         public StreamStatus StreamStatus { get; set; }
         public Dictionary<long, IVideoCapturer> streamCapturers { get; set; } = new Dictionary<long, IVideoCapturer>();
-        public IWebRTC WebRTC { get; set; }
+        public WebRTCImpl WebRTC { get; set; }
     }
 }
 

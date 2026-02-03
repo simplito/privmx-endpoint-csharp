@@ -11,12 +11,13 @@
 
 #if ANDROID
 
+using System;
 using Android.Runtime;
 using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApi
 {
-    [Register("org/webrtc/CustomVideoSink", DoNotGenerateAcw=true)]
+    [Register("org/webrtc/CustomVideoSink", DoNotGenerateAcw=false)]
     public class CustomVideoSink : Java.Lang.Object, IVideoSink
     {
         private readonly IVideoFrameConsumer consumer;
@@ -28,6 +29,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
         
         public void OnFrame(VideoFrame p0)
         {
+            Console.WriteLine("Frame: " + p0.RotatedHeight + " " + p0.RotatedWidth);
             byte[] rgba = VideoFrameConverter.ToRGBA(p0);
             
             consumer.OnFrame(
