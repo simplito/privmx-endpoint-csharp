@@ -26,6 +26,7 @@ namespace PrivMX.Endpoint.Stream
     {
         public readonly IntPtr ptr;
         private readonly Executor executor = new Executor(new StreamApiNative());
+        private readonly WebRTCNativeBridge webRTCNativeBridge = new WebRTCNativeBridge();
 
         public static StreamApiLow Create(Connection connection, EventApi eventApi)
         {
@@ -91,13 +92,15 @@ namespace PrivMX.Endpoint.Stream
 
         public void JoinStreamRoom(string streamRoomId, IWebRTC webRtc)
         {
-            executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.JoinStreamRoom, 
-                new List<object?> { streamRoomId, webRtc });
+            IntPtr ptr = webRTCNativeBridge.Create(streamRoomId, webRtc);
+            executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.JoinStreamRoomEx, 
+                new List<object?> { streamRoomId, ptr.ToInt64() });
         }
         
         public void LeaveStreamRoom(string streamRoomId)
         {
             executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.LeaveStreamRoom, new List<object?> { streamRoomId });
+            webRTCNativeBridge.Free(streamRoomId);
         }
 
         public long CreateStream(string streamRoomId)
