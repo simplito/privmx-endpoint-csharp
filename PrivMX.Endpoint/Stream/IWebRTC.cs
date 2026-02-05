@@ -21,7 +21,7 @@ namespace PrivMX.Endpoint.Stream
     public interface IWebRTC
     {
         string CreateOfferAndSetLocalDescription(string streamRoomId);
-        string CreateAnswerAndSetDescription(string streamRoomId, string sdp, string type);
+        string CreateAnswerAndSetDescriptions(string streamRoomId, string sdp, string type);
         void SetAnswerAndSetRemoteDescription(string streamRoomId, string sdp, string type);
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);
@@ -41,7 +41,7 @@ namespace PrivMX.Endpoint.Stream
     public interface IWebRTC
     {
         string CreateOfferAndSetLocalDescription(string streamRoomId);
-        string CreateAnswerAndSetDescription(string streamRoomId, string sdp, string type);
+        string CreateAnswerAndSetDescriptions(string streamRoomId, string sdp, string type);
         void SetAnswerAndSetRemoteDescription(string streamRoomId, string sdp, string type);
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);

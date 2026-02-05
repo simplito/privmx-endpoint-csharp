@@ -45,6 +45,8 @@ namespace PrivMX.Endpoint.Stream.Internal
             AcceptOfferOnReconfigure = 20,
             KeyManagement = 21,
             UpdateStream = 22,
+
+            JoinStreamRoomEx = 25,
         }
 
 #if ANDROID
