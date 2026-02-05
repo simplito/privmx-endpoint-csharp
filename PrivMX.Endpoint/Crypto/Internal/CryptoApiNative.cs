@@ -38,26 +38,14 @@ namespace PrivMX.Endpoint.Crypto.Internal
             MnemonicToSeed = 16,
             ConvertPGPAsn1KeyToBase58DERKey = 17
         }
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newCryptoApi(out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeCryptoApi(IntPtr ptr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execCryptoApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

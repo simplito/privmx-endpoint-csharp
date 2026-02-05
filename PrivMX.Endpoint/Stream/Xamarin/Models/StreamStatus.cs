@@ -11,13 +11,12 @@
 
 #if ANDROID
 
-using Org.Webrtc;
-
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    public interface ITrackObserver
+    public enum StreamStatus
     {
-        void OnTrack(MediaStreamTrack track);
+        Offline,
+        Online,
     }
 }
 

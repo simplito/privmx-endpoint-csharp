@@ -9,17 +9,16 @@
 // limitations under the License.
 //
 
-using System;
-
 #if ANDROID
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+
+using Org.Webrtc;
+
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    public class BasicVideoFrameConsumer : IVideoFrameConsumer
+    public interface ITrackObserver
     {
-        public void OnFrame(byte[] rgba, int width, int height, int rotation, long timestampNs)
-        {
-            Console.WriteLine("BasicVideoFrameConsumer: OnFrame");
-        }
+        void OnTrack(MediaStreamTrack track);
     }
 }
+
 #endif

@@ -16,7 +16,7 @@ using Android.Content;
 using Org.Webrtc;
 using Org.Webrtc.Audio;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     public class PeerConnectionManager
     {

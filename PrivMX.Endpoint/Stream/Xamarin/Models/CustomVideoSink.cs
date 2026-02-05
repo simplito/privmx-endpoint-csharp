@@ -15,7 +15,7 @@ using System;
 using Android.Runtime;
 using Org.Webrtc;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     [Register("org/webrtc/CustomVideoSink", DoNotGenerateAcw=false)]
     public class CustomVideoSink : Java.Lang.Object, IVideoSink

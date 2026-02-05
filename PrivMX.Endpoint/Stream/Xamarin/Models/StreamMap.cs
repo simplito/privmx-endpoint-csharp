@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Org.Webrtc;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     internal class StreamMap
     {
@@ -59,7 +59,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
                 long handle = GetRandomHandle();
                 StreamData streamData = new StreamData();
                 streamData.StreamHandle = handle;
-                streamData.WebRTC = new Stream.WebRTCImpl(trackObserver, peerConnectionManager);
+                streamData.WebRTC = new WebRTCImpl(trackObserver, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
                 streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();
                 streamDataMap.Add(handle, streamData);
@@ -75,7 +75,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApi
                 long handle = GetRandomHandle();
                 StreamData streamData = new StreamData();
                 streamData.StreamHandle = handle;
-                streamData.WebRTC = new Stream.WebRTCImpl(trackObserver, peerConnectionManager);
+                streamData.WebRTC = new WebRTCImpl(trackObserver, peerConnectionManager);
                 streamData.WebRTC.CreatePeerConnections(streamRoomId, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
                 streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();

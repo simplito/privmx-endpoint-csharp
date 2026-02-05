@@ -42,25 +42,13 @@ namespace PrivMX.Endpoint.Kvdb.Internal
             BuildSubscriptionQueryForSelectedEntry = 20,
         }
         
-#if ANDROID
         [DllImport("libprivmxendpointkvdb")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newKvdbApi(IntPtr connectionPtr, out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointkvdb")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeKvdbApi(IntPtr ptr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointkvdb")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execKvdbApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
         
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

@@ -18,7 +18,7 @@ using Android.Runtime;
 using Java.Interop;
 using Org.Webrtc;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     [Register("org/webrtc/PcObserver", DoNotGenerateAcw=true)]
     internal class PcObserver : Java.Lang.Object, PeerConnection.IObserver

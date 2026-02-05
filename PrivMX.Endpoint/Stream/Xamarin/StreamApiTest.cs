@@ -11,22 +11,7 @@
 
 #if ANDROID
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using Android.App;
-using Org.Webrtc;
-using Org.Webrtc.Audio;
-using PrivMX.Endpoint.Core;
-using PrivMX.Endpoint.Core.Models;
-using PrivMX.Endpoint.Event;
-using PrivMX.Endpoint.Stream;
-using PrivMX.Endpoint.Stream.Models.StreamApi;
-using PrivMX.Endpoint.Stream.Models.StreamApiLow;
-
-namespace PrivMX.Endpoint.Tests
+namespace PrivMX.Endpoint.Stream.Xamarin
 {
     public class StreamApiTest
     {

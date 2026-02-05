@@ -9,15 +9,17 @@
 // limitations under the License.
 //
 
-#if ANDROID
+using System;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+#if ANDROID
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    public enum StreamStatus
+    public class BasicVideoFrameConsumer : IVideoFrameConsumer
     {
-        Offline,
-        Online,
+        public void OnFrame(byte[] rgba, int width, int height, int rotation, long timestampNs)
+        {
+            Console.WriteLine("BasicVideoFrameConsumer: OnFrame");
+        }
     }
 }
-
 #endif

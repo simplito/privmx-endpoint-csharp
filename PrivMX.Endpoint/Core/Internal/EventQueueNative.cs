@@ -22,26 +22,14 @@ namespace PrivMX.Endpoint.Core.Internal
             GetEvent = 1,
             EmitBreakEvent = 2
         }
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newEventQueue(out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeEventQueue(IntPtr ptr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execEventQueue(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

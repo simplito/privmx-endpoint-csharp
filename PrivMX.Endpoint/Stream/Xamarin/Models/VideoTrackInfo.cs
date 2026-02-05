@@ -12,17 +12,16 @@
 #if ANDROID
 
 using Org.Webrtc;
-using AudioTrack = Android.Media.AudioTrack;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    public class AudioTrackInfo
+    public class VideoTrackInfo
     {
-        public AudioTrack Track { get; }
+        public VideoTrack Track { get; }
         public RtpSender Sender { get; }
         public PmxFrameCryptor FrameCryptor { get; }
 
-        public AudioTrackInfo(AudioTrack track, RtpSender sender, PmxFrameCryptor frameCryptor)
+        public VideoTrackInfo(VideoTrack track, RtpSender sender, PmxFrameCryptor frameCryptor)
         {
             Track = track;
             Sender = sender;

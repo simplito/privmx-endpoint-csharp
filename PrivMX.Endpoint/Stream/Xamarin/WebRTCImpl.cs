@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Org.Webrtc;
-using PrivMX.Endpoint.Stream.Models.StreamApi;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+using PrivMX.Endpoint.Stream.Xamarin.Models;
 
-namespace PrivMX.Endpoint.Stream
+namespace PrivMX.Endpoint.Stream.Xamarin
 {
     internal class WebRTCImpl : IWebRTC
     {
@@ -92,19 +92,6 @@ namespace PrivMX.Endpoint.Stream
                 
             peerConnectionManager.GetJanusSessions().Add(streamRoomId, janusSession);
         }
-    }
-}
-
-#else
-
-namespace PrivMX.Endpoint.Stream
-{
-    /// <summary>
-    /// This version of WebRTC is not implemented yet.
-    /// </summary>
-    public class WebRTCImpl
-    {
-        
     }
 }
 

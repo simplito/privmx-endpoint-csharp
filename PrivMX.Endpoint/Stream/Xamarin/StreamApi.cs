@@ -12,14 +12,13 @@
 #if ANDROID
 
 using System;
-using System.Collections.Generic;
 using Org.Webrtc;
 using PrivMX.Endpoint.Core.Models;
-using PrivMX.Endpoint.Stream.Models.StreamApi;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+using PrivMX.Endpoint.Stream.Xamarin.Models;
 using Context = Android.Content.Context;
 
-namespace PrivMX.Endpoint.Stream
+namespace PrivMX.Endpoint.Stream.Xamarin
 {
     public class StreamApi
     {

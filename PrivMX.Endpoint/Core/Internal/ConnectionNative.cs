@@ -30,26 +30,14 @@ namespace PrivMX.Endpoint.Core.Internal
             BuildSubscriptionQuery = 9,
             ListContextUsers = 10
         }
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newConnection(out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeConnection(IntPtr ptr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execConnection(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)
@@ -57,11 +45,7 @@ namespace PrivMX.Endpoint.Core.Internal
             return privmx_endpoint_execConnection(ptr, method, value, out result);
         }
         
-#if ANDROID
         [DllImport("libprivmxendpointcore")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_setCertsPath(IntPtr certsPath);
     }
 }

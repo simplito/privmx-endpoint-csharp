@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using Org.Webrtc;
 
-namespace PrivMX.Endpoint.Stream.Models.StreamApi
+namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     internal class StreamData
     {

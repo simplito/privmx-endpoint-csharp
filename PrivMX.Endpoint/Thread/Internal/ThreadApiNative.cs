@@ -38,26 +38,14 @@ namespace PrivMX.Endpoint.Thread.Internal
             UnsubscribeFrom = 16,
             BuildSubscriptionQuery = 17,
         }
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointthread")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newThreadApi(IntPtr connectionPtr, out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointthread")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeThreadApi(IntPtr ptr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointthread")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execThreadApi(IntPtr ptr, int method, IntPtr value, out IntPtr result);
 
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)

@@ -35,25 +35,13 @@ namespace PrivMX.Endpoint.Crypto.Internal
             IsPrivate = 13
         }
         
-#if ANDROID
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_newExtKey(out IntPtr outPtr);
-
-#if ANDROID
+        
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_freeExtKey(IntPtr ptr);
 
-#if ANDROID
         [DllImport("libprivmxendpointcrypto")]
-#else
-        [DllImport("libprivmxendpointinterface")]
-#endif
         public static extern int privmx_endpoint_execExtKey(IntPtr ptr, int method, IntPtr value, out IntPtr result);
         
         public int Exec(IntPtr ptr, int method, IntPtr value, out IntPtr result)
