@@ -107,8 +107,7 @@ namespace PrivMX.Endpoint.Stream
                         peerConnectionManager.GetEglBase().EglBaseContext);
                     VideoSource videoSource = peerConnectionManager.GetPeerConnectionFactory()
                         .CreateVideoSource(false, false);
-                    IVideoCapturer capturer =
-                        CreateVideoCapturer(new Camera2Enumerator(peerConnectionManager.GetAppContext()))!;
+                    IVideoCapturer capturer = CreateVideoCapturer(new Camera2Enumerator(peerConnectionManager.GetAppContext()))!;
                     capturer.Initialize(surfaceTextureHelper, peerConnectionManager.GetAppContext(), videoSource.CapturerObserver);
                     VideoTrack videoTrack = peerConnectionManager.GetPeerConnectionFactory()
                         .CreateVideoTrack(track.Name, videoSource);
@@ -119,9 +118,9 @@ namespace PrivMX.Endpoint.Stream
                     streamData!.WebRTC.AddVideoTrack(streamData.StreamRoomId, videoTrack, track.Id);
                     Console.WriteLine("after webrtc addVideoTrack");
                     
-                    Console.WriteLine("before streamCaptrers.add");
+                    Console.WriteLine("before streamCapturers.add");
                     streamData.streamCapturers.Add(long.Parse(track.Id), capturer);
-                    Console.WriteLine("after streamCaptrers.add");
+                    Console.WriteLine("after streamCapturers.add");
                     
                     Console.WriteLine("before start capturer + " + (streamData.StreamStatus == StreamStatus.Online));
                     if (streamData.StreamStatus == StreamStatus.Online)

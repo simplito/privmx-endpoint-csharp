@@ -20,6 +20,7 @@ using Android.App;
 using Org.Webrtc;
 using Org.Webrtc.Audio;
 using PrivMX.Endpoint.Core;
+using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Event;
 using PrivMX.Endpoint.Stream;
 using PrivMX.Endpoint.Stream.Models.StreamApi;
@@ -42,9 +43,16 @@ namespace PrivMX.Endpoint.Tests
                 StreamApi streamApi = new StreamApi(peerConnectionManager, StreamApiLow.Create(connection, eventApi));
                 
                 Console.WriteLine("listStreamRooms-------");
+                
+                PagingQuery pagingQuery = new PagingQuery()
+                {
+                    Skip = 0,
+                    Limit = 10,
+                    SortOrder = "asc"
+                };
 
                 StreamRoom streamRoom = 
-                    streamApi.ListStreamRooms(contextId, 0, 100, "desc", null, null)
+                    streamApi.ListStreamRooms(contextId, pagingQuery)
                         .ReadItems.FirstOrDefault();
                 
                 Debug.Assert(streamRoom != null, nameof(streamRoom) + " != null");

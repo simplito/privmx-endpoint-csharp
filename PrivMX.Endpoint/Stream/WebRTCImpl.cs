@@ -38,9 +38,9 @@ namespace PrivMX.Endpoint.Stream
             throw new System.NotImplementedException();
         }
 
-        public string CreateAnswerAndSetDescription(string streamRoomId, string sdp, string type)
+        public string CreateAnswerAndSetDescriptions(string streamRoomId, string sdp, string type)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void SetAnswerAndSetRemoteDescription(string streamRoomId, string sdp, string type)
