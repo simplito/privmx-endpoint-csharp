@@ -5,7 +5,7 @@ namespace PrivMX.Endpoint.Tests
 {
     public static class InitAndroid
     {
-        [DllImport("libprivmxendpointandroid", EntryPoint = "_Z28privmx_endpoint_android_initv")]
+        [DllImport("libprivmxendpointandroid")]
         public static extern int privmx_endpoint_android_init();
         
         [DllImport("libprivmxendpointandroid")]

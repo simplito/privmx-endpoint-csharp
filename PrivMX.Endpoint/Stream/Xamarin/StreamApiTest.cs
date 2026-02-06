@@ -9,6 +9,14 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
+using System.Linq;
+using PrivMX.Endpoint.Core;
+using PrivMX.Endpoint.Core.Models;
+using PrivMX.Endpoint.Event;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+using PrivMX.Endpoint.Stream.Models;
+
 #if ANDROID
 
 namespace PrivMX.Endpoint.Stream.Xamarin
