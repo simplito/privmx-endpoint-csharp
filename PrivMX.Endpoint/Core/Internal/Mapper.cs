@@ -12,6 +12,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace PrivMX.Endpoint.Core.Internal
@@ -136,18 +137,7 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_ARRAY:
                 {
-                    PsonNative.pson_get_array_size(value, out long size);
-                    object? list = Activator.CreateInstance(type);
-                    if (list is null)
-                    {
-                        return null;
-                    }
-                    var method = type.GetMethod("Add");
-                    for (int i = 0; i < size; ++i) {
-                        IntPtr element = PsonNative.pson_get_array_value(value, i);
-                        method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
-                    }
-                    return list;
+                    return MapToList(value, type);
                 }
                 case PsonNative.Type.PSON_OBJECT:
                     {
@@ -163,20 +153,33 @@ namespace PrivMX.Endpoint.Core.Internal
             }
         }
 
+        private object? MapToList(IntPtr value, Type type)
+        {
+            object? list = Activator.CreateInstance(type);
+            if (list is null) return null;
+
+            var method = type.GetMethod("Add");
+            PsonNative.pson_get_array_size(value, out long size);
+            for (int i = 0; i < size; ++i) {
+                IntPtr element = PsonNative.pson_get_array_value(value, i);
+                method?.Invoke(list, new object?[]{ ParseFromDynamicValue(element, type.GetGenericArguments()[0]) });
+            }
+            return list;
+        }
+
         private object? MapToObject(IntPtr value, Type objType)
         {
             object? obj = Activator.CreateInstance(objType);
-            if (obj is null)
-            {
-                return null;
-            }
+            if (obj is null) return null;
+
+            var properties = objType.GetProperties()
+                .ToDictionary(p => p.Name, p => p);
+
             ProcessDynamicObjectFields(value, (key, val) => {
-                var property = objType.GetProperty(Name2PascalCase(key));
-                if (property is null)
+                if (properties.TryGetValue(Name2PascalCase(key), out var property))
                 {
-                    return true;
+                    property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
                 }
-                property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
                 return true;
             });
             return obj;
@@ -192,16 +195,13 @@ namespace PrivMX.Endpoint.Core.Internal
         private object? MapToStringDictionary(IntPtr value, Type objType)
         {
             object? obj = Activator.CreateInstance(objType);
-            if (obj is null)
-            {
-                return null;
-            }
+            if (obj is null) return null;
+
             var method = objType.GetMethod("Add");
+
             ProcessDynamicObjectFields(value, (key, val) => {
-                if (key.Equals("__type"))
-                {
-                    return true;
-                }
+                if (key == "__type") return true;
+
                 method?.Invoke(obj, new object?[]{ key, ParseFromDynamicValue(val, objType.GetGenericArguments()[1]) });
                 return true;
             });
@@ -222,11 +222,11 @@ namespace PrivMX.Endpoint.Core.Internal
             return null;
         }
 
-        private static string? GetDynamicObjectType(IntPtr value)
+        private string? GetDynamicObjectType(IntPtr value)
         {
             string? result = null;
             ProcessDynamicObjectFields(value, (key, value) => {
-                if (string.Equals(key, "__type"))
+                if (key == "__type")
                 {
                     result = ParseFromDynamicValue<string>(value);
                     return false;
@@ -236,7 +236,7 @@ namespace PrivMX.Endpoint.Core.Internal
             return result;
         }
 
-        private void ProcessDynamicObjectFields(IntPtr value, Func<string, IntPtr, bool> process)
+        private static void ProcessDynamicObjectFields(IntPtr value, Func<string, IntPtr, bool> process)
         {
             if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) 
             {
