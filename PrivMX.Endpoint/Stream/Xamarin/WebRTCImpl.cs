@@ -83,12 +83,12 @@ namespace PrivMX.Endpoint.Stream.Xamarin
             Console.WriteLine("Close: {0}", streamRoomId);
         }
 
-        public void UpdateKeys(string streamRoomId, List<Key> keys)
+        public void UpdateKeys(string streamRoomId, List<StreamKey> keys)
         {
             Console.WriteLine("UpdateKeys: {0} {1}", streamRoomId, keys.Count);
             foreach (var key in keys)
             {
-                Console.WriteLine("Key: {0} {1} {2}", key.KeyId, key.key.Length, (int)key.Type);
+                Console.WriteLine("Key: {0} {1} {2}", key.KeyId, key.Key.Length, (int)key.Type);
             }
         }
 
