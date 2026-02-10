@@ -60,7 +60,7 @@ namespace PrivMX.Endpoint.Stream.Internal
                     setAnswerAndSetRemoteDescription = (ctx, streamRoomId, sdp, type) => webRTC.SetAnswerAndSetRemoteDescription(streamRoomId, sdp, type),
                     updateSessionId = (ctx, streamRoomId, sessionId, connectionType) => webRTC.UpdateSessionId(streamRoomId, sessionId, connectionType),
                     close = (ctx, streamRoomId) => webRTC.Close(streamRoomId),
-                    updateKeys = (ctx, streamRoomId, keys, keysSize) => webRTC.UpdateKeys(streamRoomId, new List<Key>()),
+                    updateKeys = (ctx, streamRoomId, keys, keysSize) => webRTC.UpdateKeys(streamRoomId, mapKeys(keys, keysSize)),
                 };
                 privmx_endpoint_stream_newProxyWebRTC(
                     webRTCInterface,
@@ -88,17 +88,21 @@ namespace PrivMX.Endpoint.Stream.Internal
             proxyMap.Remove(streamRoomId);
         }
 
-        private static List<Key> mapKeys([In] CKey[] keys, IntPtr keySize)
+        private static List<StreamKey> mapKeys(IntPtr keys, IntPtr keysSize)
         {
-            var result = new List<Key>();
-            foreach (var key in keys)
+            var result = new List<StreamKey>();
+            for (long i = 0; i < keysSize.ToInt64(); ++i)
             {
-                byte[] keyVal = new byte[key.keySize.ToInt32()];
-                Marshal.Copy(key.key, keyVal, 0, key.keySize.ToInt32());
-                var newKey = new Key() {
-                    KeyId = key.keyId,
-                    key = keyVal,
-                    Type = mapKeyType(key.type),
+                var index = new IntPtr(i);
+                privmx_endpoint_stream_extractKey(keys, index, out IntPtr keyId, out IntPtr key, out IntPtr keySize, out CKeyType type);
+                string keyIdStr = Marshal.PtrToStringUTF8(keyId);
+                int keySizeInt = keySize.ToInt32();
+                byte[] keyBuf = new byte[keySizeInt];
+                Marshal.Copy(key, keyBuf, 0, keySizeInt);
+                var newKey = new StreamKey() {
+                    KeyId = keyIdStr,
+                    Key = keyBuf,
+                    Type = mapKeyType(type),
                 };
                 result.Add(newKey);
             }
@@ -129,6 +133,9 @@ namespace PrivMX.Endpoint.Stream.Internal
         private delegate void CloseDelegate(IntPtr ctx, string streamRoomId);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void UpdateKeysDelegate(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize);
+
+        [DllImport("libprivmxendpointstream")]
+        private static extern int privmx_endpoint_stream_extractKey(IntPtr keys, IntPtr index, out IntPtr keyId, out IntPtr keyBuf, out IntPtr keySize, out CKeyType type);
 
         [DllImport("libprivmxendpointstream")]
         private static extern int privmx_endpoint_stream_newProxyWebRTC(
