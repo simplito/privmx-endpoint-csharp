@@ -25,7 +25,7 @@ namespace PrivMX.Endpoint.Stream
         void SetAnswerAndSetRemoteDescription(string streamRoomId, string sdp, string type);
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);
-        void UpdateKeys(string streamRoomId, List<Key> keys);
+        void UpdateKeys(string streamRoomId, List<StreamKey> keys);
     }
 }
 
@@ -45,7 +45,7 @@ namespace PrivMX.Endpoint.Stream
         void SetAnswerAndSetRemoteDescription(string streamRoomId, string sdp, string type);
         void UpdateSessionId(string streamRoomId, long sessionId, string connectionType);
         void Close(string streamRoomId);
-        void UpdateKeys(string streamRoomId, List<Key> keys);
+        void UpdateKeys(string streamRoomId, List<StreamKey> keys);
     }
 }
 

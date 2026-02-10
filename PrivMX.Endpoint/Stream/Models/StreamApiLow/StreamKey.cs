@@ -11,10 +11,10 @@
 
 namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
 {
-    public class Key
+    public class StreamKey
     {
         public string KeyId { get; set; }
-        public byte[] key { get; set; }
+        public byte[] Key { get; set; }
         public KeyType Type { get; set; }
     }
 }
