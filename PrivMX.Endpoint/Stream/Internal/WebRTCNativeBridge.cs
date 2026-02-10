@@ -60,7 +60,7 @@ namespace PrivMX.Endpoint.Stream.Internal
                     setAnswerAndSetRemoteDescription = (ctx, streamRoomId, sdp, type) => webRTC.SetAnswerAndSetRemoteDescription(streamRoomId, sdp, type),
                     updateSessionId = (ctx, streamRoomId, sessionId, connectionType) => webRTC.UpdateSessionId(streamRoomId, sessionId, connectionType),
                     close = (ctx, streamRoomId) => webRTC.Close(streamRoomId),
-                    updateKeys = (ctx, streamRoomId, keys, keysSize) => webRTC.UpdateKeys(streamRoomId, mapKeys(keys, keysSize)),
+                    updateKeys = (ctx, streamRoomId, keys, keysSize) => webRTC.UpdateKeys(streamRoomId, new List<Key>()),
                 };
                 privmx_endpoint_stream_newProxyWebRTC(
                     webRTCInterface,
@@ -128,7 +128,7 @@ namespace PrivMX.Endpoint.Stream.Internal
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void CloseDelegate(IntPtr ctx, string streamRoomId);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private delegate void UpdateKeysDelegate(IntPtr ctx, string streamRoomId, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] CKey[] keys, IntPtr keysSize);
+        private delegate void UpdateKeysDelegate(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize);
 
         [DllImport("libprivmxendpointstream")]
         private static extern int privmx_endpoint_stream_newProxyWebRTC(

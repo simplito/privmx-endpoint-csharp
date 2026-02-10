@@ -21,7 +21,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
         public long StreamHandle { get; set; }
         public string StreamRoomId { get; set; }
         public StreamStatus StreamStatus { get; set; }
-        public Dictionary<long, IVideoCapturer> streamCapturers { get; set; } = new Dictionary<long, IVideoCapturer>();
+        public Dictionary<string, IVideoCapturer> streamCapturers { get; set; } = new Dictionary<string, IVideoCapturer>();
         public WebRTCImpl WebRTC { get; set; }
     }
 }

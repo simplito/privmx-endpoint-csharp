@@ -92,9 +92,9 @@ namespace PrivMX.Endpoint.Stream
 
         public void JoinStreamRoom(string streamRoomId, IWebRTC webRtc)
         {
-            IntPtr ptr = webRTCNativeBridge.Create(streamRoomId, webRtc);
-            executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.JoinStreamRoomEx, 
-                new List<object?> { streamRoomId, ptr.ToInt64() });
+            IntPtr bridgeInterfacePtr = webRTCNativeBridge.Create(streamRoomId, webRtc);
+            executor.ExecuteVoid(this.ptr, (int)StreamApiNative.Method.JoinStreamRoomEx, 
+                new List<object?> { streamRoomId, bridgeInterfacePtr.ToInt64() });
         }
         
         public void LeaveStreamRoom(string streamRoomId)

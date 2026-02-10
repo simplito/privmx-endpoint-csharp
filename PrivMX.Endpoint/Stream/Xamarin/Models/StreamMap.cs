@@ -61,7 +61,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
                 streamData.StreamHandle = handle;
                 streamData.WebRTC = new WebRTCImpl(trackObserver, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
-                streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();
+                streamData.streamCapturers = new Dictionary<string, IVideoCapturer>();
                 streamDataMap.Add(handle, streamData);
                 
                 return streamData;
@@ -78,7 +78,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
                 streamData.WebRTC = new WebRTCImpl(trackObserver, peerConnectionManager);
                 streamData.WebRTC.CreatePeerConnections(streamRoomId, peerConnectionManager);
                 streamData.StreamStatus = StreamStatus.Online;
-                streamData.streamCapturers = new Dictionary<long, IVideoCapturer>();
+                streamData.streamCapturers = new Dictionary<string, IVideoCapturer>();
                 streamDataMap.Add(handle, streamData);
                 
                 return streamData;

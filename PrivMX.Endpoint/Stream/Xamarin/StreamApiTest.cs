@@ -9,21 +9,24 @@
 // limitations under the License.
 //
 
+#if ANDROID
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.App;
 using PrivMX.Endpoint.Core;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Event;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 using PrivMX.Endpoint.Stream.Models;
-
-#if ANDROID
+using PrivMX.Endpoint.Stream.Xamarin.Models;
 
 namespace PrivMX.Endpoint.Stream.Xamarin
 {
     public class StreamApiTest
     {
-        /*public void TestStreamApi(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
+        public void TestStreamApi(string userPrivKey, string solutionId, string bridgeUrl, string contextId, string certPath)
         {
             PeerConnectionManager peerConnectionManager = new PeerConnectionManager(Application.Context);
             
@@ -48,8 +51,6 @@ namespace PrivMX.Endpoint.Stream.Xamarin
                     streamApi.ListStreamRooms(contextId, pagingQuery)
                         .ReadItems.FirstOrDefault();
                 
-                Debug.Assert(streamRoom != null, nameof(streamRoom) + " != null");
-                
                 string streamRoomId = streamRoom.StreamRoomId;
                 
                 CustomVideoSink sink = new CustomVideoSink(new BasicVideoFrameConsumer());
@@ -72,7 +73,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin
                 Console.WriteLine(e);
                 throw;
             }
-        }*/
+        }
     }
 }
 

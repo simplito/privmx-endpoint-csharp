@@ -12,6 +12,7 @@
 #if ANDROID
 
 using System;
+using System.Linq;
 using Org.Webrtc;
 using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
@@ -50,12 +51,15 @@ namespace PrivMX.Endpoint.Stream.Xamarin
         public void JoinStreamRoom(string streamRoomId, ITrackObserver trackObserver)
         {
             StreamData streamData = streamMap.Create(trackObserver, streamRoomId, peerConnectionManager);
+            Console.WriteLine("Stream data ok");
             streamApiLow.JoinStreamRoom(streamRoomId, streamData.WebRTC);
         }
 
         public StreamHandle CreateStream(string streamRoomId)
         {
+            PeerConnection2 pc2 = peerConnectionManager.GetJanusSessions().Values.First().Sender;
             long streamHandle = streamApiLow.CreateStream(streamRoomId);
+            Console.WriteLine("StreamApi::CreateStream returned: " + streamHandle);
             return new StreamHandle(streamHandle);
         }
 
@@ -72,6 +76,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin
 
                     if (videoCapturer != null)
                     {
+                        Console.WriteLine("videoCapturer OK");
                         return videoCapturer;
                     }
                 }
@@ -111,14 +116,14 @@ namespace PrivMX.Endpoint.Stream.Xamarin
                     VideoTrack videoTrack = peerConnectionManager.GetPeerConnectionFactory()
                         .CreateVideoTrack(track.Name, videoSource);
                     videoTrack.SetEnabled(true);
-                    videoTrack.AddSink(localSink);
+                    //videoTrack.AddSink(localSink);
                     Console.WriteLine("before webrtc addVideoTrack");
                     
                     streamData!.WebRTC.AddVideoTrack(streamData.StreamRoomId, videoTrack, track.Id);
                     Console.WriteLine("after webrtc addVideoTrack");
                     
                     Console.WriteLine("before streamCapturers.add");
-                    streamData.streamCapturers.Add(long.Parse(track.Id), capturer);
+                    streamData.streamCapturers.Add(track.Id, capturer);
                     Console.WriteLine("after streamCapturers.add");
                     
                     Console.WriteLine("before start capturer + " + (streamData.StreamStatus == StreamStatus.Online));

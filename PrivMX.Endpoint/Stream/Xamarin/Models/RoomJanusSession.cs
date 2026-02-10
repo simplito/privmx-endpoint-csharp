@@ -18,8 +18,8 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
     internal class RoomJanusSession
     {
-        private PeerConnection2 sender;
-        private PeerConnection2 receiver;
+        private PeerConnection2? sender;
+        private PeerConnection2? receiver;
         
         private readonly PeerConnectionManager peerConnectionManager;
         private readonly string streamRoomId;
@@ -41,11 +41,15 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
         {
             get
             {
-                if (sender.IsNull)
+                if (sender is null)
                 {
+                    Console.WriteLine("Sender is null");
+                    PmxFrameCryptor.PmxFrameCryptorOptions options = new PmxFrameCryptor.PmxFrameCryptorOptions();
+                    Console.WriteLine("Options set");
                     PcObserver senderObserver = new PcObserver(peerConnectionManager, streamRoomId, keyStore, 
-                        new PmxFrameCryptor.PmxFrameCryptorOptions(), trackObserver);
+                        options, trackObserver);
 
+                    Console.WriteLine("Setting sender...");
                     sender = new PeerConnection2(peerConnectionManager.GetPeerConnectionFactory()
                         .CreatePeerConnection(rtcConfiguration, senderObserver), senderObserver, keyStore);
                     
@@ -59,7 +63,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
         {
             get
             {
-                if (receiver.IsNull)
+                if (receiver is null)
                 {
                     PcObserver receiverObserver = new PcObserver(peerConnectionManager, streamRoomId, keyStore, 
                         new PmxFrameCryptor.PmxFrameCryptorOptions(), trackObserver);

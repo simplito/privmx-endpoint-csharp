@@ -18,14 +18,14 @@ using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    internal class PeerConnection2 : INullable
+    internal class PeerConnection2
     {
         private PeerConnection peerConnection;
         private PcObserver pcObserver;
         private PmxKeyStore keys;
         private Dictionary<string, AudioTrackInfo> audioTracks;
         private Dictionary<string, VideoTrackInfo> videoTracks;
-
+        
         public PeerConnection2(PeerConnection peerConnection, PcObserver pcObserver, PmxKeyStore keys)
         {
             this.peerConnection = peerConnection;
@@ -34,6 +34,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
             
             audioTracks = new Dictionary<string, AudioTrackInfo>();
             videoTracks = new Dictionary<string, VideoTrackInfo>();
+            Console.WriteLine("PeerConnection2 OK");
         }
 
         public PeerConnection GetPeerConnection()
@@ -45,8 +46,6 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
         {
             videoTracks.Add(id, track);
         }
-
-        public bool IsNull => peerConnection.Handle == IntPtr.Zero || pcObserver.Handle == IntPtr.Zero || keys.Handle == IntPtr.Zero;
     }
 }
 

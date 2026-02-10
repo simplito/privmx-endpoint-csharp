@@ -20,8 +20,7 @@ using Org.Webrtc;
 
 namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {
-    [Register("org/webrtc/PcObserver", DoNotGenerateAcw=true)]
-    internal class PcObserver : Java.Lang.Object, PeerConnection.IObserver
+    public class PcObserver : Java.Lang.Object, PeerConnection.IObserver
     {
         private Dictionary<string, PmxFrameCryptor> FrameCryptorMap = new Dictionary<string, PmxFrameCryptor>();
         public ITrackObserver TrackObserver;
@@ -54,101 +53,93 @@ namespace PrivMX.Endpoint.Stream.Xamarin.Models
             this.keyStore = peerKeyStore;
             this.options = options;
             this.TrackObserver = trackObserver;
+            
+            Console.WriteLine("PcObserver OK");
         }
         
-        public void Dispose()
-        {
-            FrameCryptorMap.Clear();
-        }
-
-        public IntPtr Handle { get; }
-        public void SetJniIdentityHashCode(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetPeerReference(JniObjectReference reference)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetJniManagedPeerState(JniManagedPeerStates value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnregisterFromRuntime()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DisposeUnlessReferenced()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Disposed()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Finalized()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int JniIdentityHashCode { get; }
-        public JniObjectReference PeerReference { get; }
-        public JniPeerMembers JniPeerMembers { get; }
-        public JniManagedPeerStates JniManagedPeerState { get; }
         public void OnAddStream(MediaStream p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnAddStream");
         }
 
         public void OnDataChannel(DataChannel p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnDataChannel");
         }
 
         public void OnIceCandidate(IceCandidate p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnIceCandidate");
         }
 
         public void OnIceCandidatesRemoved(IceCandidate[] p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnIceCandidatesRemoved");
         }
 
         public void OnIceConnectionChange(PeerConnection.IceConnectionState p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnIceConnectionChange");
+        }
+
+        public void OnStandardizedIceConnectionChange(PeerConnection.IceConnectionState p0)
+        {
+            Console.WriteLine("OnStandardizedIceConnectionChange");
+        }
+
+        public void OnConnectionChange(PeerConnection.PeerConnectionState newState)
+        {
+            Console.WriteLine("onConnectionChange");
         }
 
         public void OnIceConnectionReceivingChange(bool p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnIceConnectionReceivingChange");
+        }
+
+        public void OnIceCandidateError(IceCandidateErrorEvent e)
+        {
+            Console.WriteLine("OnIceCandidateError");
+        }
+
+        public void OnSelectedCandidatePairChanged(CandidatePairChangeEvent e)
+        {
+            Console.WriteLine("OnSelectedCandidatePairChanged");
+        }
+
+        public void OnAddTrack(RtpReceiver receiver, MediaStream[] mediaStreams)
+        {
+            Console.WriteLine("OnAddTrack");
+        }
+
+        public void OnRemoveTrack(RtpReceiver receiver)
+        {
+            Console.WriteLine("OnRemoveTrack");
+        }
+
+        public void OnTrack(RtpTransceiver transceiver)
+        {
+            Console.WriteLine("OnTrack");
         }
 
         public void OnIceGatheringChange(PeerConnection.IceGatheringState p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnIceGatheringChange");
         }
 
         public void OnRemoveStream(MediaStream p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnRemoveStream");
         }
 
         public void OnRenegotiationNeeded()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnRenegotiationNeeded");
         }
 
         public void OnSignalingChange(PeerConnection.SignalingState p0)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("OnSignalingChange");
         }
     }
 }
