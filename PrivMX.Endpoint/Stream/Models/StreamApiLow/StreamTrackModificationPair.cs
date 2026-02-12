@@ -9,6 +9,8 @@
 // limitations under the License.
 //
 
+using System.Collections.Generic;
+
 namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
 {
     /// <summary>
@@ -25,5 +27,16 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// StreamTrack after modification
         /// </summary>
         public StreamTrackInfo? After { get; set; }
+
+        /// <summary>
+        /// StreamTrackModificationPair constructor
+        /// </summary>
+        /// <param name="before">StreamTrack before modification</param>
+        /// <param name="after">StreamTrack after modification</param>
+        public StreamTrackModificationPair(StreamTrackInfo? before, StreamTrackInfo? after)
+        {
+            Before = before;
+            After = after;
+        }
     }
 }

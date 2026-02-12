@@ -18,6 +18,8 @@ using PrivMX.Endpoint.Core.Models;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 using PrivMX.Endpoint.Stream.Xamarin.Models;
 using Context = Android.Content.Context;
+using StreamHandle = PrivMX.Endpoint.Stream.Models.StreamApiLow.StreamHandle;
+using StreamStatus = PrivMX.Endpoint.Stream.Models.StreamApiLow.StreamStatus;
 
 namespace PrivMX.Endpoint.Stream.Xamarin
 {

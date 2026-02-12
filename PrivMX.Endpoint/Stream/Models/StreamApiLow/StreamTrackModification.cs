@@ -27,5 +27,16 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// List od streamTrackModificationPairs 
         /// </summary>
         public List<StreamTrackModificationPair> Tracks { get; set; }
+        
+        /// <summary>
+        /// StreamTrackModification constructor
+        /// </summary>
+        /// <param name="streamId">ID of the stream to modify</param>
+        /// <param name="tracks">List od streamTrackModificationPairs</param>
+        public StreamTrackModification(long streamId, List<StreamTrackModificationPair> tracks)
+        {
+            StreamId = streamId;
+            Tracks = tracks;
+        }
     }
 }

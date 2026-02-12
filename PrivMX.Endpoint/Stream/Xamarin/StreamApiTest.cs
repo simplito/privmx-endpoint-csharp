@@ -21,6 +21,7 @@ using PrivMX.Endpoint.Event;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 using PrivMX.Endpoint.Stream.Models;
 using PrivMX.Endpoint.Stream.Xamarin.Models;
+using StreamHandle = PrivMX.Endpoint.Stream.Models.StreamApiLow.StreamHandle;
 
 namespace PrivMX.Endpoint.Stream.Xamarin
 {
@@ -59,11 +60,7 @@ namespace PrivMX.Endpoint.Stream.Xamarin
 
                 StreamHandle localStreamId = streamApi.CreateStream(streamRoomId);
                 MediaDevice localMediaDevice = new MediaDevice
-                {
-                    Id = "video_track_0",
-                    Name = StreamApi.VIDEO_TRACK_ID,
-                    Type = DeviceType.Video
-                };
+                    ("video_track_0", StreamApi.VIDEO_TRACK_ID, DeviceType.Video);
 
                 streamApi.AddTrack(peerConnectionManager.GetAppContext(), sink, localStreamId, localMediaDevice);
                 streamApi.PublishStream(localStreamId);

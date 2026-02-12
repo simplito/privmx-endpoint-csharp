@@ -19,16 +19,29 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// ID of a streamRoom
         /// </summary>
-        public string StreamRoom { get; set; }
+        public string StreamRoomId { get; set; }
         
         /// <summary>
         /// Information about the stream
         /// </summary>
-        public StreamInfo Stream { get; set; }
+        public StreamInfo StreamInfo { get; set; }
         
         /// <summary>
         /// ID of the user
         /// </summary>
         public string UserId { get; set; }
+        
+        /// <summary>
+        /// PublishedStreamData constructor
+        /// </summary>
+        /// <param name="streamRoomId">ID of a streamRoom</param>
+        /// <param name="streamInfo">Information about the stream</param>
+        /// <param name="userId">ID of the user</param>
+        public PublishedStreamData(string streamRoomId, StreamInfo streamInfo, string userId)
+        {
+            this.StreamRoomId = streamRoomId;
+            this.StreamInfo = streamInfo;
+            this.UserId = userId;
+        }
     }
 }

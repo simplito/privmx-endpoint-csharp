@@ -13,6 +13,7 @@
 
 using System.Collections.Generic;
 using Org.Webrtc;
+using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Stream.Xamarin.Models
 {

@@ -18,10 +18,25 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
     /// </summary>
     public class StreamSettings
     {
+        /// <summary>
+        /// Settings object
+        /// </summary>
         public Settings Settings { get; set; }
-        public Action<string>? OnVideo { get; set; }
-        public Action<long, long, Frame, string>? Onframe { get; set; }
-        public Action<string>? OnVideoRemove { get; set; }
-        public bool? DropCorruptedFrames { get; set; } = true;
+        
+        /// <summary>
+        /// Checked if corrupted frames should be dropped
+        /// </summary>
+        public bool dropCorruptedFrames;
+
+        /// <summary>
+        /// StreamSettings constructor
+        /// </summary>
+        /// <param name="settings">Settings object</param>
+        /// <param name="dropCorruptedFrames">Checked if corrupted frames should be dropped</param>
+        public StreamSettings(Settings settings, bool dropCorruptedFrames = true)
+        {
+            Settings = settings;
+            this.dropCorruptedFrames = dropCorruptedFrames;
+        }
     }
 }

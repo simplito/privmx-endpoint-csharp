@@ -88,5 +88,42 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// Version of the StreamRoom data structure and how it is encoded/encrypted
         /// </summary>
         public long SchemaVersion { get; set; }
+        
+        /// <summary>
+        /// StreamRoom constructor
+        /// </summary>
+        /// <param name="contextId">ID of the Context</param>
+        /// <param name="streamRoomId">ID of the streamRoom</param>
+        /// <param name="createDate">StreamRoom creation timestamp</param>
+        /// <param name="creator">ID of user who created the StreamRoom</param>
+        /// <param name="lastModificationDate">StreamRoom last modification timestamp</param>
+        /// <param name="lastModifier">ID of the user who last modified the StreamRoom</param>
+        /// <param name="users">list of users (their IDs) with access to the StreamRoom</param>
+        /// <param name="managers">list of managers (their IDs) with access to the StreamRoom</param>
+        /// <param name="version">version number (changes on updates)</param>
+        /// <param name="publicMeta">StreamRoom's public metadata</param>
+        /// <param name="privateMeta">StreamRoom's private metadata</param>
+        /// <param name="policy">StreamRoom's policies</param>
+        /// <param name="statusCode">Retrieval and decryption status code</param>
+        /// <param name="schemaVersion">Version of the StreamRoom data structure and how it is encoded/encrypted</param>
+        public StreamRoom(string contextId, string streamRoomId, long createDate, string creator, long lastModificationDate, 
+            string lastModifier,  List<string> users, List<string> managers, long version, byte[] publicMeta,  byte[] privateMeta,
+            ContainerPolicy policy, long statusCode, long schemaVersion)
+        {
+            ContextId = contextId;
+            StreamRoomId = streamRoomId;
+            CreateDate = createDate;
+            Creator = creator;
+            LastModificationDate = lastModificationDate;
+            LastModifier = lastModifier;
+            Users = users;
+            Managers = managers;
+            Version = version;
+            PublicMeta = publicMeta;
+            PrivateMeta = privateMeta;
+            Policy = policy;
+            StatusCode = statusCode;
+            SchemaVersion = schemaVersion;
+        }
     }
 }

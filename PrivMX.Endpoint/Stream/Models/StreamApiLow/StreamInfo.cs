@@ -27,7 +27,12 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// ID of the user
         /// </summary>
-        public string UserId { get; set; }
+        public long UserId { get; set; }
+        
+        /// <summary>
+        /// List of StreamTrackInfo
+        /// </summary>
+        public List<StreamTrackInfo> Tracks { get; set; }
         
         /// <summary>
         /// (optional) Stream metadata in JSON format
@@ -38,16 +43,30 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) Marks if it's a dummy publisher
         /// </summary>
         public bool? Dummy { get; set; }
-
-        /// <summary>
-        /// List of streamTracts
-        /// </summary>
-        public List<StreamTrackInfo> Tracks { get; set; }
         
         /// <summary>
         /// (optional) Marks if audio in the stream is active
         /// </summary>
-        [Obsolete("Field Talking is deprecated and shouldn't be used.")]
         public bool? Talking { get; set; }
+        
+        /// <summary>
+        /// StreamInfo constructor
+        /// </summary>
+        /// <param name="id">Unique ID of the publisher</param>
+        /// <param name="userId">ID of the user</param>
+        /// <param name="tracks">List of StreamTrackInfo</param>
+        /// <param name="metadata">(optional) Stream metadata in JSON format</param>
+        /// <param name="dummy">(optional) Marks if it's a dummy publisher</param>
+        /// <param name="talking">(optional) Marks if audio in the stream is active</param>
+        public StreamInfo(long id, long userId, List<StreamTrackInfo> tracks, string metadata = "",
+            bool dummy = false, bool talking = false)
+        {
+            Id = id;
+            UserId = userId;
+            Tracks = tracks;
+            Metadata = metadata;
+            Dummy = dummy;
+            Talking = talking;
+        }
     }
 }

@@ -17,11 +17,6 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
     public class SdpWithTypeModel
     {
         /// <summary>
-        /// ID of the Room
-        /// </summary>
-        public string RoomId { get; set; }
-        
-        /// <summary>
         /// Session description protocol
         /// </summary>
         public string Sdp { get; set; }
@@ -30,5 +25,16 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// Sdp type
         /// </summary>
         public string Type { get; set; }
+
+        /// <summary>
+        /// SdpWithTypeModel constructor
+        /// </summary>
+        /// <param name="sdp">Session description protocol</param>
+        /// <param name="type">Sdp type</param>
+        public SdpWithTypeModel(string sdp, string type)
+        {
+            Sdp = sdp;
+            Type = type;
+        }
     }
 }

@@ -60,5 +60,31 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) Marks if audio in the stream is active
         /// </summary>
         public bool? Talking { get; set; }
+        
+        /// <summary>
+        /// StreamTrackInfo constructor
+        /// </summary>
+        /// <param name="type">type of the track - "audio" | "video" | "data"</param>
+        /// <param name="mindex">Unique stream's mindex</param>
+        /// <param name="mid">Unique mid</param>
+        /// <param name="disabled">(optional) Marks if the stream is disabled</param>
+        /// <param name="codec">(optional) Stream's codes ("opus", "vp8", etc.)</param>
+        /// <param name="description">(optional) Description of the stream</param>
+        /// <param name="moderated">(optional) Marks if the stream is moderated</param>
+        /// <param name="simulcast">(optional) Marks if the stream uses simulcast</param>
+        /// <param name="talking">(optional) Marks if audio in the stream is active</param>
+        public StreamTrackInfo(string type, long mindex, string mid, bool? disabled, string? codec, 
+            string? description, bool? moderated, bool? simulcast, bool? talking)
+        {
+            Type = type;
+            Mindex = mindex;
+            Mid = mid;
+            Disabled = disabled ?? false;
+            Codec = codec ?? string.Empty;
+            Description = description ?? string.Empty;
+            Moderated = moderated ?? false;
+            Simulcast = simulcast ?? false;
+            Talking = talking ?? false;
+        }
     }
 }

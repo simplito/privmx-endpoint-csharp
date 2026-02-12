@@ -30,5 +30,18 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// Type of the device
         /// </summary>
         public DeviceType Type { get; set; }
+        
+        /// <summary>
+        /// MediaDevice Contructor
+        /// </summary>
+        /// <param name="name">Name of the device</param>
+        /// <param name="id">ID of the device</param>
+        /// <param name="type">Type of the device</param>
+        public MediaDevice(string name, string id, DeviceType type)
+        {
+            Name = name;
+            Id = id;
+            Type = type;
+        }
     }
 }

@@ -35,5 +35,20 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// Credentials expiration time
         /// </summary>
         public long ExpirationTime { get; set; }
+
+        /// <summary>
+        /// TurnCredentials constructor
+        /// </summary>
+        /// <param name="url">Url of the stream</param>
+        /// <param name="username">Username of the user</param>
+        /// <param name="password">User's password</param>
+        /// <param name="expirationTime">Credentials expiration time</param>
+        public TurnCredentials(string url, string username, string password, long expirationTime)
+        {
+            Url = url;
+            Username = username;
+            Password = password;
+            ExpirationTime = expirationTime;
+        }
     }
 }

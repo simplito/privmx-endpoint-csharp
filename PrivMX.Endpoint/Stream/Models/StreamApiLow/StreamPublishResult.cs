@@ -17,7 +17,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
     public class StreamPublishResult
     {
         /// <summary>
-        /// Marks if the stream was published succesfully
+        /// Marks if the stream was published successfuly
         /// </summary>
         public bool Published { get; set; }
         
@@ -25,5 +25,16 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) Published stream data
         /// </summary>
         public PublishedStreamData? Data { get; set; }
+        
+        /// <summary>
+        /// StreamPublishResult constructor
+        /// </summary>
+        /// <param name="published">Marks if the stream was published</param>
+        /// <param name="data">(optional) Published stream data</param>
+        public StreamPublishResult(bool published, PublishedStreamData? data = null)
+        {
+            Published = published;
+            Data = data;
+        }
     }
 }
