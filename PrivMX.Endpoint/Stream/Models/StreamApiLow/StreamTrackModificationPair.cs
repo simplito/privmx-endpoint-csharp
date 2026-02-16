@@ -9,8 +9,6 @@
 // limitations under the License.
 //
 
-using System.Collections.Generic;
-
 namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
 {
     /// <summary>

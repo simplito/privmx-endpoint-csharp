@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using PrivMX.Endpoint.Core.Internal;
+using PrivMX.Endpoint.Stream.Models;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
 
 namespace PrivMX.Endpoint.Stream.Internal
@@ -109,13 +110,13 @@ namespace PrivMX.Endpoint.Stream.Internal
             return result;
         }
 
-        private static PrivMX.Endpoint.Stream.Models.StreamApiLow.KeyType mapKeyType(CKeyType type)
+        private static KeyType mapKeyType(CKeyType type)
         {
             switch (type) {
                 case CKeyType.LOCAL:
-                    return PrivMX.Endpoint.Stream.Models.StreamApiLow.KeyType.LOCAL;
+                    return KeyType.LOCAL;
                 case CKeyType.REMOTE:
-                    return PrivMX.Endpoint.Stream.Models.StreamApiLow.KeyType.REMOTE;
+                    return KeyType.REMOTE;
             }
             throw new Exception("Unknown key type");
         }

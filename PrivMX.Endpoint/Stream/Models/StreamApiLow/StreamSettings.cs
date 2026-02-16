@@ -9,8 +9,6 @@
 // limitations under the License.
 //
 
-using System;
-
 namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
 {
     /// <summary>
