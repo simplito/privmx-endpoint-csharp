@@ -136,7 +136,7 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_ARRAY:
                     {
-                        PsonNative.pson_get_array_size(value, out int size);
+                        PsonNative.pson_get_array_size(value, out long size);
                         object? list = Activator.CreateInstance(type);
                         var method = type.GetMethod("Add");
                         for (int i = 0; i < size; ++i) {
@@ -179,9 +179,9 @@ namespace PrivMX.Endpoint.Core.Internal
 
         private static byte[] MapToBinary(IntPtr value)
         {
-            PsonNative.pson_inspect_binary(value, out IntPtr val, out int size);
+            PsonNative.pson_inspect_binary(value, out IntPtr val, out long size);
             byte[] res = new byte[size];
-            Marshal.Copy(val, res, 0, size);
+            Marshal.Copy(val, res, 0, (int)size);
             return res;
         }
 

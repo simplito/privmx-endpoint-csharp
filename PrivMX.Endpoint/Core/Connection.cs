@@ -13,6 +13,7 @@ using PrivMX.Endpoint.Core.Internal;
 using PrivMX.Endpoint.Core.Models;
 using System;
 using System.Collections.Generic;
+using PrivMX.Endpoint.Core.Models.Events;
 
 namespace PrivMX.Endpoint.Core
 {
@@ -78,11 +79,61 @@ namespace PrivMX.Endpoint.Core
         }
 
         /// <summary>
+        /// Gets a list of Users in a given Context
+        /// </summary>
+        /// <param name="contextId">ID of a context</param>
+        /// <param name="pagingQuery">Paging query</param>
+        /// <returns>List of userInfo</returns>
+        public PagingList<UserInfo> ListContextUsers(string contextId, PagingQuery pagingQuery)
+        {
+            return executor.Execute<PagingList<UserInfo>>(ptr, (int)ConnectionNative.Method.ListContextUsers, 
+                new List<object?> { contextId, pagingQuery });
+        }
+
+        /// <summary>
+        /// Subscribe for the Connection events on the given subscription query.
+        /// </summary>
+        /// <param name="subscriptionQueries">list of queries</param>
+        /// <returns>list of subscriptionIds in matching order to subscriptionQueries</returns>
+        public List<string> SubscribeFor(List<string> subscriptionQueries)
+        {
+            return executor.Execute<List<string>>(ptr, (int)ConnectionNative.Method.SubscribeFor,
+                new List<object?> { subscriptionQueries });
+        }
+
+        /// <summary>
+        /// Unsubscribe from events for the given subscriptionId.
+        /// </summary>
+        /// <param name="subscriptionIds">list of subscriptionId</param>
+        public void UnsubscribeFrom(List<string> subscriptionIds)
+        {
+            executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.UnsubscribeFrom, new List<object?> { subscriptionIds });
+        }
+
+        /// <summary>
+        /// Generate subscription Query for the Connection events.
+        /// </summary>
+        /// <param name="eventType">type of event which you listen for</param>
+        /// <param name="selectorType">scope on which you listen for events </param>
+        /// <param name="selectorId">ID of the selector</param>
+        /// <returns>A subscription query as string</returns>
+        public string BuildSubscriptionQuery(EventType eventType, EventSelectorType selectorType, string selectorId)
+        {
+            return executor.Execute<string>(ptr,  (int)ConnectionNative.Method.BuildSubscriptionQuery, 
+                new List<object?> { eventType, selectorType, selectorId });
+        }
+
+        /// <summary>
         /// Disconnects from the PrivMX Bridge.
         /// </summary>
         public void Disconnect()
         {
             executor.ExecuteVoid(ptr, (int)ConnectionNative.Method.Disconnect, new List<object?> { });
+        }
+
+        public void SetUserVerifier(UserVerifierInterface verifier)
+        {
+            throw new NotImplementedException();
         }
     }
 }
