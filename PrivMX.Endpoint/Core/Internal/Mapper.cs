@@ -124,27 +124,27 @@ namespace PrivMX.Endpoint.Core.Internal
                     }
                 case PsonNative.Type.PSON_STRING:
                     {
+                        if (type == typeof(byte[])) {
+                            return MapToBinary(value);
+                        }
                         IntPtr val = PsonNative.pson_get_cstring(value);
                         return Marshal.PtrToStringUTF8(val);
                     }
                 case PsonNative.Type.PSON_BINARY:
                     {
-                        PsonNative.pson_inspect_binary(value, out IntPtr val, out long size);
-                        byte[] res = new byte[size];
-                        Marshal.Copy(val, res, 0, (int)size);
-                        return res;
+                        return MapToBinary(value);
                     }
                 case PsonNative.Type.PSON_ARRAY:
-                {
-                    PsonNative.pson_get_array_size(value, out long size);
-                    object? list = Activator.CreateInstance(type);
-                    var method = type.GetMethod("Add");
-                    for (int i = 0; i < size; ++i) {
-                        IntPtr element = PsonNative.pson_get_array_value(value, i);
-                        method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
+                    {
+                        PsonNative.pson_get_array_size(value, out int size);
+                        object? list = Activator.CreateInstance(type);
+                        var method = type.GetMethod("Add");
+                        for (int i = 0; i < size; ++i) {
+                            IntPtr element = PsonNative.pson_get_array_value(value, i);
+                            method?.Invoke(list, new object?[]{ParseFromDynamicValue(element, type.GetGenericArguments()[0])});
+                        }
+                        return list;
                     }
-                    return list;
-                }
                 case PsonNative.Type.PSON_OBJECT:
                     {
                         Type objType = TryResolveRegisteredType(value) ?? type;
@@ -153,41 +153,20 @@ namespace PrivMX.Endpoint.Core.Internal
                         {
                             return null;
                         }
-                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) 
-                        {
-                            if (objType != typeof(Dictionary<string, bool>))
-                            {
-                                while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) 
+                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) {
+                            while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) {
+                                string? keyStr = Marshal.PtrToStringUTF8(key);
+                                if (keyStr is null)
                                 {
-                                    string? keyStr = Marshal.PtrToStringUTF8(key);
-                                    if (keyStr is null)
-                                    {
-                                        continue;
-                                    }
-                                    var property = objType.GetProperty(Name2PascalCase(keyStr));
-                                    if (property is null)
-                                    {
-                                        continue;
-                                    }
-                                    property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
+                                    continue;
                                 }
+                                var property = objType.GetProperty(Name2PascalCase(keyStr));
+                                if (property is null)
+                                {
+                                    continue;
+                                }
+                                property.SetValue(obj, ParseFromDynamicValue(val, property.PropertyType));
                             }
-                            //workaround for checking std::map<std::string, bool>
-                            /*else
-                            {
-                                Dictionary<string, bool> map = new Dictionary<string, bool>();
-                                while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0)
-                                {
-                                    string? keyStr = Marshal.PtrToStringUTF8(key);
-                                    bool valBool = Convert.ToBoolean(val);
-                                    
-                                    if (!string.IsNullOrEmpty(keyStr) && valBool)
-                                    {
-                                        map.Add(keyStr, valBool);
-                                    }
-                                }
-                                obj = map;
-                            }*/
                         }
                         PsonNative.pson_close_object_iterator(it);
                         return obj;
@@ -196,6 +175,14 @@ namespace PrivMX.Endpoint.Core.Internal
                 default:
                     return null;
             }
+        }
+
+        private static byte[] MapToBinary(IntPtr value)
+        {
+            PsonNative.pson_inspect_binary(value, out IntPtr val, out int size);
+            byte[] res = new byte[size];
+            Marshal.Copy(val, res, 0, size);
+            return res;
         }
 
         public static void FreeDynamicValue(IntPtr value)
@@ -210,8 +197,7 @@ namespace PrivMX.Endpoint.Core.Internal
                 while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr psonValue) != 0)
                 {
                     string? keyStr = Marshal.PtrToStringUTF8(key);
-                    if (string.Equals(keyStr, "__type")) 
-                    {
+                    if (string.Equals(keyStr, "__type")) {
                         string? typeStr = ParseFromDynamicValue<string>(psonValue);
                         if (!(typeStr is null) && registeredTypes.TryGetValue(typeStr, out Type? type))
                         {
@@ -220,15 +206,6 @@ namespace PrivMX.Endpoint.Core.Internal
                         }
                         break;
                     }
-                    //extended for std::map<std::string, bool>
-                    /*else
-                    {
-                        PsonNative.pson_get_bool(value, out bool valBoolCheck);
-                        if (keyStr != null && valBoolCheck)
-                        {
-                            return typeof(Dictionary<string, bool>);
-                        }
-                    }*/
                 }
             }
             PsonNative.pson_close_object_iterator(it);

@@ -140,7 +140,7 @@ namespace PrivMX.Endpoint.Inbox
         /// <param name="inboxFileHandles">List of file handles that will be sent with the request.</param>
         /// <param name="userPrivKey">(optional) Sender's private key which can be used later to encrypt data for that sender.</param>
         /// <returns>Inbox handle.</returns>
-        public long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, string? userPrivKey)
+        public long PrepareEntry(string inboxId, byte[] data, List<long> inboxFileHandles, byte[]? userPrivKey)
         {
             return executor.ExecuteValue<long>(ptr, (int)InboxApiNative.Method.PrepareEntry, new List<object?>{inboxId, data, inboxFileHandles, userPrivKey});
         }

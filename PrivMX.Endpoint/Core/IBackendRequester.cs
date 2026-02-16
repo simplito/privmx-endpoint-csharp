@@ -13,8 +13,8 @@ namespace PrivMX.Endpoint.Core
 {
     public interface IBackendRequester
     {
-        string BackendRequest(string serverUrl, string accessToken, string method, string paramsAsJson);
+        string BackendRequest(string serverUrl, byte[] accessToken, string method, string paramsAsJson);
         string BackendRequest(string serverUrl, string method, string paramsAsJson);
-        string BackendRequest(string serverUrl, string apiKeyId, string apiKeySecret, long mode, string method, string paramsAsJson);
+        string BackendRequest(string serverUrl, string apiKeyId, byte[] apiKeySecret, long mode, string method, string paramsAsJson);
     }
 }
