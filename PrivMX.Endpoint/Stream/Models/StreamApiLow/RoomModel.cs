@@ -21,6 +21,18 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// </summary>
         public string RoomId { get; set; }
 
+        /// <summary>
+        /// RoomModel constructor
+        /// </summary>
+        public RoomModel()
+        {
+            
+        }
+
+        /// <summary>
+        /// RoomModel constructor
+        /// </summary>
+        /// <param name="roomId">Room ID</param>
         public RoomModel(string roomId)
         {
             RoomId = roomId;

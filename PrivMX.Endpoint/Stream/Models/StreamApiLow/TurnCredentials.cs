@@ -39,6 +39,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// TurnCredentials constructor
         /// </summary>
+        public TurnCredentials()
+        {
+            
+        }
+
+        /// <summary>
+        /// TurnCredentials constructor
+        /// </summary>
         /// <param name="url">Url of the stream</param>
         /// <param name="username">Username of the user</param>
         /// <param name="password">User's password</param>

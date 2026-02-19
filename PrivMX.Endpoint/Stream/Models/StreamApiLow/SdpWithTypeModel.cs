@@ -29,6 +29,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// SdpWithTypeModel constructor
         /// </summary>
+        public SdpWithTypeModel()
+        {
+            
+        }
+
+        /// <summary>
+        /// SdpWithTypeModel constructor
+        /// </summary>
         /// <param name="sdp">Session description protocol</param>
         /// <param name="type">Sdp type</param>
         public SdpWithTypeModel(string sdp, string type)

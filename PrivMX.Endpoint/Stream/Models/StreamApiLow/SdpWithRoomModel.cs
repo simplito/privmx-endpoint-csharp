@@ -34,6 +34,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// SdpWithRoomModel constructor
         /// </summary>
+        public SdpWithRoomModel()
+        {
+            
+        }
+
+        /// <summary>
+        /// SdpWithRoomModel constructor
+        /// </summary>
         /// <param name="roomId">StreamRoom ID</param>
         /// <param name="sdp">Session description protocol</param>
         /// <param name="type">Sdp type</param>

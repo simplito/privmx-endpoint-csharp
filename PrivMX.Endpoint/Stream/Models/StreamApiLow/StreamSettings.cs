@@ -29,6 +29,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// StreamSettings constructor
         /// </summary>
+        public StreamSettings()
+        {
+            
+        }
+
+        /// <summary>
+        /// StreamSettings constructor
+        /// </summary>
         /// <param name="settings">Settings object</param>
         /// <param name="dropCorruptedFrames">Checked if corrupted frames should be dropped</param>
         public StreamSettings(Settings settings, bool dropCorruptedFrames = true)

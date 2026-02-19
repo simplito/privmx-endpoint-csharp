@@ -29,6 +29,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// StreamTrackModificationPair constructor
         /// </summary>
+        public StreamTrackModificationPair()
+        {
+            
+        }
+
+        /// <summary>
+        /// StreamTrackModificationPair constructor
+        /// </summary>
         /// <param name="before">StreamTrack before modification</param>
         /// <param name="after">StreamTrack after modification</param>
         public StreamTrackModificationPair(StreamTrackInfo? before, StreamTrackInfo? after)

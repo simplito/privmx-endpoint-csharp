@@ -12,9 +12,23 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using PrivMX.Endpoint.AOT;
 using PrivMX.Endpoint.Core.Internal;
 using PrivMX.Endpoint.Stream.Models;
 using PrivMX.Endpoint.Stream.Models.StreamApiLow;
+
+#if !UNITY_EDITOR && !UNITY_5_3_OR_NEWER
+
+namespace PrivMX.Endpoint.AOT
+{
+    [AttributeUsage(AttributeTargets.Method)]
+    public class MonoPInvokeCallbackAttribute : Attribute
+    {
+        public MonoPInvokeCallbackAttribute(Type t) { }
+    }
+}
+#endif
+
 
 namespace PrivMX.Endpoint.Stream.Internal
 {
@@ -86,9 +100,10 @@ namespace PrivMX.Endpoint.Stream.Internal
 
         public void Free(string streamRoomId)
         {
-            if (proxyMap.TryGetValue(streamRoomId, out var proxy)) {
+            if (proxyMap.TryGetValue(streamRoomId, out var proxy)) 
+            {
                 proxy.webRTCHandle.Free();
-            proxyMap.Remove(streamRoomId);
+                proxyMap.Remove(streamRoomId);
             }
         }
 
@@ -138,6 +153,7 @@ namespace PrivMX.Endpoint.Stream.Internal
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void UpdateKeysDelegate(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize);
 
+        [MonoPInvokeCallback(typeof(CreateOfferAndSetLocalDescriptionDelegate))]
         private static string CreateOfferAndSetLocalDescriptionCallback(IntPtr ctx, string streamRoomId)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);
@@ -145,6 +161,7 @@ namespace PrivMX.Endpoint.Stream.Internal
             return webRtc.CreateOfferAndSetLocalDescription(streamRoomId);
         }
 
+        [MonoPInvokeCallback(typeof(CreateAnswerAndSetDescriptionsDelegate))]
         private static string CreateAnswerAndSetDescriptionsCallback(IntPtr ctx, string streamRoomId, string sdp, string type)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);
@@ -152,6 +169,7 @@ namespace PrivMX.Endpoint.Stream.Internal
             return webRtc.CreateAnswerAndSetDescriptions(streamRoomId, sdp, type);
         }
 
+        [MonoPInvokeCallback(typeof(SetAnswerAndSetRemoteDescriptionDelegate))]
         private static void SetAnswerAndSetRemoteDescriptionCallback(IntPtr ctx, string streamRoomId, string sdp, string type)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);
@@ -159,6 +177,7 @@ namespace PrivMX.Endpoint.Stream.Internal
             webRtc.SetAnswerAndSetRemoteDescription(streamRoomId, sdp, type);
         }
 
+        [MonoPInvokeCallback(typeof(UpdateSessionIdDelegate))]
         private static void UpdateSessionIdCallback(IntPtr ctx, string streamRoomId, long sessionId, string connectionType)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);
@@ -166,6 +185,7 @@ namespace PrivMX.Endpoint.Stream.Internal
             webRtc.UpdateSessionId(streamRoomId, sessionId, connectionType);
         }
 
+        [MonoPInvokeCallback(typeof(CloseDelegate))]
         private static void CloseCallback(IntPtr ctx, string streamRoomId)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);
@@ -173,6 +193,7 @@ namespace PrivMX.Endpoint.Stream.Internal
             webRtc.Close(streamRoomId);
         }
 
+        [MonoPInvokeCallback(typeof(UpdateKeysDelegate))]
         private static void UpdateKeysCallback(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize)
         {
             GCHandle backHandle = GCHandle.FromIntPtr(ctx);

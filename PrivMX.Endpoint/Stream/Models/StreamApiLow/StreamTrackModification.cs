@@ -27,6 +27,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// List od streamTrackModificationPairs 
         /// </summary>
         public List<StreamTrackModificationPair> Tracks { get; set; }
+
+        /// <summary>
+        /// StreamTrackModification constructor
+        /// </summary>
+        public StreamTrackModification()
+        {
+            
+        }
         
         /// <summary>
         /// StreamTrackModification constructor

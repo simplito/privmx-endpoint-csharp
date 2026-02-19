@@ -25,6 +25,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) Published stream data
         /// </summary>
         public PublishedStreamData? Data { get; set; }
+
+        /// <summary>
+        /// StreamPublishResult constructor
+        /// </summary>
+        public StreamPublishResult()
+        {
+            
+        }
         
         /// <summary>
         /// StreamPublishResult constructor

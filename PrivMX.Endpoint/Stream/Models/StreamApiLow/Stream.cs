@@ -25,6 +25,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// ID of the user who created the Stream
         /// </summary>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// Stream constructor
+        /// </summary>
+        public Stream()
+        {
+            
+        }
         
         /// <summary>
         /// Stream constructor

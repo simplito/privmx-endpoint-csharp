@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;net9.0-android</TargetFrameworks>
     <PackageName>PrivMX.Endpoint</PackageName>
     <PackageId>PrivMX.Endpoint</PackageId>
-    <Version>2.7.0.81</Version>
+    <Version>2.7.0.89</Version>
     <Authors>Simplito sp. z o.o.</Authors>
     <Product>PrivMX Endpoint C#</Product>
     <Title>PrivMX Endpoint C#</Title>
@@ -37,7 +37,6 @@
     <None Include="images/icon.png" Pack="true" PackagePath="\icon.png"/>
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Stream\Xamarin\**" Pack="true" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     <Content Include="native\win-x64\*.dll">
       <Pack>true</Pack>
       <PackagePath>runtimes/win-x64/native</PackagePath>
@@ -67,7 +66,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+  <!---<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
     <PackageReference Include="Simplito-webrtc.Android" Version="1.0.0" />
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>

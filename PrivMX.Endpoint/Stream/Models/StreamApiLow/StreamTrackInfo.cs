@@ -64,6 +64,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// StreamTrackInfo constructor
         /// </summary>
+        public StreamTrackInfo()
+        {
+            
+        }
+        
+        /// <summary>
+        /// StreamTrackInfo constructor
+        /// </summary>
         /// <param name="type">type of the track - "audio" | "video" | "data"</param>
         /// <param name="mindex">Unique stream's mindex</param>
         /// <param name="mid">Unique mid</param>

@@ -25,6 +25,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) ID od the stream track
         /// </summary>
         public string? StreamTrackId { get; set; }
+
+        /// <summary>
+        /// StreamSubscription constructor
+        /// </summary>
+        public StreamSubscription()
+        {
+            
+        }
         
         /// <summary>
         /// StreamSubscription constructor

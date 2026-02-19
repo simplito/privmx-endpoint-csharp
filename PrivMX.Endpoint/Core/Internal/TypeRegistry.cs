@@ -17,6 +17,7 @@ using PrivMX.Endpoint.Core.Models.Events;
 using PrivMX.Endpoint.Inbox.Models.Events;
 using PrivMX.Endpoint.Kvdb.Models.Events;
 using PrivMX.Endpoint.Store.Models.Events;
+using PrivMX.Endpoint.Stream.Models.Events;
 using PrivMX.Endpoint.Thread.Models.Events;
 
 namespace PrivMX.Endpoint.Core.Internal
@@ -64,9 +65,18 @@ namespace PrivMX.Endpoint.Core.Internal
             {"kvdb$KvdbEntryUpdatedEvent", typeof(KvdbEntryUpdatedEvent)},
             {"kvdb$KvdbNewEntryEvent", typeof(KvdbNewEntryEvent)},
             {"kvdb$KvdbStatsChangedEvent", typeof(KvdbStatsChangedEvent)},
-            {"kvdb$KvdbUpdatedEvent", typeof(KvdbUpdatedEvent)}
+            {"kvdb$KvdbUpdatedEvent", typeof(KvdbUpdatedEvent)},
             
-            //TODO: Add stream event types too
+            {"stream$StreamJoinedEvent", typeof(StreamJoinedEvent)},
+            {"stream$StreamLeftEvent", typeof(StreamLeftEvent)},
+            {"stream$StreamNewStreamsEvent", typeof(StreamNewStreamsEvent)},
+            {"stream$StreamPublishedEvent", typeof(StreamPublishedEvent)},
+            {"stream$StreamRoomCreatedEvent", typeof(StreamRoomCreatedEvent)},
+            {"stream$StreamRoomDeletedEvent", typeof(StreamRoomDeletedEvent)},
+            {"stream$StreamRoomUpdatedEvent", typeof(StreamRoomUpdatedEvent)},
+            {"stream$StreamsUpdatedEvent", typeof(StreamsUpdatedEvent)},
+            {"stream$StreamUnpublishedEvent", typeof(StreamUnpublishedEvent)},
+            {"stream$StreamUpdatedEvent", typeof(StreamUpdatedEvent)}
         };
     }
 }

@@ -47,6 +47,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// (optional) Marks if audio in the stream is active
         /// </summary>
         public bool? Talking { get; set; }
+
+        /// <summary>
+        /// StreamInfo constructor
+        /// </summary>
+        public StreamInfo()
+        {
+            
+        }
         
         /// <summary>
         /// StreamInfo constructor
