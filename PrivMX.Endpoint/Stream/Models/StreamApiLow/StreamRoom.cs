@@ -88,6 +88,14 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// Version of the StreamRoom data structure and how it is encoded/encrypted
         /// </summary>
         public long SchemaVersion { get; set; }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public StreamRoom()
+        {
+            
+        }
         
         /// <summary>
         /// StreamRoom constructor

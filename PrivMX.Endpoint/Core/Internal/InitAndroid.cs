@@ -1,7 +1,5 @@
 using System.Runtime.InteropServices;
 
-#if ANDROID
-
 namespace PrivMX.Endpoint.Core.Internal
 {
     public static class InitAndroid
@@ -10,10 +8,13 @@ namespace PrivMX.Endpoint.Core.Internal
         {
             privmx_endpoint_android_init();
         }
+
+        public static void Init()
+        {
+            privmx_endpoint_android_init();
+        }
         
         [DllImport("libprivmxendpointandroid")]
         private static extern int privmx_endpoint_android_init();
     }
 }
-
-#endif
