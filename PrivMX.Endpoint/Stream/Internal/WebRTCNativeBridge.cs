@@ -48,20 +48,20 @@ namespace PrivMX.Endpoint.Stream.Internal
 
         private class ProxyWebRTC
         {
-            private readonly IWebRTC webRTC;
+            public readonly GCHandle webRTCHandle;
             public readonly IntPtr ptr;
 
             public ProxyWebRTC(IWebRTC webRTC)
             {
-                this.webRTC = webRTC;
+                this.webRTCHandle = GCHandle.Alloc(webRTC, GCHandleType.Normal);
                 WebRTCInterface webRTCInterface = new WebRTCInterface() {
-                    ctx = new IntPtr(),
-                    createOfferAndSetLocalDescription = (ctx, streamRoomId) => webRTC.CreateOfferAndSetLocalDescription(streamRoomId),
-                    createAnswerAndSetDescriptions = (ctx, streamRoomId, sdp, type) => webRTC.CreateAnswerAndSetDescriptions(streamRoomId, sdp, type),
-                    setAnswerAndSetRemoteDescription = (ctx, streamRoomId, sdp, type) => webRTC.SetAnswerAndSetRemoteDescription(streamRoomId, sdp, type),
-                    updateSessionId = (ctx, streamRoomId, sessionId, connectionType) => webRTC.UpdateSessionId(streamRoomId, sessionId, connectionType),
-                    close = (ctx, streamRoomId) => webRTC.Close(streamRoomId),
-                    updateKeys = (ctx, streamRoomId, keys, keysSize) => webRTC.UpdateKeys(streamRoomId, mapKeys(keys, keysSize)),
+                    ctx = GCHandle.ToIntPtr(this.webRTCHandle),
+                    createOfferAndSetLocalDescription = CreateOfferAndSetLocalDescriptionCallback,
+                    createAnswerAndSetDescriptions = CreateAnswerAndSetDescriptionsCallback,
+                    setAnswerAndSetRemoteDescription = SetAnswerAndSetRemoteDescriptionCallback,
+                    updateSessionId = UpdateSessionIdCallback,
+                    close = CloseCallback,
+                    updateKeys = UpdateKeysCallback
                 };
                 privmx_endpoint_stream_newProxyWebRTC(
                     webRTCInterface,
@@ -86,7 +86,10 @@ namespace PrivMX.Endpoint.Stream.Internal
 
         public void Free(string streamRoomId)
         {
+            if (proxyMap.TryGetValue(streamRoomId, out var proxy)) {
+                proxy.webRTCHandle.Free();
             proxyMap.Remove(streamRoomId);
+            }
         }
 
         private static List<StreamKey> mapKeys(IntPtr keys, IntPtr keysSize)
@@ -134,6 +137,48 @@ namespace PrivMX.Endpoint.Stream.Internal
         private delegate void CloseDelegate(IntPtr ctx, string streamRoomId);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate void UpdateKeysDelegate(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize);
+
+        private static string CreateOfferAndSetLocalDescriptionCallback(IntPtr ctx, string streamRoomId)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            return webRtc.CreateOfferAndSetLocalDescription(streamRoomId);
+        }
+
+        private static string CreateAnswerAndSetDescriptionsCallback(IntPtr ctx, string streamRoomId, string sdp, string type)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            return webRtc.CreateAnswerAndSetDescriptions(streamRoomId, sdp, type);
+        }
+
+        private static void SetAnswerAndSetRemoteDescriptionCallback(IntPtr ctx, string streamRoomId, string sdp, string type)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            webRtc.SetAnswerAndSetRemoteDescription(streamRoomId, sdp, type);
+        }
+
+        private static void UpdateSessionIdCallback(IntPtr ctx, string streamRoomId, long sessionId, string connectionType)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            webRtc.UpdateSessionId(streamRoomId, sessionId, connectionType);
+        }
+
+        private static void CloseCallback(IntPtr ctx, string streamRoomId)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            webRtc.Close(streamRoomId);
+        }
+
+        private static void UpdateKeysCallback(IntPtr ctx, string streamRoomId, IntPtr keys, IntPtr keysSize)
+        {
+            GCHandle backHandle = GCHandle.FromIntPtr(ctx);
+            IWebRTC webRtc = (IWebRTC)backHandle.Target;
+            webRtc.UpdateKeys(streamRoomId, mapKeys(keys, keysSize));
+        }
 
         [DllImport("libprivmxendpointstream")]
         private static extern int privmx_endpoint_stream_extractKey(IntPtr keys, IntPtr index, out IntPtr keyId, out IntPtr keyBuf, out IntPtr keySize, out CKeyType type);
