@@ -26,7 +26,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <summary>
         /// ID of the user
         /// </summary>
-        public long UserId { get; set; }
+        public string UserId { get; set; }
         
         /// <summary>
         /// List of StreamTrackInfo
@@ -65,7 +65,7 @@ namespace PrivMX.Endpoint.Stream.Models.StreamApiLow
         /// <param name="metadata">(optional) Stream metadata in JSON format</param>
         /// <param name="dummy">(optional) Marks if it's a dummy publisher</param>
         /// <param name="talking">(optional) Marks if audio in the stream is active</param>
-        public StreamInfo(long id, long userId, List<StreamTrackInfo> tracks, string metadata = "",
+        public StreamInfo(long id, string userId, List<StreamTrackInfo> tracks, string metadata = "",
             bool dummy = false, bool talking = false)
         {
             Id = id;

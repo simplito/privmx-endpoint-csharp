@@ -153,8 +153,10 @@ namespace PrivMX.Endpoint.Core.Internal
                         {
                             return null;
                         }
-                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) {
-                            while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) {
+                        if (PsonNative.pson_open_object_iterator(value, out IntPtr it) != 0) 
+                        {
+                            while (PsonNative.pson_object_iterator_next(it, out IntPtr key, out IntPtr val) != 0) 
+                            {
                                 string? keyStr = Marshal.PtrToStringUTF8(key);
                                 if (keyStr is null)
                                 {
