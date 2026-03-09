@@ -35,7 +35,7 @@ namespace PrivMX.Endpoint.Stream
         StreamPublishResult PublishStream(long streamHandle);
         StreamPublishResult UpdateStream(long streamHandle);
         void UnPublishStream(long streamHandle);
-        void SubscribeToRemoteStreams(string streamRoomId, List<StreamSubscription> subscriptions, Settings options);
+        void SubscribeToRemoteStreams(string streamRoomId, List<StreamSubscription> subscriptions);
         void ModifyRemoteStreamsSubscriptions(string streamRoomId, List<StreamSubscription> subscriptionsToAdd, 
             List<StreamSubscription> subscriptionsToRemove, Settings options);
         void UnsubscribeFromRemoteStreams(string streamRoomId, List<StreamSubscription> subscriptionsToRemove);

@@ -45,6 +45,8 @@ namespace PrivMX.Endpoint.Stream.Internal
             AcceptOfferOnReconfigure = 20,
             KeyManagement = 21,
             UpdateStream = 22,
+            EnableStreamRoomRecording = 23,
+            GetStreamRoomRecordingKeys = 24,
 
             JoinStreamRoomEx = 25,
         }

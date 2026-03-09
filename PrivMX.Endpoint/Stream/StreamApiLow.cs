@@ -28,7 +28,7 @@ namespace PrivMX.Endpoint.Stream
         private readonly Executor executor = new Executor(new StreamApiNative());
         private readonly WebRTCNativeBridge webRTCNativeBridge = new WebRTCNativeBridge();
 
-        public static StreamApiLow Create(Connection connection, EventApi eventApi)
+        public static StreamApiLow Create(Connection connection, EventApi eventApi, StreamEncryptionMode streamEncryptionMode = StreamEncryptionMode.SINGLE_KEY)
         {
             StreamApiLow streamApiLow = new StreamApiLow(connection, eventApi);
             streamApiLow.executor.ExecuteVoid(streamApiLow.ptr, (int)StreamApiNative.Method.Create, new List<object?>{});
@@ -57,7 +57,7 @@ namespace PrivMX.Endpoint.Stream
             return executor.Execute<string>(ptr, (int)StreamApiNative.Method.CreateStreamRoom, 
                 new List<object?> { contextId, users, managers, publicMeta, privateMeta, policies });
         }
-
+        
         public void UpdateStreamRoom(string streamRoomId, List<UserWithPubKey> users, List<UserWithPubKey> managers, 
             byte[] publicMeta, byte[] privateMeta, long version, bool force, bool forceGenerateNewKey, 
             ContainerPolicy? policies = null)
@@ -126,10 +126,10 @@ namespace PrivMX.Endpoint.Stream
             executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.UnpublishStream, new List<object?> { streamHandle });
         }
 
-        public void SubscribeToRemoteStreams(string streamRoomId, List<StreamSubscription> subscriptions, Settings options)
+        public void SubscribeToRemoteStreams(string streamRoomId, List<StreamSubscription> subscriptions)
         {
             executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.SubscribeToRemoteStreams, 
-                new List<object?>{streamRoomId, subscriptions, options});
+                new List<object?>{streamRoomId, subscriptions});
         }
 
         public void ModifyRemoteStreamsSubscriptions(string streamRoomId, List<StreamSubscription> subscriptionsToAdd, List<StreamSubscription> subscriptionsToRemove,
@@ -143,18 +143,6 @@ namespace PrivMX.Endpoint.Stream
         {
             executor.ExecuteVoid(ptr, (int)StreamApiNative.Method.UnsubscribeFromRemoteStreams, 
                 new List<object?>{streamRoomId, subscriptionsToRemove});
-        }
-
-        public void Trickle(long sessionId, string candidateAsJson)
-        {
-            executor.ExecuteVoid(ptr,  (int)StreamApiNative.Method.Trickle, 
-                new List<object?>{sessionId, candidateAsJson});
-        }
-
-        public void AcceptOfferOnReconfigure(long sessionId, SdpWithTypeModel sdp)
-        {
-            executor.ExecuteVoid(ptr,   (int)StreamApiNative.Method.AcceptOfferOnReconfigure, 
-                new List<object?>{sessionId, sdp});
         }
 
         public List<string> SubscribeFor(List<string> subscriptionQueries)
@@ -174,11 +162,34 @@ namespace PrivMX.Endpoint.Stream
             return executor.Execute<string>(ptr, (int)StreamApiNative.Method.BuildSubscriptionQuery,
                 new List<object?> { eventType, selectorType, selectorId });
         }
+        
+        public void Trickle(long sessionId, string candidateAsJson)
+        {
+            executor.ExecuteVoid(ptr,  (int)StreamApiNative.Method.Trickle, 
+                new List<object?>{sessionId, candidateAsJson});
+        }
 
+        public void AcceptOfferOnReconfigure(long sessionId, SdpWithTypeModel sdp)
+        {
+            executor.ExecuteVoid(ptr,   (int)StreamApiNative.Method.AcceptOfferOnReconfigure, 
+                new List<object?>{sessionId, sdp});
+        }
+        
         public void KeyManagement(string streamRoomId, bool disable)
         {
             executor.ExecuteVoid(ptr,   (int)StreamApiNative.Method.KeyManagement, 
                 new List<object?>{streamRoomId, disable});
+        }
+        
+        public void EnableStreamRoomRecording(string streamRoomId)
+        {
+            executor.ExecuteVoid(ptr,  (int)StreamApiNative.Method.EnableStreamRoomRecording, new List<object?> { streamRoomId });
+        }
+
+        public List<RecordingEncKey> GetStreamRoomRecordingKeys(string streamRoomId)
+        {
+            return executor.Execute<List<RecordingEncKey>>(ptr,   (int)StreamApiNative.Method.GetStreamRoomRecordingKeys,
+                new List<object?> { streamRoomId });
         }
     }
 }
