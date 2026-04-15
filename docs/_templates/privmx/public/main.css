@@ -1,0 +1,151 @@
+:root,
+html[data-bs-theme="light"] {
+  --pmx-primary: #008F7C;
+  --pmx-primary-hsl: 172, 100%, 28%;
+  --pmx-primary-rgb: 0, 143, 124;
+  --pmx-secondary: #EDEDED;
+  --pmx-secondary-hsl: 0, 0%, 93%;
+  --pmx-secondary-rgb: 237, 237, 237;
+  --pmx-text: #2B4046;
+  --pmx-text-hsl: 193, 24%, 22%;
+  --pmx-text-rgb: 43, 64, 70;
+  --pmx-background: #F5F5F5;
+  --pmx-background-hsl: 0, 0%, 96%;
+  --pmx-background-rgb: 245, 245, 245;
+  --pmx-muted-text: #60696C;
+  --pmx-muted-text-hsl: 195, 6%, 40%;
+  --pmx-muted-text-rgb: 96, 105, 108;
+  --pmx-muted: #D3D7D1;
+  --pmx-muted-hsl: 100, 7%, 83%;
+  --pmx-muted-rgb: 211, 215, 209;
+  --pmx-border: #E0E1E0;
+  --pmx-border-hsl: 120, 2%, 88%;
+  --pmx-border-rgb: 224, 225, 224;
+  --pmx-card: #EFF0EF;
+  --pmx-card-hsl: 120, 3%, 94%;
+  --pmx-card-rgb: 239, 240, 239;
+  --pmx-accent: #E6E6E6;
+  --pmx-accent-hsl: 0, 0%, 90%;
+  --pmx-accent-rgb: 230, 230, 230;
+  --pmx-popover: #FAFAFA;
+  --pmx-popover-hsl: 0, 0%, 98%;
+  --pmx-popover-rgb: 250, 250, 250;
+  --pmx-nav-muted-text: #60696C;
+  --pmx-nav-muted-text-hsl: 195, 6%, 40%;
+  --pmx-nav-muted-text-rgb: 96, 105, 108;
+  --pmx-nav-background: #D8E6E4;
+  --pmx-nav-background-hsl: 171, 22%, 87%;
+  --pmx-nav-background-rgb: 216, 230, 228;
+}
+
+:root,
+html[data-bs-theme="dark"] {
+  --pmx-primary: #00DB66;
+  --pmx-primary-hsl: 148, 100%, 43%;
+  --pmx-primary-rgb: 0, 219, 102;
+  --pmx-secondary: #152A32;
+  --pmx-secondary-hsl: 197, 41%, 14%;
+  --pmx-secondary-rgb: 21, 42, 50;
+  --pmx-text: #DCDDD9;
+  --pmx-text-hsl: 75, 6%, 86%;
+  --pmx-text-rgb: 220, 221, 217;
+  --pmx-background: #00080F;
+  --pmx-background-hsl: 208, 100%, 3%;
+  --pmx-background-rgb: 0, 8, 15;
+  --pmx-muted-text: #D3D7D1;
+  --pmx-muted-text-hsl: 100, 7%, 83%;
+  --pmx-muted-text-rgb: 211, 215, 209;
+  --pmx-muted: #152A32;
+  --pmx-muted-hsl: 197, 41%, 14%;
+  --pmx-muted-rgb: 21, 42, 50;
+  --pmx-border: #0E202A;
+  --pmx-border-hsl: 201, 50%, 11%;
+  --pmx-border-rgb: 14, 32, 42;
+  --pmx-card: #030E16;
+  --pmx-card-hsl: 205, 76%, 5%;
+  --pmx-card-rgb: 3, 14, 22;
+  --pmx-accent: #2B4046;
+  --pmx-accent-hsl: 193, 24%, 22%;
+  --pmx-accent-rgb: 43, 64, 70;
+  --pmx-popover: #0E202A;
+  --pmx-popover-hsl: 201, 50%, 11%;
+  --pmx-popover-rgb: 14, 32, 42;
+  --pmx-nav-muted-text: #B8B8B8;
+  --pmx-nav-muted-text-hsl: 0, 0%, 72%;
+  --pmx-nav-muted-text-rgb: 184, 184, 184;
+  --pmx-nav-background: #04231F;
+  --pmx-nav-background-hsl: 172, 79%, 8%;
+  --pmx-nav-background-rgb: 4, 35, 31;
+}
+
+:root {
+	--bs-font-sans-serif: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	
+	--bs-body-bg: var(--pmx-background);
+	--bs-link-color-rgb: var(--pmx-primary-rgb);
+	--bs-link-hover-color-rgb: var(--pmx-primary-rgb);
+	--bs-nav-link-color: var(--pmx-nav-muted-text);
+
+	--bs-border-color: var(--pmx-border);
+}
+
+.bg-body {
+	background-color: var(--pmx-card) !important;
+	/* border-color: var(--pmx-border) !important; */
+}
+
+.hljs {
+	background-color: var(--pmx-card) !important;
+	border: solid 1px var(--pmx-border) !important;
+	border-radius: .5rem;
+}
+
+.link-body-emphasis {
+	color: var(--pmx-text) !important;
+	font-weight: 500;
+}
+
+.link-secondary {
+	color: var(--pmx-nav-muted-text) !important;
+}
+
+.link-secondary:hover {
+	color: var(--pmx-muted-text) !important;
+}
+
+.text-secondary {
+	color: var(--pmx-muted-text) !important;
+}
+
+
+.pmx-header {
+	padding: 0 0.7em;
+	font-size: 15px;
+}
+
+.pmx-header a {
+	color: var(--pmx-text);
+	text-decoration: none;
+}
+
+.pmx-header .pmx-docs {
+	background-color: var(--pmx-muted);
+	padding: 4px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-family: var(--bs-font-monospace);
+	color: var(--pmx-muted-text);
+	margin: 0 0.25rem;
+}
+
+.pmx-version-switch {
+	font-family: var(--font-family-normal);
+	padding: .5rem;
+	border: none;
+	background-color: var(--pmx-muted);
+	border-radius: 8px;
+	/* width: 100%; */
+	text-align: center;
+	margin: 0.4em 0;
+}
